@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  webserver:
+    build: 
+      context: ./bin/webserver
+    container_name: 'cit-webserver'
+    restart: 'always'
+    ports:
+      - "15000:80"
+      - "15001:3000"
+    links: 
+      - mysql
+    volumes: 
+      - /Users/kamilp/Dropbox/college/cit-bsc/SOFT7003 Group Project 26785/collegegroupproject/web_management:/var/www/html
+      - ${PHP_INI-./config/php/php.ini}:/usr/local/etc/php/php.ini
+      - ${VHOSTS_DIR-./config/vhosts}:/etc/apache2/sites-enabled
+      - ${LOG_DIR-./logs/apache2}:/var/log/apache2
+  mysql:
+    build: ./bin/mysql
+    container_name: 'cit-mysql'
+    restart: 'always'
+    ports:
+      - "15006:3306"
+    volumes: 
+      - ${MYSQL_DATA_DIR-./data/mysql}:/var/lib/mysql
+      - ${MYSQL_LOG_DIR-./logs/mysql}:/var/log/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: diehard1988
+      MYSQL_DATABASE: cit
+      MYSQL_USER: jmc
+      MYSQL_PASSWORD: diehard2018
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: 'cit-phpmyadmin'
+    links:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    ports:
+      - '15081:80'
+    volumes: 
+      - /sessions
