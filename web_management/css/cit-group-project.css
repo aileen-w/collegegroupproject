@@ -1,0 +1,208 @@
+/*
+Login page styles
+ */
+.form-signin
+{
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading, .form-signin .checkbox
+{
+  margin-bottom: 10px;
+}
+.form-signin .checkbox
+{
+  font-weight: normal;
+}
+.form-signin .form-control
+{
+  position: relative;
+  font-size: 16px;
+  height: auto;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.form-signin .form-control:focus
+{
+  z-index: 2;
+}
+.form-signin input[type="text"]
+{
+  margin-bottom: -1px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.form-signin input[type="password"]
+{
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.account-wall
+{
+  margin-top: 20px;
+  padding: 40px 0px 20px 0px;
+  background-color: #f7f7f7;
+  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+.login-title
+{
+  color: #555;
+  font-size: 18px;
+  font-weight: 400;
+  display: block;
+}
+.profile-img
+{
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 10px;
+  display: block;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+.need-help
+{
+  margin-top: 10px;
+}
+.new-account
+{
+  display: block;
+  margin-top: 10px;
+}
+.login-wrapper {
+  background-color: #ffffff;
+  height: 100vh;
+}
+
+.form-signin input.middle-input[type="password"]{
+  margin-bottom: 0;
+  border-bottom: none;
+}
+.middle-input{
+  border-radius: 0;
+}
+
+/*
+Password hint #1
+ */
+
+#pswd_info {
+  background: #f7f7f7 none repeat scroll 0 0;
+  color: #fff;
+  left: 20px;
+  position: absolute;
+  top: 125px;
+}
+#pswd_info h4{
+  background: black none repeat scroll 0 0;
+  display: block;
+  font-size: 14px;
+  letter-spacing: 0;
+  padding: 17px 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+#pswd_info ul {
+  list-style: outside none none;
+}
+#pswd_info ul li {
+  padding: 10px 45px;
+}
+
+
+
+.valid {
+  background: rgba(0, 0, 0, 0) url("https://s19.postimg.org/vq43s2wib/valid.png") no-repeat scroll 2px 6px;
+  color: green;
+  line-height: 21px;
+  padding-left: 22px;
+}
+
+.invalid {
+  background: rgba(0, 0, 0, 0) url("https://s19.postimg.org/olmaj1p8z/invalid.png") no-repeat scroll 2px 6px;
+  color: red;
+  line-height: 21px;
+  padding-left: 22px;
+}
+
+
+#pswd_info::before {
+  background: #f7f7f7 none repeat scroll 0 0;
+  content: "";
+  height: 25px;
+  left: -13px;
+  margin-top: -12.5px;
+  position: absolute;
+  top: 50%;
+  transform: rotate(45deg);
+  width: 25px;
+}
+#pswd_info {
+  display:none;
+}
+
+/*
+Password hint 2
+ */
+
+#pswd_info_2 {
+  background: #f7f7f7 none repeat scroll 0 0;
+  color: #fff;
+  left: 20px;
+  position: absolute;
+  top: 175px;
+}
+#pswd_info_2 h4{
+  background: black none repeat scroll 0 0;
+  display: block;
+  font-size: 14px;
+  letter-spacing: 0;
+  padding: 17px 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+#pswd_info_2 ul {
+  list-style: outside none none;
+}
+#pswd_info_2 ul li {
+  padding: 10px 45px;
+}
+
+
+
+/*.valid {*/
+  /*background: rgba(0, 0, 0, 0) url("https://s19.postimg.org/vq43s2wib/valid.png") no-repeat scroll 2px 6px;*/
+  /*color: green;*/
+  /*line-height: 21px;*/
+  /*padding-left: 22px;*/
+/*}*/
+
+/*.invalid {*/
+  /*background: rgba(0, 0, 0, 0) url("https://s19.postimg.org/olmaj1p8z/invalid.png") no-repeat scroll 2px 6px;*/
+  /*color: red;*/
+  /*line-height: 21px;*/
+  /*padding-left: 22px;*/
+/*}*/
+
+
+#pswd_info_2::before {
+  background: #f7f7f7 none repeat scroll 0 0;
+  content: "";
+  height: 25px;
+  left: -13px;
+  margin-top: -12.5px;
+  position: absolute;
+  top: 50%;
+  transform: rotate(45deg);
+  width: 25px;
+}
+#pswd_info_2 {
+  display:none;
+}
