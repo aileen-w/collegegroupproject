@@ -23,7 +23,3 @@ If you encounter any difficulties please refer to https://1sheeld.com/tutorials/
 1. To try the voice recognition example open the file lights_on_and_off_example.ino and upload it to the Arduino.
 1. Once you've uploaded the code you need to select the Voice Recognition Shield to run the code.
 1. At the bottom of the examples list you'll find the OneSheeld section which contains sample code for each of the shields available.
-
-
-
-
