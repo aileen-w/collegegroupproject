@@ -25,5 +25,3 @@ If you encounter any difficulties please refer to https://1sheeld.com/tutorials/
 1. At the bottom of the examples list you'll find the OneSheeld section which contains sample code for each of the shields available.
 
 
-
-
