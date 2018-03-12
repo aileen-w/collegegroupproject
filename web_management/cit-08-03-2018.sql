@@ -387,8 +387,8 @@ LOCK TABLES `settings` WRITE;
 
 INSERT INTO `settings` (`id`, `service`, `field`, `value`)
 VALUES
-	(1,'mail','username','cit.group.project.2018@gmail.com'),
-	(2,'mail','password','D3adpoo1!');
+	(1,'mail','username','),
+	(2,'mail','password','');
 
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
