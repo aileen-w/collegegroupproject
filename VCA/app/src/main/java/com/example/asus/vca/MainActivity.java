@@ -70,7 +70,6 @@ OneSheeldScanningCallback scanningCallback = new OneSheeldScanningCallback() {
     };
 
 
-//TESTING
 
 
 
