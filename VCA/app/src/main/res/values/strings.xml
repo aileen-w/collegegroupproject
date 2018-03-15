@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+    <resources>
+
+    <string name="app_name">VCA</string>
+
+    <string name="microphone">MICROPHONE</string>
+
+    <string name="audiofeatures">AUDIO FEATURES</string>
+
+    <string name="homefeatures">HOME FEATURES</string>
+
+    <string name="services">SERVICES</string>
+
+    <string name="miscellaneous">MISC</string>
+
+    <string name="time">TIME</string>
+
+    <string name="weather">WEATHER</string>
+
+    <string name="music">PLAY MUSIC</string>
+
+    <string name="lights">LIGHTS</string>
+
+    <string name="heating">HEATING</string>
+
+    <string name="camera">CAMERA</string>
+
+    <string name="game">GAME</string>
+
+    <string name="calendar">CALENDAR</string>
+
+    <string name="takeaway">TAKE AWAY</string>
+
+    <string name="shopping">SHOPPING</string>
+
+    <string name="taxi">TAXI</string>
+
+    <string name="scan">SCAN</string>
+
+    <string name="scanneddevices">Scanned Devices</string>
+
+    <string name="connecteddevices">Connected Devices</string>
+
+    <string name="connect">CONNECT</string>
+
+    <string name="disconnect">DISCONNECT</string>
+
+    <string name="oneSheeld3000">1Sheeld #3000</string>
+
+</resources>

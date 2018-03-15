@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<RelativeLayout
+    tools:context="com.example.asus.vca.ServicesActivity"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout"
+        >
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:id="@+id/buttonTakeaway"
+        android:layout_gravity="center"
+        android:background="@drawable/button_border"
+        android:padding="10dp"
+        android:drawableStart="@drawable/takeaway"
+        android:text="@string/takeaway"
+        android:layout_weight="1"
+        />
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/buttonMic"
+        android:layout_gravity="center"
+        android:background="@drawable/button_border"
+        android:padding="10dp"
+        android:drawableStart="@drawable/microphone"
+        android:text="@string/microphone"
+        android:layout_weight="1"
+        />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout2"
+        android:layout_below="@id/linearLayout"
+        >
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:id="@+id/buttonShopping"
+        android:layout_gravity="center"
+        android:background="@drawable/button_border"
+        android:padding="10dp"
+        android:drawableStart="@drawable/shopping"
+        android:text="@string/shopping"
+        android:layout_weight="1"
+        />
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/buttonMic2"
+        android:layout_gravity="center"
+        android:background="@drawable/button_border"
+        android:padding="10dp"
+        android:drawableStart="@drawable/microphone"
+        android:text="@string/microphone"
+        android:layout_weight="1"
+        />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout3"
+        android:layout_below="@id/linearLayout2"
+        >
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:id="@+id/buttonTaxi"
+        android:layout_gravity="center"
+        android:background="@drawable/button_border"
+        android:padding="10dp"
+        android:drawableStart="@drawable/taxi"
+        android:text="@string/taxi"
+        android:layout_weight="1"
+        />
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/buttonMic3"
+        android:layout_gravity="center"
+        android:background="@drawable/button_border"
+        android:padding="10dp"
+        android:drawableStart="@drawable/microphone"
+        android:text="@string/microphone"
+        android:layout_weight="1"
+        />
+
+    </LinearLayout>
+
+</RelativeLayout>
