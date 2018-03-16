@@ -1,91 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<LinearLayout
+<LinearLayout tools:context="com.example.asus.vca.MainActivity"
+    android:paddingRight="16dp"
+    android:paddingLeft="16dp"
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:context="com.example.asus.vca.MainActivity">
+    >
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/linearLayout"
         android:paddingRight="16dp"
         android:paddingLeft="16dp"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
         android:layout_marginTop="10dp"
+        android:id="@+id/linearLayout"
         >
 
         <Button
-            android:id="@+id/buttonScan"
+            android:layout_height="wrap_content"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:id="@+id/buttonMic"
+            android:layout_gravity="center"
+            android:background="@drawable/button_border"
+            android:padding="10dp"
+            android:drawableStart="@drawable/microphone"
+            android:text="@string/microphone"
             android:layout_weight="1"
-            android:text="@+id/scan"
-            tools:text="SCAN"
-            android:textSize="20sp"/>
+            />
 
     </LinearLayout>
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/linearLayout2"
         android:paddingRight="16dp"
         android:paddingLeft="16dp"
-        android:layout_marginTop="10dp">
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:id="@+id/linearLayout2"
+        >
 
-        <TextView
-            android:layout_width="0dp"
+        <Button
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/scanneddevices"
-            android:textSize="18sp"/>
-
-        <TextView
             android:layout_width="0dp"
-            android:layout_marginStart="10dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/buttonSpeaker"
+            android:layout_gravity="center"
+            android:background="@drawable/button_border"
+            android:padding="10dp"
+            android:drawableStart="@drawable/speaker"
+            android:text="@string/audiofeatures"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/connecteddevices"
-            android:textSize="18sp"/>
+            />
 
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/buttonHome"
+            android:layout_gravity="center"
+            android:background="@drawable/button_border"
+            android:padding="10dp"
+            android:drawableStart="@drawable/house"
+            android:text="@string/homefeatures"
+            android:layout_weight="1"
+            />
 
     </LinearLayout>
 
 
     <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:paddingRight="16dp"
         android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:id="@+id/linearLayout3"
+        >
 
         <Button
-            android:id="@+id/buttonConnect"
+            android:layout_height="wrap_content"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:id="@+id/buttonServices"
+            android:layout_gravity="center"
+            android:background="@drawable/button_border"
+            android:padding="10dp"
+            android:drawableStart="@drawable/services"
+            android:text="@string/services"
             android:layout_weight="1"
-            android:text="@+id/connect"
-            tools:text="CONNECT"
-            android:textSize="20sp"/>
+            />
 
         <Button
-            android:id="@+id/buttonDisconnect"
+            android:layout_height="wrap_content"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/buttonMisc"
+            android:layout_gravity="center"
+            android:background="@drawable/button_border"
+            android:padding="10dp"
+            android:drawableStart="@drawable/miscellaneous"
+            android:text="@string/miscellaneous"
             android:layout_weight="1"
-            android:text="@string/disconnect"
-            tools:text="DISCONNECT"
-            android:textSize="20sp"/>
+            />
 
     </LinearLayout>
 
