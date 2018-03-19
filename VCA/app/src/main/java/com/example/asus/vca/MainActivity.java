@@ -2,12 +2,16 @@ package com.example.asus.vca;
 
 
 
+
+import android.bluetooth.BluetoothAdapter;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
-
 import android.content.Intent;
 import android.view.View;
+
 
 
 import com.integreight.onesheeld.sdk.OneSheeldConnectionCallback;
@@ -21,18 +25,32 @@ import com.integreight.onesheeld.sdk.OneSheeldSdk;
 
 public class MainActivity extends AppCompatActivity {
 
+
     Button Speaker;
     Button Home;
     Button Services;
     Button Miscellaneous;
+    BluetoothAdapter btAdapter;
+    Button Bluetooth;
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {                    //loads main activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setupUI();
+        enableBluetooth();
+        setupOneSheeld();
+    }
 
-        //find id of speaker button
+
+        private void setupUI() {
+
+
+
+            //find id of speaker button
         Speaker = findViewById(R.id.buttonSpeaker);
         {
             //set listener on speaker button
@@ -96,11 +114,86 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+    }
 
+    //Turns on Bluetooth
+    public void enableBluetooth() {
+
+
+        //find id of bluetooth button
+        Bluetooth = findViewById(R.id.buttonBluetooth);
+        {
+            //set listener on bluetooth button
+            Bluetooth.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    btAdapter = BluetoothAdapter.getDefaultAdapter();
+
+                    if (btAdapter.isEnabled()) {
+
+                        AlertDialog.Builder a_builder = new AlertDialog.Builder(MainActivity.this);
+                        a_builder.setMessage("DO YOU WANT TO DISABLE BLUETOOTH")
+                                .setCancelable(false)
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int which) {
+                                        btAdapter.disable();
+                                    }
+                                })
+
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                });
+                        AlertDialog alert = a_builder.create();
+                        alert.setTitle("BLUETOOTH ALERT");
+                        alert.show();
+
+                    }
+
+                    else {
+
+                        AlertDialog.Builder a2_builder = new AlertDialog.Builder(MainActivity.this);
+                        a2_builder.setMessage("DO YOU WANT TO ENABLE BLUETOOTH")
+                                .setCancelable(false)
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        btAdapter.enable();
+                                    }
+                                })
+
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                        AlertDialog alert2 = a2_builder.create();
+                        alert2.setTitle("BLUETOOTH ALERT");
+                        alert2.show();
+
+
+                    }
+
+
+                }
+
+            });
+        }
+    }
+
+
+    public void setupOneSheeld() {
         //Init the SDK with context
         OneSheeldSdk.init(this);
         //Optional, enable debugging messages.
         OneSheeldSdk.setDebugging(true);
+
 
         // Get the manager instance
         OneSheeldManager manager = OneSheeldSdk.getManager();
@@ -112,29 +205,29 @@ public class MainActivity extends AppCompatActivity {
 
         //Construct a new OneSheeldScanningCallback callback and override onDeviceFind method
         OneSheeldScanningCallback scanningCallback = new OneSheeldScanningCallback() {
-        @Override
-        public void onDeviceFind (OneSheeldDevice device) {
-             // Cancel scanning before connecting
-            OneSheeldSdk.getManager().cancelScanning();
-            // Connect to the found device
-            device.connect();
+            @Override
+            public void onDeviceFind(OneSheeldDevice device) {
+                // Cancel scanning before connecting
+                OneSheeldSdk.getManager().cancelScanning();
+                // Connect to the found device
+                device.connect();
 
-        }
+            }
 
         };
 
 
         // Construct a new OneSheeldConnectionCallback callback and override onConnect method
         OneSheeldConnectionCallback connectionCallback = new OneSheeldConnectionCallback() {
-                @Override
-                public void onConnect (OneSheeldDevice device){
-                    // Output high on pin 13
-                    device.digitalWrite(13, true);
+            @Override
+            public void onConnect(OneSheeldDevice device) {
+                // Output high on pin 13
+                device.digitalWrite(13, true);
 
-                    // Read the value of pin 12
-                    boolean isHigh = device.digitalRead(12);
+                // Read the value of pin 12
+                boolean isHigh = device.digitalRead(12);
 
-                }
+            }
         };
 
         // Add the connection and scanning callbacks
@@ -145,5 +238,6 @@ public class MainActivity extends AppCompatActivity {
         manager.scan();
 
         }
+
 
     }
