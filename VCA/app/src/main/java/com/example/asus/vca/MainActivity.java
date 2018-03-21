@@ -4,14 +4,18 @@ package com.example.asus.vca;
 
 
 import android.bluetooth.BluetoothAdapter;
-import android.content.DialogInterface;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+//import android.content.DialogInterface;
+import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+//import android.provider.ContactsContract;
+//import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.content.Intent;
 import android.view.View;
-
+import android.widget.Toast;
 
 
 import com.integreight.onesheeld.sdk.OneSheeldConnectionCallback;
@@ -36,21 +40,85 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    BroadcastReceiver bluetoothState = new BroadcastReceiver(){
+        @Override
+        public void onReceive(Context context, Intent intent){
+            String prevStateExtra=BluetoothAdapter.EXTRA_PREVIOUS_STATE;
+            String stateExtra = BluetoothAdapter.EXTRA_STATE;
+            int state = intent.getIntExtra(prevStateExtra, -1);
+            //int previousState = intent.getInExtra(prevStateExtra,-1);
+            String toastText="";
+            switch(state){
+                case(BluetoothAdapter.STATE_TURNING_ON):
+                {
+
+                    toastText = "Bluetooth Turning On";
+                    Toast.makeText(MainActivity.this,toastText,Toast.LENGTH_SHORT).show();
+                    break;
+
+                }
+                case(BluetoothAdapter.STATE_ON):{
+
+                    toastText = "Bluetooth On";
+                    Toast.makeText(MainActivity.this,toastText,Toast.LENGTH_SHORT).show();
+                    //setupUI();
+                    break;
+
+                }
+                case(BluetoothAdapter.STATE_TURNING_OFF):{
+
+                    toastText = "Bluetooth Turning Off";
+                    Toast.makeText(MainActivity.this,toastText,Toast.LENGTH_SHORT).show();
+                    break;
+
+                }
+                case(BluetoothAdapter.STATE_OFF):{
+
+                    toastText = "Bluetooth Off";
+                    Toast.makeText(MainActivity.this,toastText,Toast.LENGTH_SHORT).show();
+                    //setupUI();
+                    break;
+                }
+
+
+            }
+        }
+
+
+    };
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {                    //loads main activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupUI();
-        enableBluetooth();
+       // enableBluetooth();
         setupOneSheeld();
+
+
     }
 
 
-        private void setupUI() {
+    private void setupUI() {
+
+        //create text view stauts update
+        btAdapter = BluetoothAdapter.getDefaultAdapter();
+             /*if(btAdapter.isEnabled()) {
+                String address = btAdapter.getAddress();
+                String name = btAdapter.getName();
+                String statusText= address+" : "+name;
+                //statusUpdate.setText(statusText);
+             }
+
+        else {
+
+                 //statusUpdate.setText("Bluetooth is disabled");
+             }*/
 
 
-
-            //find id of speaker button
+        //find id of speaker button
         Speaker = findViewById(R.id.buttonSpeaker);
         {
             //set listener on speaker button
@@ -114,10 +182,29 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+        Bluetooth = findViewById(R.id.buttonBluetooth);
+        {
+            Bluetooth.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view){
+                    String actionStateChanged = BluetoothAdapter.ACTION_STATE_CHANGED;
+                    String actionRequestEnable = BluetoothAdapter.ACTION_REQUEST_ENABLE;
+                    IntentFilter filter = new IntentFilter(actionStateChanged);
+                    registerReceiver(bluetoothState, filter);
+                    startActivityForResult(new Intent(actionRequestEnable),0);
+
+                }
+            });
+
+
+
+        }
+
+
     }
 
     //Turns on Bluetooth
-    public void enableBluetooth() {
+    /*public void enableBluetooth() {
 
 
         //find id of bluetooth button
@@ -128,14 +215,14 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    btAdapter = BluetoothAdapter.getDefaultAdapter();
+
 
                     if (btAdapter.isEnabled()) {
 
                         AlertDialog.Builder a_builder = new AlertDialog.Builder(MainActivity.this);
-                        a_builder.setMessage("DO YOU WANT TO DISABLE BLUETOOTH")
+                        a_builder.setMessage("CLICK TO DISABLE BLUETOOTH")
                                 .setCancelable(false)
-                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int which) {
                                         btAdapter.disable();
@@ -156,10 +243,10 @@ public class MainActivity extends AppCompatActivity {
 
                     else {
 
-                        AlertDialog.Builder a2_builder = new AlertDialog.Builder(MainActivity.this);
-                        a2_builder.setMessage("DO YOU WANT TO ENABLE BLUETOOTH")
+                        /*AlertDialog.Builder a2_builder = new AlertDialog.Builder(MainActivity.this);
+                        a2_builder.setMessage("CLICK TO ENABLE BLUETOOTH")
                                 .setCancelable(false)
-                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         btAdapter.enable();
@@ -185,7 +272,7 @@ public class MainActivity extends AppCompatActivity {
 
             });
         }
-    }
+    }*/
 
 
     public void setupOneSheeld() {
@@ -237,7 +324,19 @@ public class MainActivity extends AppCompatActivity {
         // Initiate the Bluetooth scanning
         manager.scan();
 
-        }
-
-
     }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
