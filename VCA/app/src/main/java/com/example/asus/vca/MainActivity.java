@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     Button Miscellaneous;
     BluetoothAdapter btAdapter;
     Button Bluetooth;
-
+    //testkp
 
 
 
