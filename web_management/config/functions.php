@@ -711,3 +711,25 @@ function selectDB($pdo, $sql, $params = array())
 
     return $results;
 };
+
+/**
+ * Simple helper method to insert data from DB
+ *
+ * @param $pdo
+ * @param $sql
+ * @param array $params
+ * @return array
+ */
+function insertDB($pdo, $sql, $params = array())
+{
+    $results = array();
+
+    try {
+        $stmt = $pdo->prepare($sql);
+        $results = $stmt->execute($params);
+    } catch (PDOException $e){
+        errorLog($pdo, __LINE__ . ':' . $e->getMessage().':'.$e);
+    }
+
+    return $results;
+};
