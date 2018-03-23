@@ -95,15 +95,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setupUI();
        // enableBluetooth();
-        setupOneSheeld();
+//        setupOneSheeld();
+        appIsUp(); // send message to server with information that app was launched
 
 
     }
 
 
     private void setupUI() {
-
-        appIsUp(); // send message to server with information that app was launched
 
         //create text view stauts update
         btAdapter = BluetoothAdapter.getDefaultAdapter();
