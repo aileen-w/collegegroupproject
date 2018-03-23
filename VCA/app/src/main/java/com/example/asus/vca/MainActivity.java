@@ -24,7 +24,8 @@ import com.integreight.onesheeld.sdk.OneSheeldManager;
 import com.integreight.onesheeld.sdk.OneSheeldScanningCallback;
 import com.integreight.onesheeld.sdk.OneSheeldSdk;
 
-
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -101,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setupUI() {
+
+        appIsUp(); // send message to server with information that app was launched
 
         //create text view stauts update
         btAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -325,7 +328,30 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Helper method to send data to server.
+     * Currently supports notifications and errors.
+     * To send data, just create JSON object like below and input required attributes
+     * - svc: service (error, notification)
+     * - dev: device (1sheeld or something else)
+     * - msg: message (whatever message you want to send)
+     */
+    public void appIsUp() {
 
+        try {
+
+            JSONObject obj = new JSONObject();
+            obj.put("svc" , "notification");
+            obj.put("dev" , "1sheeld");
+            obj.put("msg" , "Android app is up and running");
+            new PostData().execute(obj.toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            e.getMessage();
+        }
+
+    }
 }
 
 
