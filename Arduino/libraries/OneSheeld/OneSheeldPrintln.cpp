@@ -91,7 +91,19 @@ void PrintlnClass::println(const char * stringData)
 //Support strings
 void PrintlnClass::println(String stringData)
 {
-	println(&stringData[0]);
+	int stringDataLength = stringData.length();
+
+	char cTypeStringData[stringDataLength+3];
+
+	for(int i=0 ;i<stringDataLength ;i++)
+	{
+		cTypeStringData[i]=stringData[i];
+	}
+	cTypeStringData[stringDataLength]='\r';
+	cTypeStringData[stringDataLength+1]='\n';
+	cTypeStringData[stringDataLength+2]='\0';
+
+	print(cTypeStringData);
 }
 
 //Unsupported by Intel Galileo board and Arduino Due

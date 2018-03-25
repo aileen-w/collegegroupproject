@@ -36,7 +36,17 @@ void TwitterShieldClass::tweet(const char *data)
 
 void TwitterShieldClass::tweet(String data)
 {
-	tweet(&data[0]);
+	int dataLength = data.length();
+
+	char cTypeData[dataLength+1];
+
+	for (int i = 0; i <dataLength; i++)
+	{
+		cTypeData[i]=data[i];
+	}
+	cTypeData[dataLength]='\0';
+
+	tweet(cTypeData);
 }
 
 //Message Sender
@@ -53,7 +63,25 @@ void TwitterShieldClass::sendMessage(const char* username,const char* message)
 
 void TwitterShieldClass::sendMessage(String username , String message)
 {
-	sendMessage(&username[0],&message[0]);
+	int usernameLength = username.length();
+	int messageLength = message.length();
+
+	char cTypeUsername[usernameLength+1];
+	char cTypeMessage[messageLength+1];
+
+	for (int i = 0; i <usernameLength; i++)
+	{
+		cTypeUsername[i]=username[i];
+	}
+	cTypeUsername[usernameLength]='\0';
+
+	for (int j = 0; j <messageLength; j++)
+	{
+		cTypeMessage[j]=message[j];
+	}
+	cTypeMessage[messageLength]='\0';
+
+	sendMessage(cTypeUsername,cTypeMessage);
 }
 
 void TwitterShieldClass::tweetLastPicture(const char * pictureText , byte imageSource)
@@ -67,7 +95,17 @@ void TwitterShieldClass::tweetLastPicture(const char * pictureText , byte imageS
 
 void TwitterShieldClass::tweetLastPicture(String pictureText ,byte imageSource)
 {
-	tweetLastPicture(&pictureText[0],imageSource);
+	int pictureTextLength = pictureText.length();
+
+	char cTypePictureText[pictureTextLength+1];
+
+	for (int i = 0; i <pictureTextLength; i++)
+	{
+		cTypePictureText[i]=pictureText[i];
+	}
+	cTypePictureText[pictureTextLength]='\0';
+
+	tweetLastPicture(cTypePictureText,imageSource);
 }
 
 //Check if new tweet 
@@ -93,13 +131,33 @@ void TwitterShieldClass::untrackKeyword(const char * keyword)
 
 void TwitterShieldClass::trackKeyword(String keyword )
 {
-	trackKeyword(&keyword[0]);
+	int keywordLength = keyword.length();
+
+	char cTypeKeyword[keywordLength+1];
+
+	for (int i = 0; i <keywordLength; i++)
+	{
+		cTypeKeyword[i]=keyword[i];
+	}
+	cTypeKeyword[keywordLength]='\0';
+
+	trackKeyword(cTypeKeyword);
 }
 
 
 void TwitterShieldClass::untrackKeyword(String keyword )
 {
-	untrackKeyword(&keyword[0]);
+	int keywordLength = keyword.length();
+
+	char cTypeKeyword[keywordLength+1];
+
+	for (int i = 0; i <keywordLength; i++)
+	{
+		cTypeKeyword[i]=keyword[i];
+	}
+	cTypeKeyword[keywordLength]='\0';
+
+	untrackKeyword(cTypeKeyword);
 }
 
 //UserName Getter

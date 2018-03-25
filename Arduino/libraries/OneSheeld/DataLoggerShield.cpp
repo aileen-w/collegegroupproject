@@ -24,17 +24,26 @@ void DataLoggerShield::start()
 	OneSheeld.sendShieldFrame(DATA_LOGGER_ID,0,LOGGER_START_LOG,0);
 }
 //Start Logging Data giving name to file created 
-void DataLoggerShield::start(const char * fileName,bool saveOnOld)
+void DataLoggerShield::start(const char * fileName)
 {
 	// Check string is not empty
 	int  fileNameLength = strlen(fileName);
 	if(!fileNameLength) return ; 
-	OneSheeld.sendShieldFrame(DATA_LOGGER_ID,0,LOGGER_START_LOG,2,new FunctionArg(fileNameLength,(byte *)fileName),new FunctionArg(1,(byte*)&saveOnOld));
+	OneSheeld.sendShieldFrame(DATA_LOGGER_ID,0,LOGGER_START_LOG,1,new FunctionArg(fileNameLength,(byte *)fileName));
 }
 //Start Logging Data giving name to the file in strings
-void DataLoggerShield::start(String fileName,bool saveOnOld)
+void DataLoggerShield::start(String fileName)
 {
-	start(&fileName[0],saveOnOld);
+	int fileNameStringLength = fileName.length();
+	char cTypeFileName [fileNameStringLength+1];
+
+	for (int i=0 ;i<fileNameStringLength;i++)
+	{
+		cTypeFileName [i]= fileName[i];
+	}
+
+	cTypeFileName [fileNameStringLength]='\0';	
+	start(cTypeFileName);
 }
 
 //Stop Logging Data
@@ -56,8 +65,17 @@ void DataLoggerShield::add(const char * key,float value)
 }
 
 void DataLoggerShield::add(String key , float value)
-{	
-	add(&key[0],value);
+{
+	int keyStringLength = key.length();
+	char cTypeKey [keyStringLength+1];
+
+	for (int i=0 ;i<keyStringLength;i++)
+	{
+		cTypeKey [i]= key[i];
+	}
+
+	cTypeKey [keyStringLength]='\0';	
+	add(cTypeKey,value);
 }
 
 void DataLoggerShield::add(const char * key,const char * data)
@@ -71,7 +89,25 @@ void DataLoggerShield::add(const char * key,const char * data)
 
 void DataLoggerShield::add(String key , String data)
 {
-	add(&key[0],&data[0]);
+	int keyStringLength = key.length();
+	int dataStringLength = data.length();
+
+	char cTypeKey [keyStringLength+1];
+	char cTypeData [dataStringLength+1];
+
+	for (int i=0 ;i<keyStringLength;i++)
+	{
+		cTypeKey [i]= key[i];
+	}
+	cTypeKey [keyStringLength]='\0';
+
+	for (int j=0 ;j<dataStringLength;j++)
+	{
+		cTypeData [j]= data[j];
+	}
+	cTypeData [dataStringLength]='\0';
+
+	add(cTypeKey,cTypeData);
 }
 
 //Save data 

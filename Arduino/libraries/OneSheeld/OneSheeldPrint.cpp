@@ -79,7 +79,17 @@ void PrintClass::print(const char * stringData)
 
 void PrintClass::print(String stringData)
 {
-	print(&stringData[0]);
+	int stringDataLength = stringData.length();
+
+	char cTypeStringData[stringDataLength+1];
+
+	for(int i=0 ;i<stringDataLength ;i++)
+	{
+		cTypeStringData[i]=stringData[i];
+	}
+	cTypeStringData[stringDataLength]='\0';
+
+	print(cTypeStringData);
 }
 
 //Print double 

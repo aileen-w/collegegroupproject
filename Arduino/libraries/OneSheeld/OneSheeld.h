@@ -32,7 +32,7 @@
 #define START_OF_FRAME  0xFF
 #define END_OF_FRAME 	0x00
 //Library Version
-#define LIBRARY_VERSION 18
+#define LIBRARY_VERSION 17
 //Time between sending Frames
 #define TIME_GAP		200UL
 

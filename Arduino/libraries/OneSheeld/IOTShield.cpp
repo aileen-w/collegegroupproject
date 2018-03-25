@@ -396,17 +396,17 @@ void IOTShield::processData()
 				payload[payloadLength]='\0';
 				(*newMessageCharCharCallback)(topic,payload,qos,retain);
 			}
-			if(callbacksAssignments&(1<<CHAR_INT) && (getOneSheeldInstance().getArgumentLength(1) == 2))
+			if(callbacksAssignments&(1<<CHAR_INT))
 			{
 				int payload = getOneSheeldInstance().getArgumentData(1)[0]|((getOneSheeldInstance().getArgumentData(1)[1])<<8);
 				(*newMessageCharIntCallback)(topic,payload,qos,retain);
 			}
-			if(callbacksAssignments&(1<<CHAR_UNINT) && (getOneSheeldInstance().getArgumentLength(1) == 2))
+			if(callbacksAssignments&(1<<CHAR_UNINT))
 			{
 				unsigned int payload = getOneSheeldInstance().getArgumentData(1)[0]|((getOneSheeldInstance().getArgumentData(1)[1])<<8);
 				(*newMessageCharUnIntCallback)(topic,payload,qos,retain);
 			}
-			if(callbacksAssignments&(1<<CHAR_FLOAT) && (getOneSheeldInstance().getArgumentLength(1) == 4))
+			if(callbacksAssignments&(1<<CHAR_FLOAT))
 			{
 				float payload = OneSheeld.convertBytesToFloat(getOneSheeldInstance().getArgumentData(1));
 				(*newMessageCharFloatCallback)(topic,payload,qos,retain);
@@ -428,17 +428,17 @@ void IOTShield::processData()
 				payload[payloadLength]='\0';
 				(*newMessageStrStrCallback)(String(topic),String(payload),qos,retain);
 			}
-			if(callbacksAssignments&(1<<STRING_INT) && (getOneSheeldInstance().getArgumentLength(1) == 2))
+			if(callbacksAssignments&(1<<STRING_INT))
 			{
 				int payload = getOneSheeldInstance().getArgumentData(1)[0]|((getOneSheeldInstance().getArgumentData(1)[1])<<8);
 				(*newMessageStrIntCallback)(String(topic),payload,qos,retain);
 			}
-			if(callbacksAssignments&(1<<STRING_UNINT) && (getOneSheeldInstance().getArgumentLength(1) == 2))
+			if(callbacksAssignments&(1<<STRING_UNINT))
 			{
 				unsigned int payload = getOneSheeldInstance().getArgumentData(1)[0]|((getOneSheeldInstance().getArgumentData(1)[1])<<8);
 				(*newMessageStrUnIntCallback)(String(topic),payload,qos,retain);
 			}
-			if(callbacksAssignments&(1<<STRING_FLOAT) && (getOneSheeldInstance().getArgumentLength(1) == 4))
+			if(callbacksAssignments&(1<<STRING_FLOAT))
 			{
 				float payload = OneSheeld.convertBytesToFloat(getOneSheeldInstance().getArgumentData(1));
 				(*newMessageStrFloatCallback)(String(topic),payload,qos,retain);
