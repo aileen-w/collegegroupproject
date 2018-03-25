@@ -197,7 +197,7 @@ include_once ("config/footer.php");
                     var el = '';
                     for(var i=0; i<data.length; i++){
                         el += '<a href="#" class="list-group-item">\n' +
-                            '<i class="fa fa-comment fa-fw"></i> '+data[i]['device']+' | '+data[i]['message']+'\n' +
+                            '<i class="fa fa-comment fa-fw"></i> '+data[i]['device']+'<br/>'+data[i]['message']+'\n' +
                             '<span class="pull-right text-muted small"><em>'+data[i]['date']+'</em>\n' +
                             '</span>\n' +
                             '</a>'

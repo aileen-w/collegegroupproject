@@ -1,11 +1,16 @@
 package com.example.asus.vca;
 
 
+
+
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+//import android.content.DialogInterface;
 import android.content.IntentFilter;
 import android.os.Bundle;
+//import android.provider.ContactsContract;
+//import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.content.Intent;
@@ -19,6 +24,9 @@ import com.integreight.onesheeld.sdk.OneSheeldManager;
 import com.integreight.onesheeld.sdk.OneSheeldScanningCallback;
 import com.integreight.onesheeld.sdk.OneSheeldSdk;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     Button Miscellaneous;
     BluetoothAdapter btAdapter;
     Button Bluetooth;
-
 
 
 
@@ -80,16 +87,20 @@ public class MainActivity extends AppCompatActivity {
 
     };
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {                    //loads main activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupUI();
        // enableBluetooth();
-        setupOneSheeld();
+//        setupOneSheeld();
+        appIsUp(); // send message to server with information that app was launched
 
 
     }
+
 
     private void setupUI() {
 
@@ -193,6 +204,78 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Turns on Bluetooth
+    /*public void enableBluetooth() {
+
+
+        //find id of bluetooth button
+        Bluetooth = findViewById(R.id.buttonBluetooth);
+        {
+            //set listener on bluetooth button
+            Bluetooth.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+
+
+                    if (btAdapter.isEnabled()) {
+
+                        AlertDialog.Builder a_builder = new AlertDialog.Builder(MainActivity.this);
+                        a_builder.setMessage("CLICK TO DISABLE BLUETOOTH")
+                                .setCancelable(false)
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int which) {
+                                        btAdapter.disable();
+                                    }
+                                })
+
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                });
+                        AlertDialog alert = a_builder.create();
+                        alert.setTitle("BLUETOOTH ALERT");
+                        alert.show();
+
+                    }
+
+                    else {
+
+                        /*AlertDialog.Builder a2_builder = new AlertDialog.Builder(MainActivity.this);
+                        a2_builder.setMessage("CLICK TO ENABLE BLUETOOTH")
+                                .setCancelable(false)
+                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        btAdapter.enable();
+                                    }
+                                })
+
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                        AlertDialog alert2 = a2_builder.create();
+                        alert2.setTitle("BLUETOOTH ALERT");
+                        alert2.show();
+
+
+                    }
+
+
+                }
+
+            });
+        }
+    }*/
+
+
     public void setupOneSheeld() {
         //Init the SDK with context
         OneSheeldSdk.init(this);
@@ -244,7 +327,30 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Helper method to send data to server.
+     * Currently supports notifications and errors.
+     * To send data, just create JSON object like below and input required attributes
+     * - svc: service (error, notification)
+     * - dev: device (1sheeld or something else)
+     * - msg: message (whatever message you want to send)
+     */
+    public void appIsUp() {
 
+        try {
+
+            JSONObject obj = new JSONObject();
+            obj.put("svc" , "notification");
+            obj.put("dev" , "1sheeld");
+            obj.put("msg" , "Android app is up and running");
+            new PostData().execute(obj.toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            e.getMessage();
+        }
+
+    }
 }
 
 
