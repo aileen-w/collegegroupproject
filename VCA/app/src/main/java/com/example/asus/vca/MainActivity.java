@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             String stateExtra = BluetoothAdapter.EXTRA_STATE;
             int state = intent.getIntExtra(prevStateExtra, -1);
             //int previousState = intent.getInExtra(prevStateExtra,-1);
-            //String toastText="";
+            String toastText="";
             switch(state){
                 case(BluetoothAdapter.STATE_TURNING_ON):
                 {
