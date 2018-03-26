@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.content.Intent;
@@ -26,7 +25,6 @@ import com.integreight.onesheeld.sdk.OneSheeldSdk;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.Set;
 
 
