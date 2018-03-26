@@ -4,13 +4,13 @@ package com.example.asus.vca;
 
 
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-//import android.content.DialogInterface;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-//import android.provider.ContactsContract;
-//import android.support.v7.app.AlertDialog;
+
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.content.Intent;
@@ -27,16 +27,21 @@ import com.integreight.onesheeld.sdk.OneSheeldSdk;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Set;
+
 
 public class MainActivity extends AppCompatActivity {
 
 
-    Button Speaker;
-    Button Home;
-    Button Services;
-    Button Miscellaneous;
-    BluetoothAdapter btAdapter;
-    Button Bluetooth;
+    protected static final int DISCOVERY_REQUEST = 1 ;
+    public Button Speaker;
+    public Button Home;
+    public Button Services;
+    public Button Miscellaneous;
+    private BluetoothAdapter btAdapter;
+    public Button Bluetooth;
+    public String toastText="";
+    private BluetoothDevice remoteDevice;
 
 
 
@@ -47,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             String stateExtra = BluetoothAdapter.EXTRA_STATE;
             int state = intent.getIntExtra(prevStateExtra, -1);
             //int previousState = intent.getInExtra(prevStateExtra,-1);
-            String toastText="";
+            //String toastText="";
             switch(state){
                 case(BluetoothAdapter.STATE_TURNING_ON):
                 {
@@ -61,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
                     toastText = "Bluetooth On";
                     Toast.makeText(MainActivity.this,toastText,Toast.LENGTH_SHORT).show();
-                    //setupUI();
+                    setupUI();
                     break;
 
                 }
@@ -76,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
                     toastText = "Bluetooth Off";
                     Toast.makeText(MainActivity.this,toastText,Toast.LENGTH_SHORT).show();
-                    //setupUI();
+                    setupUI();
                     break;
                 }
 
@@ -89,13 +94,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {                    //loads main activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupUI();
-       // enableBluetooth();
-//        setupOneSheeld();
+        setupOneSheeld();
         appIsUp(); // send message to server with information that app was launched
 
 
@@ -188,11 +193,18 @@ public class MainActivity extends AppCompatActivity {
             Bluetooth.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view){
-                    String actionStateChanged = BluetoothAdapter.ACTION_STATE_CHANGED;
-                    String actionRequestEnable = BluetoothAdapter.ACTION_REQUEST_ENABLE;
-                    IntentFilter filter = new IntentFilter(actionStateChanged);
-                    registerReceiver(bluetoothState, filter);
-                    startActivityForResult(new Intent(actionRequestEnable),0);
+                    // String actionStateChanged = BluetoothAdapter.ACTION_STATE_CHANGED;
+                    // String actionRequestEnable = BluetoothAdapter.ACTION_REQUEST_ENABLE;
+                    // IntentFilter filter = new IntentFilter(actionStateChanged);
+                    // registerReceiver(bluetoothState, filter);
+                    // startActivityForResult(new Intent(actionRequestEnable),0);
+
+                    //register for discovery events
+                    String scanModeChanged = BluetoothAdapter.ACTION_SCAN_MODE_CHANGED;
+                    String beDiscoverable = BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE;
+                    IntentFilter filter = new IntentFilter(scanModeChanged);
+                    registerReceiver(bluetoothState,filter);
+                    startActivityForResult(new Intent(beDiscoverable), DISCOVERY_REQUEST);
 
                 }
             });
@@ -200,81 +212,74 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
-
 
     }
 
-    //Turns on Bluetooth
-    /*public void enableBluetooth() {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+
+        if(requestCode == DISCOVERY_REQUEST){
+            Toast.makeText(MainActivity.this,"Discovery in progress",Toast.LENGTH_SHORT).show();
+            setupUI();
+            findDevices();
+
+        }
+
+    }
 
 
-        //find id of bluetooth button
-        Bluetooth = findViewById(R.id.buttonBluetooth);
-        {
-            //set listener on bluetooth button
-            Bluetooth.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-
-
-                    if (btAdapter.isEnabled()) {
-
-                        AlertDialog.Builder a_builder = new AlertDialog.Builder(MainActivity.this);
-                        a_builder.setMessage("CLICK TO DISABLE BLUETOOTH")
-                                .setCancelable(false)
-                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int which) {
-                                        btAdapter.disable();
-                                    }
-                                })
-
-                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.cancel();
-                                    }
-                                });
-                        AlertDialog alert = a_builder.create();
-                        alert.setTitle("BLUETOOTH ALERT");
-                        alert.show();
-
-                    }
-
-                    else {
-
-                        /*AlertDialog.Builder a2_builder = new AlertDialog.Builder(MainActivity.this);
-                        a2_builder.setMessage("CLICK TO ENABLE BLUETOOTH")
-                                .setCancelable(false)
-                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        btAdapter.enable();
-                                    }
-                                })
-
-                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.cancel();
-                                    }
-                                });
-
-                        AlertDialog alert2 = a2_builder.create();
-                        alert2.setTitle("BLUETOOTH ALERT");
-                        alert2.show();
-
-
-                    }
+    private void findDevices(){                             //looks for previous paired devices
+        String lastUsedRemoteDevice = getLastUsedRemoteBTDevice();
+        if(lastUsedRemoteDevice!=null){
+            toastText="Checking for known paired devices, namely: "+lastUsedRemoteDevice;
+            Toast.makeText(MainActivity.this,toastText,Toast.LENGTH_SHORT).show();
+            //see if this device is in a list of currently visible (?), paired devices
+            Set<BluetoothDevice> pairedDevices = btAdapter.getBondedDevices();
+            for(BluetoothDevice pairedDevice : pairedDevices){
+                if(pairedDevice.getAddress().equals(lastUsedRemoteDevice)){
+                    toastText="Found Device: "+ pairedDevice.getName()+ "@" + lastUsedRemoteDevice;
+                    Toast.makeText(MainActivity.this,toastText,Toast.LENGTH_SHORT).show();
+                    remoteDevice = pairedDevice;
 
 
                 }
 
-            });
-        }
-    }*/
+            }
 
+        }//end if
+
+        if (remoteDevice == null) {
+            toastText="Start discovering for remote devices...";
+            Toast.makeText(MainActivity.this,toastText,Toast.LENGTH_SHORT).show();
+            //start discovery
+            if(btAdapter.startDiscovery()) {
+                toastText="Discovery thread started....Scanning for devices";
+                registerReceiver(discoveryResult, new IntentFilter(BluetoothDevice.ACTION_FOUND));          //creating another broadcast receiver
+            }
+
+        }
+
+    }//end find devices
+
+    //create a broadcast receiver to receive device discovery
+    BroadcastReceiver discoveryResult = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String remoteDeviceName = intent.getStringExtra(BluetoothDevice.EXTRA_NAME);
+            BluetoothDevice remoteDevice;
+            remoteDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+            toastText="Discovered"+ remoteDeviceName;
+            Toast.makeText(MainActivity.this,toastText,Toast.LENGTH_SHORT).show();
+
+        }
+    };
+
+
+    private String getLastUsedRemoteBTDevice(){
+        SharedPreferences prefs = getPreferences(MODE_PRIVATE);
+        String result = prefs.getString("LAST_REMOTE_DEVICE_ADDRESS",null);
+        return result;
+    }
 
     public void setupOneSheeld() {
         //Init the SDK with context
@@ -327,6 +332,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
+
     /**
      * Helper method to send data to server.
      * Currently supports notifications and errors.
@@ -351,7 +359,29 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
