@@ -374,7 +374,7 @@ public class MainActivity extends AppCompatActivity {
 
             JSONObject obj = new JSONObject();
             obj.put("svc" , "notification");
-            obj.put("dev" , "1sheeld");
+            obj.put("dev" , model);
             obj.put("msg" , "Android app is up and running");
             new PostData().execute(obj.toString());
 
