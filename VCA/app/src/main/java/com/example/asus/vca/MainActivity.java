@@ -10,11 +10,14 @@ import android.content.Context;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
+
 
 
 import com.integreight.onesheeld.sdk.OneSheeldConnectionCallback;
@@ -25,6 +28,8 @@ import com.integreight.onesheeld.sdk.OneSheeldSdk;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Set;
 
 
@@ -41,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
     public String toastText="";
     private BluetoothDevice remoteDevice;
 
+    private ArrayList<OneSheeldDevice> oneSheeldScannedDevices;
+    private ArrayList<OneSheeldDevice> oneSheeldConnectedDevices;
+
+
+
 
 
     BroadcastReceiver bluetoothState = new BroadcastReceiver(){
@@ -50,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
             String stateExtra = BluetoothAdapter.EXTRA_STATE;
             int state = intent.getIntExtra(prevStateExtra, -1);
             //int previousState = intent.getInExtra(prevStateExtra,-1);
-            String toastText="";
             switch(state){
                 case(BluetoothAdapter.STATE_TURNING_ON):
                 {
@@ -90,21 +99,79 @@ public class MainActivity extends AppCompatActivity {
 
     };
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {                    //loads main activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Init the SDK with context
+        OneSheeldSdk.init(this);
+        //Optional, enable debugging messages.
+        OneSheeldSdk.setDebugging(true);
+
         setupUI();
-        setupOneSheeld();
         appIsUp(); // send message to server with information that app was launched
 
 
+        // Get the manager instance
+        OneSheeldManager manager = OneSheeldSdk.getManager();
+        // Set the connection failing retry count to 1
+        manager.setConnectionRetryCount(1);
+        // Set the automatic connecting retries to true, this will use 3 different methods for connecting
+        manager.setAutomaticConnectingRetriesForClassicConnections(true);
+
+
+        //Construct a new OneSheeldScanningCallback callback and override onDeviceFind method
+        OneSheeldScanningCallback scanningCallback = new OneSheeldScanningCallback() {
+            @Override
+            public void onDeviceFind(final OneSheeldDevice device) {
+
+
+                        // Cancel scanning before connecting
+                        OneSheeldSdk.getManager().cancelScanning();
+                        // Connect to the found device
+                        device.connect();
+
+
+
+
+                }
+
+
+        };
+
+                // Construct a new OneSheeldConnectionCallback callback and override onConnect method
+                OneSheeldConnectionCallback connectionCallback = new OneSheeldConnectionCallback() {
+                    @Override
+                    public void onConnect(final OneSheeldDevice device) {
+
+                        oneSheeldScannedDevices.remove(device);
+                        oneSheeldConnectedDevices.add(device);
+                        final String deviceName = device.getName();
+
+
+
+                        // Output high on pin 13
+                       device.digitalWrite(13, true);
+
+                        // Read the value of pin 12
+                        boolean isHigh = device.digitalRead(12);
+
+                    }
+                };
+
+
+
+        // Add the connection and scanning callbacks
+        manager.addConnectionCallback(connectionCallback);
+        manager.addScanningCallback(scanningCallback);
+
+        // Initiate the Bluetooth scanning
+        manager.scan();
+
+
+
     }
-
-
     private void setupUI() {
 
         //create text view stauts update
@@ -278,60 +345,6 @@ public class MainActivity extends AppCompatActivity {
         String result = prefs.getString("LAST_REMOTE_DEVICE_ADDRESS",null);
         return result;
     }
-
-    public void setupOneSheeld() {
-        //Init the SDK with context
-        OneSheeldSdk.init(this);
-        //Optional, enable debugging messages.
-        OneSheeldSdk.setDebugging(true);
-
-
-        // Get the manager instance
-        OneSheeldManager manager = OneSheeldSdk.getManager();
-        // Set the connection failing retry count to 1
-        manager.setConnectionRetryCount(1);
-        // Set the automatic connecting retries to true, this will use 3 different methods for connecting
-        manager.setAutomaticConnectingRetriesForClassicConnections(true);
-
-
-        //Construct a new OneSheeldScanningCallback callback and override onDeviceFind method
-        OneSheeldScanningCallback scanningCallback = new OneSheeldScanningCallback() {
-            @Override
-            public void onDeviceFind(OneSheeldDevice device) {
-                // Cancel scanning before connecting
-                OneSheeldSdk.getManager().cancelScanning();
-                // Connect to the found device
-                device.connect();
-
-            }
-
-        };
-
-
-        // Construct a new OneSheeldConnectionCallback callback and override onConnect method
-        OneSheeldConnectionCallback connectionCallback = new OneSheeldConnectionCallback() {
-            @Override
-            public void onConnect(OneSheeldDevice device) {
-                // Output high on pin 13
-                device.digitalWrite(13, true);
-
-                // Read the value of pin 12
-                boolean isHigh = device.digitalRead(12);
-
-            }
-        };
-
-        // Add the connection and scanning callbacks
-        manager.addConnectionCallback(connectionCallback);
-        manager.addScanningCallback(scanningCallback);
-
-        // Initiate the Bluetooth scanning
-        manager.scan();
-
-    }
-
-
-
 
     /**
      * Helper method to send data to server.
