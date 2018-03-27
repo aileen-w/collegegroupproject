@@ -439,7 +439,7 @@ public class MainActivity extends AppCompatActivity {
                         //set the amount of time in milliseconds before first execution
                         0,
                         //Set the amount of time between each execution (in milliseconds)
-                        3000);
+                        20000);
             } else {
                 Toast.makeText(getBaseContext(), "Location can't be retrieved", Toast.LENGTH_SHORT).show();
             }
