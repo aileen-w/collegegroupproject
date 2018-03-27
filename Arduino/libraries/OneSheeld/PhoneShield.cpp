@@ -35,7 +35,17 @@ void PhoneShieldClass::call(const char* phone)
 
 void PhoneShieldClass::call(String phone)
 {
-	call(&phone[0]);
+	int phoneLength = phone.length();
+
+	char cTypePhone[phoneLength+1];
+
+	for(int i=0; i<phoneLength ;i++)
+	{
+		cTypePhone[i]=phone[i];
+	}
+	cTypePhone[phoneLength]='\0';
+
+	call(cTypePhone);
 }
 
 //Ringing Checker 

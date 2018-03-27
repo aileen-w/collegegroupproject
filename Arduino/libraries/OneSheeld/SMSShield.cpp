@@ -43,7 +43,25 @@ bool SMSShieldClass::isNewSms()
 
 void SMSShieldClass::send(String number,String text)
 {
-	send(&number[0],&text[0]);
+	int numberLength = number.length();
+	int textLength = text.length();
+
+	char cTypeNumber[numberLength+1];
+	char cTypeText[textLength+1];
+
+	for (int i = 0; i < numberLength; i++)
+	{
+		cTypeNumber[i]=number[i];
+	}
+	cTypeNumber[numberLength]='\0';
+
+	for (int j = 0; j <textLength; j++)
+	{
+		cTypeText[j]=text[j];
+	}
+	cTypeText[textLength]='\0';
+
+	send(cTypeNumber,cTypeText);
 }
 
 //Number Getter

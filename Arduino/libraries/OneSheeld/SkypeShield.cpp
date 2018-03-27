@@ -27,7 +27,17 @@ void SkypeShieldClass::call(const char *username)
 
 void SkypeShieldClass::call(String username)
 {
-	call(&username[0]);
+	int usernameLength = username.length();
+
+	char cTypeUsername[usernameLength+1];
+
+	for (int i = 0; i < usernameLength; i++)
+	{
+		cTypeUsername[i]=username[i];
+	}
+	cTypeUsername[usernameLength]='\0';
+
+	call(cTypeUsername);
 }
 
 //VideoCall Setter
@@ -41,6 +51,16 @@ void SkypeShieldClass::videoCall(const char * username)
 
 void SkypeShieldClass::videoCall(String username)
 {
-	call(&username[0]);
+	int usernameLength = username.length();
+
+	char cTypeUsername[usernameLength+1];
+
+	for (int i = 0; i < usernameLength; i++)
+	{
+		cTypeUsername[i]=username[i];
+	}
+	cTypeUsername[usernameLength]='\0';
+
+	call(cTypeUsername);
 }
 

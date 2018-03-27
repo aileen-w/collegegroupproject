@@ -38,7 +38,16 @@ void MicShield::startRecording(const char * fileName)
 }
 void MicShield::startRecording(String fileName)
 {
-	startRecording(&fileName[0]);
+	int fileNameStringLength = fileName.length();
+	char cTypeFileName [fileNameStringLength+1];
+
+	for (int i=0 ;i<fileNameStringLength;i++)
+	{
+		cTypeFileName [i]= fileName[i];
+	}
+
+	cTypeFileName [fileNameStringLength]='\0';	
+	startRecording(cTypeFileName);
 }
 //
 void MicShield::stopRecording()
