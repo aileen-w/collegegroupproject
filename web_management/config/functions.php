@@ -584,9 +584,18 @@ function index_page($pdo)
         $results['users']['details'] = selectDB($pdo, $sql);
 
         // fetch device information
-        $sql = "select count(*) as 'count' from device;";
+        $sql = "select count(*) as 'count' from (
+                select device from geolocation
+                union
+                select device from notifications
+                ) as z;";
         $results['devices']['count'] = selectDB($pdo, $sql);
-        $sql = "select * from device order by name;";
+        $sql = "select distinct(device) FROM
+                (
+                select device from geolocation
+                union
+                select device from notifications
+                ) as z order by device;";
         $results['devices']['details'] = selectDB($pdo, $sql);
 
         //fetch notification information
@@ -665,6 +674,48 @@ function tracking_page($pdo)
 };
 
 /**
+ * Fetch data for details page
+ *
+ * @param $pdo
+ * @return array
+ */
+function details_page($pdo, $section)
+{
+    $results = array();
+
+    try {
+        switch ($section) {
+            case "users":
+                $sql = "select email, active, logAttempts from user order by email desc;";
+            break;
+            case "devices":
+                $sql = "select distinct(device) FROM
+                        (
+                        select device from geolocation
+                        union
+                        select device from notifications
+                        ) as z order by device;";
+            break;
+            case "notifications":
+                $sql = "select device, date, message from notifications order by date desc;";
+            break;
+            case "errors":
+                $sql = "select date, message from errorlog order by date desc;";
+                break;
+            default:
+                $sql = "";
+        }
+        // fetch information
+        $results = selectDB($pdo, $sql);
+
+    } catch (PDOException $e){
+        errorLog($pdo, __LINE__ . ':' . $e->getMessage().':'.$e);
+    }
+
+    return $results;
+};
+
+/**
  * Helper functions to fetch latest position of the device
  *
  * @param $pdo
@@ -693,18 +744,21 @@ function fetch_position($pdo, $post)
  */
 function fetch_notifications($pdo, $post)
 {
+    $results = array('notifications' => array(), 'count' => 0);
     if($post['interval']>0)
     {
         $date = $post['date'];
         $sql = "select * from notifications where date > '{$date}' order by date desc;";
-        return selectDB($pdo, $sql);
+        ($results['notifications'] = selectDB($pdo, $sql));
     }
     else
     {
         $sql = "select * from notifications order by date desc limit 10;";
-        return selectDB($pdo, $sql);
+        ($results['notifications'] = selectDB($pdo, $sql));
     }
-
+    $sql = "select count(*) as 'count' from notifications;";
+    $results['count'] = selectDB($pdo, $sql);
+    return $results;
 };
 
 /**
