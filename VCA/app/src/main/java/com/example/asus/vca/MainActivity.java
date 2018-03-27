@@ -3,15 +3,24 @@ package com.example.asus.vca;
 
 
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.content.Intent;
@@ -31,6 +40,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -49,7 +60,10 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<OneSheeldDevice> oneSheeldScannedDevices;
     private ArrayList<OneSheeldDevice> oneSheeldConnectedDevices;
 
-
+    String model = Build.MODEL;
+    LocationManager locationManager;
+    String provider;
+    Activity parent = this;
 
 
 
@@ -111,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
         setupUI();
         appIsUp(); // send message to server with information that app was launched
-
+        startGeolocation(); // start geolocation tracking
 
         // Get the manager instance
         OneSheeldManager manager = OneSheeldSdk.getManager();
@@ -371,6 +385,70 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    /**
+     * Geolocation method
+     * Code will trigger time loop which will send JSON message to server's api with coordinates of the device
+     * Timeout method is calling external class responsible for making the call
+     */
+    public void startGeolocation() {
+
+        try {
+
+
+            if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
+
+            }
+
+            // Getting LocationManager object
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+            // Creating an empty criteria object
+            Criteria criteria = new Criteria();
+
+            // Getting the name of the provider that meets the criteria
+            provider = locationManager.getBestProvider(criteria, false);
+
+            Location location = locationManager.getLastKnownLocation(provider);
+
+            if (location != null) {
+                //Declare the timer
+                Timer myTimer = new Timer();
+                //Set the schedule function and rate
+                myTimer.scheduleAtFixedRate(new TimerTask() {
+                                                @Override
+                                                public void run() {
+                                                    //Called at every 3000 milliseconds (3 second)
+                                                    if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                                                        ActivityCompat.requestPermissions(parent, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
+
+                                                    }
+
+                                                    // Creating an empty criteria object
+                                                    Criteria criteria = new Criteria();
+
+                                                    Location location = locationManager.getLastKnownLocation(provider);
+                                                    location = locationManager.getLastKnownLocation(provider);
+                                                    new GPSTracker().onLocationChanged(location);
+
+                                                }
+                                            },
+                        //set the amount of time in milliseconds before first execution
+                        0,
+                        //Set the amount of time between each execution (in milliseconds)
+                        3000);
+            } else {
+                Toast.makeText(getBaseContext(), "Location can't be retrieved", Toast.LENGTH_SHORT).show();
+            }
+
+        } catch (Exception e) {
+            Log.e("Error", e.getMessage());
+        }
+
+    }
 
 }
 
