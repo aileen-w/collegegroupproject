@@ -640,6 +640,50 @@ function index_page($pdo)
     return $results;
 };
 
+
+/**
+ * Load data for tracking page
+ *
+ * @param $pdo
+ * @return array
+ */
+function tracking_page($pdo)
+{
+    $results = array();
+
+    try {
+
+        // fetch information
+        $sql = "select distinct(device) from geolocation;";
+        $results = selectDB($pdo, $sql);
+
+    } catch (PDOException $e){
+        errorLog($pdo, __LINE__ . ':' . $e->getMessage().':'.$e);
+    }
+
+    return $results;
+};
+
+/**
+ * Helper functions to fetch latest position of the device
+ *
+ * @param $pdo
+ * @param $post
+ * @return array
+ */
+function fetch_position($pdo, $post)
+{
+    if(!empty($post['device']))
+    {
+        $device = $post['device'];
+        $sql = "select * from geolocation where device = '{$device}' order by date desc limit 1;";
+        return selectDB($pdo, $sql);
+    }
+
+    return;
+
+};
+
 /**
  * Helper functions to fetch latest notifications
  *

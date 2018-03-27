@@ -40,6 +40,15 @@ include_once ("config/functions.php");
                     $params = array("device" => $dev, "message" => $msg);
                     $result = insertDB($pdo, $sql, $params);
                     break;
+                // insert geolocation information to DB
+                case "geolocation":
+                    $geolocation = json_decode($msg, true);
+                    $latitude = $geolocation['latitude'];
+                    $longitude = $geolocation['longitude'];
+                    $sql = "INSERT INTO geolocation(device, date, latitude, longitude) VALUES(:device, NOW(), :latitude, :longitude);";
+                    $params = array("device" => $dev, "latitude" => $latitude, "longitude" => $longitude);
+                    $result = insertDB($pdo, $sql, $params);
+                    break;
                 // insert error received from android app into DB
                 case "error":
                     $sql = "INSERT INTO errorlog(date, message) VALUES(NOW(), :message);";
