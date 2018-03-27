@@ -44,7 +44,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="#">
+                <a href="details-dashboard.php?el=users">
                     <div class="panel-footer">
                         <span class="pull-left">View Details</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -66,7 +66,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="#">
+                <a href="details-dashboard.php?el=devices">
                     <div class="panel-footer">
                         <span class="pull-left">View Details</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -83,12 +83,12 @@
                             <i class="fa fa-comment fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge"><?= $data['notifications']['count'][0]['count'];?></div>
+                            <div class="huge" id="notification_count"><span><?= $data['notifications']['count'][0]['count'];?></span></div>
                             <div>Notifications</div>
                         </div>
                     </div>
                 </div>
-                <a href="#">
+                <a href="details-dashboard.php?el=notifications">
                     <div class="panel-footer">
                         <span class="pull-left">View Details</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -110,7 +110,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="#">
+                <a href="details-dashboard.php?el=errors">
                     <div class="panel-footer">
                         <span class="pull-left">View Details</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -190,19 +190,22 @@ include_once ("config/footer.php");
             },
             dataType: 'json',
             success: function(data) {
-                if(data.length>0)
+
+                if(data['notifications'].length>0)
                 {
                     $('#notifications_loading').hide();
-                    date = data[0]['date'];
+                    date = data['notifications'][0]['date'];
                     var el = '';
-                    for(var i=0; i<data.length; i++){
+                    for(var i=0; i<data['notifications'].length; i++){
                         el += '<a href="#" class="list-group-item">\n' +
-                            '<i class="fa fa-comment fa-fw"></i> '+data[i]['device']+'<br/>'+data[i]['message']+'\n' +
-                            '<span class="pull-right text-muted small"><em>'+data[i]['date']+'</em>\n' +
+                            '<i class="fa fa-comment fa-fw"></i> '+data['notifications'][i]['device']+'<br/>'+data['notifications'][i]['message']+'\n' +
+                            '<span class="pull-right text-muted small"><em>'+data['notifications'][i]['date']+'</em>\n' +
                             '</span>\n' +
                             '</a>'
                     }
                     $('#notifications').prepend( el );
+                    var str = String(data['count'][0]['count']);
+                    $('#notification_count span').html( str );
                 }
             },
             type: 'POST'
