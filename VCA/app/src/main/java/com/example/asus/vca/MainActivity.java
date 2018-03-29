@@ -368,6 +368,7 @@ public class MainActivity extends AppCompatActivity {
      * - dev: device (1sheeld or something else)
      * - msg: message (whatever message you want to send)
      */
+
     public void appIsUp() {
 
         try {
@@ -385,12 +386,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    /**
+    /*
      * Geolocation method
      * Code will trigger time loop which will send JSON message to server's api with coordinates of the device
      * Timeout method is calling external class responsible for making the call
      */
+
     public void startGeolocation() {
 
         try {
@@ -449,6 +450,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    //Testing
 
 }
 
