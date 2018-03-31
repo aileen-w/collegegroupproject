@@ -46,7 +46,7 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
-
+//test
     protected static final int DISCOVERY_REQUEST = 1 ;
     public Button Speaker;
     public Button Home;
