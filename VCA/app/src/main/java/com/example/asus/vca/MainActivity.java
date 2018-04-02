@@ -8,11 +8,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -41,9 +37,8 @@ import com.integreight.onesheeld.sdk.OneSheeldSdk;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -91,10 +86,8 @@ public class MainActivity extends AppCompatActivity {
 
         connectedDevicesNames = new ArrayList<>();
         scannedDevicesNames = new ArrayList<>();
-
         oneSheeldScannedDevices = new ArrayList<>();
         oneSheeldConnectedDevices = new ArrayList<>();
-
         connectedDevicesArrayAdapter = new ArrayAdapter<>(this, 0);
         scannedDevicesArrayAdapter = new ArrayAdapter<>(this, 0);
 
