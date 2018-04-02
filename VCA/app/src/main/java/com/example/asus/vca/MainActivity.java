@@ -3,11 +3,8 @@ package com.example.asus.vca;
 
 
 
-import android.Manifest;
+
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
@@ -45,24 +42,16 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
-    protected static final int DISCOVERY_REQUEST = 1;
     public Button Speaker;
     public Button Home;
     public Button Services;
     public Button Miscellaneous;
-    private BluetoothAdapter btAdapter;
-    public Button Bluetooth;
-    public String toastText = "";
-    private BluetoothDevice remoteDevice;
-
     private ArrayList<String> connectedDevicesNames;
     private ArrayList<String> scannedDevicesNames;
     private ArrayList<OneSheeldDevice> oneSheeldScannedDevices;
     private ArrayList<OneSheeldDevice> oneSheeldConnectedDevices;
     private ArrayAdapter<String> connectedDevicesArrayAdapter;
     private ArrayAdapter<String> scannedDevicesArrayAdapter;
-
-
     private Handler uiThreadHandler = new Handler();
     String model = Build.MODEL;
     LocationManager locationManager;
