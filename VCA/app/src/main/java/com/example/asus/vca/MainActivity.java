@@ -74,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {                    //loads main activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setupUI();
-        setupOneSheeld();
+        setupUI();                    //set up user interface
+        setupOneSheeld();               //connect to onesheeld board
         appIsUp();
         startGeolocation();         //start geolocation tracking
 
