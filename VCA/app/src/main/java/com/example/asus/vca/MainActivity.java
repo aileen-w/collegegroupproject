@@ -3,11 +3,14 @@ package com.example.asus.vca;
 
 
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -107,24 +110,30 @@ public class MainActivity extends AppCompatActivity {
         // Set the automatic connecting retries to true, this will use 3 different methods for connecting
         manager.setAutomaticConnectingRetriesForClassicConnections(true);
 
-        //Construct a new OneSheeldScanningCallback callback and override onDeviceFind method
-        OneSheeldScanningCallback scanningCallback = new OneSheeldScanningCallback() {
-            @Override
-            public void onDeviceFind(final OneSheeldDevice device) {
-                uiThreadHandler.post(new Runnable() {
+
+            //Construct a new OneSheeldScanningCallback callback and override onDeviceFind method
+            OneSheeldScanningCallback scanningCallback = new OneSheeldScanningCallback() {
+
                     @Override
-                    public void run() {
+                    public void onDeviceFind ( final OneSheeldDevice device){
+                    uiThreadHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            oneSheeldScannedDevices.add(device);
+                            scannedDevicesNames.add(device.getName());
+                            scannedDevicesArrayAdapter.notifyDataSetChanged();
+                            OneSheeldSdk.getManager().cancelScanning();
+                            device.connect();
+                        }
+
+                    });
+                }
 
 
-                        oneSheeldScannedDevices.add(device);
-                        scannedDevicesNames.add(device.getName());
-                        scannedDevicesArrayAdapter.notifyDataSetChanged();
-                    }
-                });
-            }
+            };
 
 
-        };
 
         // Construct a new OneSheeldConnectionCallback callback and override onConnect method
         OneSheeldConnectionCallback connectionCallback = new OneSheeldConnectionCallback() {
@@ -143,11 +152,6 @@ public class MainActivity extends AppCompatActivity {
                             scannedDevicesArrayAdapter.notifyDataSetChanged();
                         }
 
-                        // Output high on pin 13
-                        // device.digitalWrite(13, true);
-
-                        // Read the value of pin 12
-                        //boolean isHigh = device.digitalRead(12);
 
                     }
 
@@ -233,6 +237,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
 
     /**
      * Helper method to send data to server.

@@ -21,18 +21,6 @@
         android:id="@+id/linearLayout0"
         >
 
-        <Button
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:id="@+id/buttonBluetooth"
-            android:layout_gravity="center"
-            android:background="@drawable/button_border"
-            android:padding="10dp"
-            android:drawableStart="@drawable/bluetooth"
-            android:text="@string/bluetooth"
-            android:layout_weight="1"
-            />
-
     </LinearLayout>
 
     <LinearLayout
