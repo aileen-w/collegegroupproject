@@ -28,6 +28,7 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".ServicesActivity" />
         <activity android:name=".MiscellaneousActivity" />
+        <activity android:name=".GameActivity" />
     </application>
 
 </manifest>

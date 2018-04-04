@@ -29,19 +29,6 @@
         android:layout_weight="1"
         />
 
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/buttonMic"
-        android:layout_gravity="center"
-        android:background="@drawable/button_border"
-        android:padding="10dp"
-        android:drawableStart="@drawable/microphone"
-        android:text="@string/microphone"
-        android:layout_weight="1"
-        />
-
     </LinearLayout>
 
 
