@@ -32,6 +32,8 @@
         <activity android:name=".TakeAwayFragment" />
         <activity android:name=".TakeAwaySubOrder" />
         <activity android:name=".TaxiActivity" />
+        <activity android:name=".GameActivity" />
+>>>>>>> f35db4cf022db329876724402784a637cbeda1b6
     </application>
 
 </manifest>
