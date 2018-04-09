@@ -11,17 +11,6 @@
     >
 
 
-    <LinearLayout
-        android:paddingRight="16dp"
-        android:paddingLeft="16dp"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_marginTop="25dp"
-        android:id="@+id/linearLayout0"
-        >
-
-    </LinearLayout>
 
     <LinearLayout
         android:paddingRight="16dp"

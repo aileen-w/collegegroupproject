@@ -28,6 +28,10 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".ServicesActivity" />
         <activity android:name=".MiscellaneousActivity" />
+        <activity android:name=".TakeAwayActivity" />
+        <activity android:name=".TakeAwayFragment" />
+        <activity android:name=".TakeAwaySubOrder" />
+        <activity android:name=".TaxiActivity" />
     </application>
 
 </manifest>
