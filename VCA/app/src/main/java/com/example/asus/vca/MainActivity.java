@@ -143,11 +143,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Add the connection and scanning callbacks
-        manager.addConnectionCallback(connectionCallback);
-        manager.addScanningCallback(scanningCallback);
+        //manager.addConnectionCallback(connectionCallback);
+        //manager.addScanningCallback(scanningCallback);
 
         // Initiate the Bluetooth scanning
-        manager.scan();
+        //manager.scan();
 
     }
 
