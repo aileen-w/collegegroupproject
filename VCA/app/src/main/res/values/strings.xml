@@ -97,4 +97,15 @@
 
     <string name="date">Date: </string>
 
+    <string name="enter"> Enter</string>
+
+    <string name="hintname">Your Name</string>
+
+    <string name="hintaddress">Your Address</string>
+
+    <string name="hintphone">Your Phone Number</string>
+
+    <string name="hintpickuptime">Your Pickup Time</string>
+
+    <string name="hintpickupdate">Your Pickup Date</string>
 </resources>
