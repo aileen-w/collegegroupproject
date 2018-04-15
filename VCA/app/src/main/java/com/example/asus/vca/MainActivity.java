@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     String provider;
     Activity parent = this;
     private byte voiceShieldId = OneSheeldSdk.getKnownShields().VOICE_RECOGNIZER_SHIELD.getId();
-    private byte voiceFunctionId = (byte) 0x01;
+    private static final byte SEND_RESULT = 0x01;
     private OneSheeldManager manager;
 
 
@@ -248,15 +248,16 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void onClickSendOnFrame(View v) {
+    public void onClickCaptureSpeech(View v) {
         Log.d("Voice", "Send Frame Request");
 
-        if (manager != null) {
-            ShieldFrame sf = new ShieldFrame(voiceShieldId);
-            sf.addArgument(true);
-            manager.broadcastShieldFrame(sf);
-            Log.d("Voice", "Frame Sent");
-        }
+//        if (manager != null) {
+//            ShieldFrame sf = new ShieldFrame(voiceShieldId, SEND_RESULT);
+//            String recognized = "Lights on";
+//            sf.addArgument(recognized.toLowerCase());
+//            Log.d("Voice", sf.toString());
+//            manager.broadcastShieldFrame(sf, true);
+//        }
     }
 
    public void startGeolocation() {

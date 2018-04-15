@@ -40,7 +40,7 @@
             android:layout_weight="1"
             android:background="@drawable/button_border"
             android:drawableStart="@drawable/microphone"
-            android:onClick="onClickSendOnFrame"
+            android:onClick="onClickCaptureSpeech"
             android:padding="10dp"
             android:text="@string/microphone" />
 
