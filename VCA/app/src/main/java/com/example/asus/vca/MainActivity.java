@@ -5,6 +5,7 @@ package com.example.asus.vca;
 
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
@@ -13,14 +14,20 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.content.Intent;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -36,6 +43,7 @@ import org.json.JSONObject;
 
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -46,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     public Button Home;
     public Button Services;
     public Button Miscellaneous;
+    public Button Calendar;
     private ArrayList<String> connectedDevicesNames;
     private ArrayList<String> scannedDevicesNames;
     private ArrayList<OneSheeldDevice> oneSheeldScannedDevices;
@@ -53,11 +62,20 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> connectedDevicesArrayAdapter;
     private ArrayAdapter<String> scannedDevicesArrayAdapter;
     private Handler uiThreadHandler = new Handler();
+
     String model = Build.MODEL;
     LocationManager locationManager;
     String provider;
     Activity parent = this;
 
+    String text;
+    String et;
+    TextToSpeech tts;
+
+    protected static final int RESULT_SPEECH = 1;
+
+    private ImageButton btnSpeak;
+    private TextView txtText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {                    //loads main activity
@@ -65,9 +83,77 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setupUI();                    //set up user interface
         setupOneSheeld();               //connect to onesheeld board
+
         appIsUp();
         startGeolocation();         //start geolocation tracking
+        textToSpeech();
 
+        txtText = (TextView) findViewById(R.id.txtText);
+
+        btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
+
+        btnSpeak.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(
+                        RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
+
+                try {
+                    startActivityForResult(intent, RESULT_SPEECH);
+                    txtText.setText("");
+                } catch (ActivityNotFoundException a) {
+                    Toast t = Toast.makeText(getApplicationContext(),
+                            "Opps! Your device doesn't support Speech to Text",
+                            Toast.LENGTH_SHORT);
+                    t.show();
+                }
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case RESULT_SPEECH: {
+                if (resultCode == RESULT_OK && null != data) {
+
+                    ArrayList<String> text = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+
+                    txtText.setText(text.get(0));
+                }
+                break;
+            }
+
+        }
     }
 
     private void setupOneSheeld() {
@@ -218,6 +304,22 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+        //find id of services button
+        Calendar = findViewById(R.id.buttonCalendar);
+        {
+            //set listener on services button
+            Calendar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //create services activity intent in context to main activity
+                    Intent intentLoadCalendarActivity = new Intent(MainActivity.this, CalendarActivity.class);
+                    //run services activity intent
+                    startActivity(intentLoadCalendarActivity);
+                }
+            });
+
+        }
+
     }
 
 
@@ -311,5 +413,65 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
+    /**
+     * TextToSpeeach
+     */
+    public void textToSpeech(){
+
+        TextToSpeech ttobj=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+            }
+        });
+        ttobj.speak("hello",TextToSpeech.QUEUE_FLUSH,null,null);
+
+        ttobj.setLanguage(Locale.UK);
+//        ttobj.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ttobj.speak("hello mr bond",TextToSpeech.QUEUE_FLUSH,null,null);
+        } else {
+            ttobj.speak("hello mr bond", TextToSpeech.QUEUE_FLUSH, null);
+        }
+
+        et="";
+//        et="Spotify, the world's top selling music streaming service, expects revenue to grow 20-30 percent this year as currency swings slow the pace from 2017. As David Pollard reports, the Swedish company released the figures as it gears up for a highly anticipated stock market listing next week. Video provided by Reuters Newslook";
+        tts=new TextToSpeech(MainActivity.this, new TextToSpeech.OnInitListener() {
+
+            @Override
+            public void onInit(int status) {
+                // TODO Auto-generated method stub
+                if(status == TextToSpeech.SUCCESS){
+                    int result=tts.setLanguage(Locale.US);
+                    if(result==TextToSpeech.LANG_MISSING_DATA ||
+                            result==TextToSpeech.LANG_NOT_SUPPORTED){
+                        Log.e("error", "This Language is not supported");
+                    }
+                    else{
+                        ConvertTextToSpeech();
+                    }
+                }
+                else
+                    Log.e("error", "Initilization Failed!");
+            }
+        });
+
+    }
+    private void ConvertTextToSpeech() {
+        // TODO Auto-generated method stub
+        text = et;
+        if(text==null||"".equals(text))
+        {
+            text = "Hello Mr Stark";
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+            Log.e("txt", text);
+
+        }else
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+        Log.e("txt", text);
+
+    }
+
 
 }

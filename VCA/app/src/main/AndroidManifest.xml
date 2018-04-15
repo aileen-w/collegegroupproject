@@ -29,6 +29,7 @@
         <activity android:name=".ServicesActivity" />
         <activity android:name=".MiscellaneousActivity" />
         <activity android:name=".GameActivity" />
+        <activity android:name=".CalendarActivity" />
     </application>
 
 </manifest>

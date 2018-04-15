@@ -10,6 +10,24 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
 
+    <!--<ImageButton-->
+        <!--android:id="@+id/btnSpeak"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:src="@android:drawable/ic_btn_speak_now"/>-->
+
+    <TextView
+        android:id="@+id/txtText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
 
     <LinearLayout
         android:paddingRight="16dp"
@@ -17,7 +35,7 @@
         android:orientation="horizontal"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="5dp"
         android:id="@+id/linearLayout0"
         >
 
@@ -27,7 +45,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="40dp"
         android:orientation="horizontal"
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
@@ -115,6 +133,57 @@
             android:text="@string/miscellaneous"
             android:layout_weight="1"
             />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_border"
+        android:orientation="horizontal"
+        android:paddingLeft="0dp"
+        android:paddingRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+
+        >
+
+        <Button
+            android:id="@+id/buttonCalendar"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:drawableStart="@drawable/calendar"
+            android:padding="10dp"
+            android:background="#00000000"
+            android:text="Calendar" />
+
+        <ImageButton
+            android:id="@+id/btnSpeak"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginLeft="-100dp"
+            android:padding="10dp"
+            android:src="@android:drawable/ic_btn_speak_now" />
+
+        <!--<Button-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_marginLeft="0dp"-->
+        <!--android:id="@+id/calendar"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:background="@drawable/button_border"-->
+        <!--android:padding="10dp"-->
+        <!--android:drawableStart="@drawable/calendar"-->
+        <!--android:text="@string/calendar"-->
+        <!--android:layout_weight="1"-->
+        <!--/>-->
 
     </LinearLayout>
 
