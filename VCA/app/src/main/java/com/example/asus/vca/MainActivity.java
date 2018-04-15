@@ -1,9 +1,5 @@
 package com.example.asus.vca;
 
-
-
-
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -30,6 +26,7 @@ import com.integreight.onesheeld.sdk.OneSheeldDevice;
 import com.integreight.onesheeld.sdk.OneSheeldManager;
 import com.integreight.onesheeld.sdk.OneSheeldScanningCallback;
 import com.integreight.onesheeld.sdk.OneSheeldSdk;
+import com.integreight.onesheeld.sdk.ShieldFrame;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
     LocationManager locationManager;
     String provider;
     Activity parent = this;
+    private byte voiceShieldId = OneSheeldSdk.getKnownShields().VOICE_RECOGNIZER_SHIELD.getId();
+    private byte voiceFunctionId = (byte) 0x01;
+    private OneSheeldManager manager;
 
 
     @Override
@@ -71,8 +71,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupOneSheeld() {
-
-
         connectedDevicesNames = new ArrayList<>();
         scannedDevicesNames = new ArrayList<>();
         oneSheeldScannedDevices = new ArrayList<>();
@@ -80,13 +78,12 @@ public class MainActivity extends AppCompatActivity {
         connectedDevicesArrayAdapter = new ArrayAdapter<>(this, 0);
         scannedDevicesArrayAdapter = new ArrayAdapter<>(this, 0);
 
-
         //Init the SDK with context
         OneSheeldSdk.init(this);
         //Optional, enable debugging messages.
         OneSheeldSdk.setDebugging(true);
         // Get the manager instance
-        OneSheeldManager manager = OneSheeldSdk.getManager();
+        manager = OneSheeldSdk.getManager();
         // Set the connection failing retry count to 1
         manager.setConnectionRetryCount(1);
         // Set the automatic connecting retries to true, this will use 3 different methods for connecting
@@ -105,14 +102,12 @@ public class MainActivity extends AppCompatActivity {
                             oneSheeldScannedDevices.add(device);
                             scannedDevicesNames.add(device.getName());
                             scannedDevicesArrayAdapter.notifyDataSetChanged();
-                            OneSheeldSdk.getManager().cancelScanning();
+                            manager.cancelScanning();
                             device.connect();
                         }
 
                     });
                 }
-
-
             };
 
 
@@ -133,8 +128,6 @@ public class MainActivity extends AppCompatActivity {
                             connectedDevicesArrayAdapter.notifyDataSetChanged();
                             scannedDevicesArrayAdapter.notifyDataSetChanged();
                         }
-
-
                     }
 
                 });
@@ -143,11 +136,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Add the connection and scanning callbacks
-        //manager.addConnectionCallback(connectionCallback);
-        //manager.addScanningCallback(scanningCallback);
+        manager.addConnectionCallback(connectionCallback);
+        manager.addScanningCallback(scanningCallback);
 
         // Initiate the Bluetooth scanning
-        //manager.scan();
+        manager.scan();
 
     }
 
@@ -252,6 +245,19 @@ public class MainActivity extends AppCompatActivity {
      * Code will trigger time loop which will send JSON message to server's api with coordinates of the device
      * Timeout method is calling external class responsible for making the call
      */
+
+
+
+    public void onClickSendOnFrame(View v) {
+        Log.d("Voice", "Send Frame Request");
+
+        if (manager != null) {
+            ShieldFrame sf = new ShieldFrame(voiceShieldId);
+            sf.addArgument(true);
+            manager.broadcastShieldFrame(sf);
+            Log.d("Voice", "Frame Sent");
+        }
+    }
 
    public void startGeolocation() {
 
