@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     public Button Home;
     public Button Services;
     public Button Miscellaneous;
+    public Button Mic;
     private ArrayList<String> connectedDevicesNames;
     private ArrayList<String> scannedDevicesNames;
     private ArrayList<OneSheeldDevice> oneSheeldScannedDevices;
@@ -206,6 +207,21 @@ public class MainActivity extends AppCompatActivity {
                     Intent intentLoadMiscActivity = new Intent(MainActivity.this, MiscellaneousActivity.class);
                     //run services activity intent
                     startActivity(intentLoadMiscActivity);
+                }
+            });
+
+        }
+
+        Mic = findViewById(R.id.buttonMic);
+        {
+            //set listener on mic button
+            Mic.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //create mic activity intent in context to main activity
+                    Intent intentLoadMicActivity = new Intent(MainActivity.this, MicActivity.class);
+                    //run services activity intent
+                    startActivity(intentLoadMicActivity);
                 }
             });
 
