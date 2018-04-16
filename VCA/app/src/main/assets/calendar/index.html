@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title of the document</title>
+
+  <link rel="stylesheet" href="bootstrap-4.1.0-dist/css/bootstrap.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+  <!-- <link rel="stylesheet" href="bootstrap-datepicker-mobile-master/bootstrap-datepicker3.min.css"> -->
+  <!-- <script src="bootstrap-datepicker-mobile-master/modernizr-custom.js"></script> -->
+  <link rel="stylesheet" href="pickadate.js-3.5.6/lib/themes/default.css">
+  <link rel="stylesheet" href="pickadate.js-3.5.6/lib/themes/default.date.css">
+  <link rel="stylesheet" href="pickadate.js-3.5.6/lib/themes/default.time.css">
+
+  <style>
+    .menuBtn {
+      padding: 10px;
+    }
+
+    .padding10 {
+      padding: 10px;
+    }
+
+    .cal-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .menu-icon {
+      font-size: .8em;
+      fill: #007bff;
+    }
+  </style>
+
+
+
+</head>
+
+<body>
+
+  <!-- #################################
+                Menu
+  ####################################### -->
+  <div class="container" id="cal-menu">
+
+    <div class="row align-items-start" style="font-family: Impact; background-color: #eee; padding-top: 10px;padding-bottom: 10px;font-weight: bolder;">
+      <div class="col-lg-2">
+        <!-- <button type="button" class="btn btn-outline-primary" id="btnAdd" style="padding: 10px 20px 10px 20px;"><</button> -->
+      </div>
+      <div class="col-lg-8 cal-lg-offset-2 text-center">
+        <h1><strong>Calendar</strong> <i class="far fa-calendar-alt"></i></h1>
+      </div>
+      <div class="col-lg-2">
+        <!-- One of three columns -->
+      </div>
+      <!-- <div class="col-lg-12 text-center"> -->
+      <!-- </div> -->
+    </div>
+
+    <div class="row align-items-center">
+      <div class=" col-lg-12 text-center menuBtn">
+        <button type="button" class="btn btn-outline-primary btn-lg btn-block" id="btnAdd">Add <i class="fas fa-plus"></i></button>
+      </div>
+      <div class=" col-lg-12 text-center menuBtn">
+        <button type="button" class="btn btn-outline-primary btn-lg btn-block">Edit <i class="far fa-edit"></i></button>
+      </div>
+      <div class=" col-lg-12 text-center menuBtn">
+        <button type="button" class="btn btn-outline-primary btn-lg btn-block">Delete <i class="far fa-trash-alt"></i></button>
+      </div>
+      <div class=" col-lg-12 text-center menuBtn">
+        <button type="button" class="btn btn-outline-primary btn-lg btn-block">View <i class="fas fa-eye"></i></button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- #################################
+                Add section
+  ####################################### -->
+  <div class="container" id="cal-add" style="display: none;">
+
+    <div class="row align-items-start text-center" style="font-family: Impact; background-color: #eee; padding-top: 10px;padding-bottom: 10px;font-weight: bolder;">
+      <div class="col-lg-12">
+
+        <button type="button" id="btnAddBack" class="btn btn-outline-primary" style="padding: 10px 20px 10px 20px; float:left;">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+
+        <h1><span style="margin-left: -1em;"><strong>Add</strong></span> <i class="fas fa-plus"></i></h1>
+
+      </div>
+    </div>
+
+    <div class="row align-items-center padding10">
+
+      <div class="input-group input-group-lg padding10">
+        <div class="input-group-prepend">
+          <span style="width: 7em;" class="input-group-text" id="basic-addon1">Title:</span>
+        </div>
+        <input type="text" class="form-control" placeholder="" aria-label="title" aria-describedby="basic-addon1">
+      </div>
+
+      <div class="input-group input-group-lg padding10">
+        <div class="input-group-prepend">
+          <span style="width: 7em;" class="input-group-text">Description:</span>
+        </div>
+        <textarea class="form-control" aria-label="description"></textarea>
+      </div>
+
+      <div class="input-group input-group-lg padding10">
+        <div class="input-group-prepend">
+          <span style="width: 7em;" class="input-group-text" id="basic-addon1">Date:</span>
+        </div>
+        <input class="datepicker"/>
+      </div>
+
+      <div class="input-group input-group-lg padding10">
+        <div class="input-group-prepend">
+          <span style="width: 7em;" class="input-group-text" id="basic-addon1">Hour (from):</span>
+        </div>
+        <input class="timepicker"/>
+      </div>
+
+      <div class="input-group input-group-lg padding10">
+        <div class="input-group-prepend">
+          <span style="width: 7em;" class="input-group-text" id="basic-addon1">Hour (to):</span>
+        </div>
+        <input class="timepicker"/>
+      </div>
+
+      <button type="button" class="btn btn-success btn-lg btn-block">Save <i class="far fa-save"></i></button>
+
+    </div>
+
+  </div>
+
+
+  <!-- <script src="bootstrap-datepicker-mobile-master/bootstrap-datepicker.min.js"></script> -->
+  <!-- <script src="bootstrap-datepicker-mobile-master/moment.js"></script> -->
+  <script src="pickadate.js-3.5.6/lib/picker.js"></script>
+  <script src="pickadate.js-3.5.6/lib/picker.date.js"></script>
+  <script src="pickadate.js-3.5.6/lib/picker.time.js"></script>
+  <script src="cal_logic.js"></script>
+
+
+</body>
+
+</html>
