@@ -2,6 +2,7 @@ package com.example.asus.vca;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -13,24 +14,19 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.content.Intent;
-import android.view.View;
 import android.widget.Toast;
-
-
 
 import com.integreight.onesheeld.sdk.OneSheeldConnectionCallback;
 import com.integreight.onesheeld.sdk.OneSheeldDevice;
 import com.integreight.onesheeld.sdk.OneSheeldManager;
 import com.integreight.onesheeld.sdk.OneSheeldScanningCallback;
 import com.integreight.onesheeld.sdk.OneSheeldSdk;
-import com.integreight.onesheeld.sdk.ShieldFrame;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -218,17 +214,12 @@ public class MainActivity extends AppCompatActivity {
             Mic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //create mic activity intent in context to main activity
                     Intent intentLoadMicActivity = new Intent(MainActivity.this, MicActivity.class);
-                    //run services activity intent
                     startActivity(intentLoadMicActivity);
                 }
             });
-
         }
-
     }
-
 
     /**
      * Helper method to send data to server.
@@ -240,9 +231,7 @@ public class MainActivity extends AppCompatActivity {
      */
 
    public void appIsUp() {
-
         try {
-
             JSONObject obj = new JSONObject();
             obj.put("svc" , "notification");
             obj.put("dev" , model);
@@ -262,31 +251,11 @@ public class MainActivity extends AppCompatActivity {
      * Timeout method is calling external class responsible for making the call
      */
 
-
-
-    public void onClickCaptureSpeech(View v) {
-        Log.d("Voice", "Send Frame Request");
-
-//        if (manager != null) {
-//            ShieldFrame sf = new ShieldFrame(voiceShieldId, SEND_RESULT);
-//            String recognized = "Lights on";
-//            sf.addArgument(recognized.toLowerCase());
-//            Log.d("Voice", sf.toString());
-//            manager.broadcastShieldFrame(sf, true);
-//        }
-    }
-
    public void startGeolocation() {
-
         try {
-
-
             if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
                 ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
-
             }
-
             // Getting LocationManager object
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 

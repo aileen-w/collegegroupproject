@@ -1,25 +1,23 @@
 package com.example.asus.vca;
 
-        import android.content.ActivityNotFoundException;
-        import android.content.Intent;
-        import android.speech.RecognizerIntent;
-        import android.support.v7.app.AppCompatActivity;
-        import android.os.Bundle;
-        import android.util.Log;
-        import android.view.View;
-        import android.widget.TextView;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.os.Bundle;
+import android.speech.RecognizerIntent;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.TextView;
 
-        import com.integreight.onesheeld.sdk.OneSheeldManager;
-        import com.integreight.onesheeld.sdk.OneSheeldSdk;
-        import com.integreight.onesheeld.sdk.ShieldFrame;
+import com.integreight.onesheeld.sdk.OneSheeldManager;
+import com.integreight.onesheeld.sdk.OneSheeldSdk;
+import com.integreight.onesheeld.sdk.ShieldFrame;
 
-        import java.util.ArrayList;
-        import java.util.Locale;
+import java.util.ArrayList;
+import java.util.Locale;
 
 public class MicActivity extends AppCompatActivity {
 
     private TextView voiceInput;
-    private TextView speakButton;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     private byte voiceShieldId = OneSheeldSdk.getKnownShields().VOICE_RECOGNIZER_SHIELD.getId();
     private static final byte SEND_RESULT = 0x01;
@@ -28,30 +26,24 @@ public class MicActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.voice_recognition_view);
-
         voiceInput = (TextView) findViewById(R.id.voiceInput);
         askSpeechInput();
-
     }
 
     // Showing google speech input dialog
-
     private void askSpeechInput() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
-                "Hi speak something");
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Please say your command");
         try {
             startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
         } catch (ActivityNotFoundException a) {
-
         }
     }
 
     // Receiving speech input
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -59,9 +51,7 @@ public class MicActivity extends AppCompatActivity {
         switch (requestCode) {
             case REQ_CODE_SPEECH_INPUT: {
                 if (resultCode == RESULT_OK && null != data) {
-
-                    ArrayList<String> result = data
-                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     voiceInput.setText(result.get(0));
 
                     OneSheeldManager manager = OneSheeldSdk.getManager();
@@ -75,7 +65,6 @@ public class MicActivity extends AppCompatActivity {
                 }
                 break;
             }
-
         }
     }
 }
