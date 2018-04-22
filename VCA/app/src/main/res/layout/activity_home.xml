@@ -19,108 +19,68 @@
         android:id="@+id/linearLayout"
         >
 
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:id="@+id/buttonLights"
-        android:layout_gravity="center"
-        android:background="@drawable/button_border"
-        android:padding="10dp"
-        android:drawableStart="@drawable/lights"
-        android:text="@string/lights"
-        android:layout_weight="1"
-        />
-
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/buttonMic"
-        android:layout_gravity="center"
-        android:background="@drawable/button_border"
-        android:padding="10dp"
-        android:drawableStart="@drawable/microphone"
-        android:text="@string/microphone"
-        android:layout_weight="1"
-        />
+        <Button
+            android:id="@+id/buttonLights"
+            android:layout_width="350dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/button_border"
+            android:drawableStart="@drawable/lights"
+            android:onClick="onClickChangeLights"
+            android:padding="10dp"
+            android:text="@string/lights" />
 
     </LinearLayout>
 
 
     <LinearLayout
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:paddingRight="16dp"
-        android:paddingLeft="16dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
         android:id="@+id/linearLayout2"
-        android:layout_below="@id/linearLayout"
-        >
-
-    <Button
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:id="@+id/buttonHeating"
-        android:layout_gravity="center"
-        android:background="@drawable/button_border"
-        android:padding="10dp"
-        android:drawableStart="@drawable/heating"
-        android:text="@string/heating"
-        android:layout_weight="1"
-        />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="191dp"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/buttonMic2"
-        android:layout_gravity="center"
-        android:background="@drawable/button_border"
-        android:padding="10dp"
-        android:drawableStart="@drawable/microphone"
-        android:text="@string/microphone"
-        android:layout_weight="1"
-        />
+        <Button
+            android:id="@+id/buttonHeating"
+            android:layout_width="350dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/button_border"
+            android:drawableStart="@drawable/heating"
+            android:onClick="onClickChangeHeating"
+            android:padding="10dp"
+            android:text="@string/heating" />
 
     </LinearLayout>
 
 
     <LinearLayout
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:paddingRight="16dp"
-        android:paddingLeft="16dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
         android:id="@+id/linearLayout3"
-        android:layout_below="@id/linearLayout2"
-        >
-
-    <Button
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:id="@+id/buttonCamera"
-        android:layout_gravity="center"
-        android:background="@drawable/button_border"
-        android:padding="10dp"
-        android:drawableStart="@drawable/camera"
-        android:text="@string/camera"
-        android:layout_weight="1"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="74dp"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/buttonMic3"
-        android:layout_gravity="center"
-        android:background="@drawable/button_border"
-        android:padding="10dp"
-        android:drawableStart="@drawable/microphone"
-        android:text="@string/microphone"
-        android:layout_weight="1"
-        />
+        <Button
+            android:id="@+id/buttonCamera"
+            android:layout_width="350dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/button_border"
+            android:drawableStart="@drawable/camera"
+            android:padding="10dp"
+            android:text="@string/camera" />
 
     </LinearLayout>
 

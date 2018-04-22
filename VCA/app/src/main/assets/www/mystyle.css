@@ -1,0 +1,117 @@
+.options {
+  display: none;
+}
+h1 {
+text-align: left;
+font-size: 70px;
+margin-top: 0;
+margin-bottom: 0;
+margin-left: 28%;
+font-family: Imprint MT Shadow;
+}
+
+#look{
+text-align: center;
+font-size: 40px;
+margin-bottom: 0;
+margin-top: 0;
+}
+
+#pairs{
+text-align: center;
+font-size: 30px;
+}
+
+.card {
+  display: inline-block;
+  margin: 5px;
+  padding: 10% 10%;
+  width: 100px;
+  height: 20px;
+  background-size: 50px;
+  background-repeat: no-repeat;
+
+}
+
+.options {
+  cursor: pointer;
+  font-size: 40px;
+  text-align: center;
+  margin: 0px;
+  margin-left: 80px;
+  padding-right: 100px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+}
+
+.king{
+  background-image: url("king.gif");
+  background-size: 60px;
+}
+
+.queen{
+  background-image: url("queen.png");
+  background-size: 60px;
+  }
+
+.princess{
+  background-image: url("princess.png");
+  background-size: 55px;
+}
+
+.princess2{
+  background-image: url("princess2.png");
+  background-size: 55px;
+}
+
+.prince{
+  background-image: url("prince.png");
+    background-size: 60px;
+}
+
+.prince2{
+  background-image: url("prince2.png");
+    background-size: 60px;
+}
+
+.jester{
+  background-image: url("jester.gif");
+    background-size: 60px;
+}
+
+.jester2{
+  background-image: url("jester2.png");
+    background-size: 60px;
+}
+
+.castle{
+  background-image: url("castle.png");
+    background-size: 60px;
+    'margin-left: 50px;
+}
+
+.castle2{
+  background-image: url("castle2.png");
+    background-size: 60px;
+    'margin-left: 50px;
+}
+
+.dragon{
+  background-image: url("dragon.png");
+    background-size: 60px;
+    'margin-left: 50px;
+
+
+}
+
+.dragon2{
+  background-image: url("dragon2.png");
+   background-size: 60px;
+   'margin-left: 50px;
+}
+
+.knight{
+  background-image: url("knight.png");
+    background-size: 60px;
+    'margin-left: 50px;
+}

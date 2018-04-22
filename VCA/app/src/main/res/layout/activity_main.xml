@@ -21,79 +21,62 @@
         android:id="@+id/linearLayout0"
         >
 
-        <Button
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:id="@+id/buttonBluetooth"
-            android:layout_gravity="center"
-            android:background="@drawable/button_border"
-            android:padding="10dp"
-            android:drawableStart="@drawable/bluetooth"
-            android:text="@string/bluetooth"
-            android:layout_weight="1"
-            />
-
     </LinearLayout>
 
     <LinearLayout
-        android:paddingRight="16dp"
-        android:paddingLeft="16dp"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_marginTop="200dp"
         android:id="@+id/linearLayout"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
         <Button
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
             android:id="@+id/buttonMic"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/button_border"
-            android:padding="10dp"
-            android:drawableStart="@drawable/microphone"
-            android:text="@string/microphone"
             android:layout_weight="1"
-            />
+            android:background="@drawable/button_border"
+            android:drawableStart="@drawable/microphone"
+            android:padding="10dp"
+            android:text="@string/microphone" />
 
     </LinearLayout>
 
 
     <LinearLayout
-        android:paddingRight="16dp"
-        android:paddingLeft="16dp"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
         android:id="@+id/linearLayout2"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
         <Button
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
             android:id="@+id/buttonSpeaker"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/button_border"
-            android:padding="10dp"
-            android:drawableStart="@drawable/speaker"
-            android:text="@string/audiofeatures"
             android:layout_weight="1"
-            />
+            android:background="@drawable/button_border"
+            android:drawableStart="@drawable/speaker"
+            android:padding="10dp"
+            android:text="@string/audiofeatures" />
 
         <Button
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_marginLeft="10dp"
             android:id="@+id/buttonHome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/button_border"
-            android:padding="10dp"
-            android:drawableStart="@drawable/house"
-            android:text="@string/homefeatures"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            />
+            android:background="@drawable/button_border"
+            android:drawableStart="@drawable/house"
+            android:padding="10dp"
+            android:text="@string/homefeatures" />
 
     </LinearLayout>
 
