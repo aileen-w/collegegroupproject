@@ -14,6 +14,7 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.support.v4.app.ActivityCompat;
@@ -42,6 +43,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Timer;
@@ -64,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
     private Handler uiThreadHandler = new Handler();
 
     String model = Build.MODEL;
+    String device = Build.MODEL;
     LocationManager locationManager;
     String provider;
     Activity parent = this;
@@ -82,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupUI();                    //set up user interface
-        setupOneSheeld();               //connect to onesheeld board
+//        setupOneSheeld();               //connect to onesheeld board
 
         appIsUp();
         startGeolocation();         //start geolocation tracking
@@ -304,7 +315,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        //find id of services button
+        //find id of calendar button
         Calendar = findViewById(R.id.buttonCalendar);
         {
             //set listener on services button
@@ -336,9 +347,16 @@ public class MainActivity extends AppCompatActivity {
 
         try {
 
+            String manufacturer = Build.MANUFACTURER;
+            device = Build.MODEL;
+            device = (manufacturer) + "-" + device;
+            device = device.toUpperCase();
+            String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+            device = device + "-"+android_id;
+
             JSONObject obj = new JSONObject();
             obj.put("svc" , "notification");
-            obj.put("dev" , model);
+            obj.put("dev" , device);
             obj.put("msg" , "Android app is up and running");
             new PostData().execute(obj.toString());
 
@@ -420,23 +438,6 @@ public class MainActivity extends AppCompatActivity {
      */
     public void textToSpeech(){
 
-        TextToSpeech ttobj=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-            }
-        });
-        ttobj.speak("hello",TextToSpeech.QUEUE_FLUSH,null,null);
-
-        ttobj.setLanguage(Locale.UK);
-//        ttobj.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ttobj.speak("hello mr bond",TextToSpeech.QUEUE_FLUSH,null,null);
-        } else {
-            ttobj.speak("hello mr bond", TextToSpeech.QUEUE_FLUSH, null);
-        }
-
-        et="";
-//        et="Spotify, the world's top selling music streaming service, expects revenue to grow 20-30 percent this year as currency swings slow the pace from 2017. As David Pollard reports, the Swedish company released the figures as it gears up for a highly anticipated stock market listing next week. Video provided by Reuters Newslook";
         tts=new TextToSpeech(MainActivity.this, new TextToSpeech.OnInitListener() {
 
             @Override
@@ -463,7 +464,7 @@ public class MainActivity extends AppCompatActivity {
         text = et;
         if(text==null||"".equals(text))
         {
-            text = "Hello Mr Stark";
+            text = "Hi, it's good to see you!";
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
             Log.e("txt", text);
 
@@ -472,6 +473,5 @@ public class MainActivity extends AppCompatActivity {
         Log.e("txt", text);
 
     }
-
 
 }
