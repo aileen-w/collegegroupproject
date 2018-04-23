@@ -3,11 +3,11 @@
  * @return {[type]} [description]
  */
 
-var apiUrl = "http://localdev:15000/api.php"; // development
-// var apiUrl = "http://cit-project.hopto.org:15000/api.php"; // production
+//var apiUrl = "http://localdev:15000/api.php"; // development
+ var apiUrl = "http://cit-project.hopto.org:15000/api.php"; // production
 
-var local_user = "device01"; //development
-// var local_user = null; //production
+//var local_user = "device01"; //development
+ var local_user = null; //production
 
 var local_id = null;
 var date_prev = null;
@@ -19,7 +19,7 @@ var date_display = null;
   **********************************************/
 $('.datepicker').pickadate(
   {
-    format: 'yyyy-m-dd',
+    format: 'yyyy-m-d',
     formatSubmit: 'yyyy-m-d'
   }
 );
@@ -87,16 +87,18 @@ $("#btnAddaction").click(function() {
     $.ajax({
         url: apiUrl,
         data: JSON.stringify(dd),
+        headers: {  'Access-Control-Allow-Origin': '*' },
         error: function(e, jqXHR, textStatus) {
             // console.log('error: ', e);
             // console.log('jqXHR: ', jqXHR);
             // console.log('textStatus: ', textStatus);
             $('#add_error').show();
         },
-        dataType: 'json',
+        dataType: 'jsonp',
+        crossDomain: true,
         success: function(data) {
 
-            if(data["status"] == "Ok" && data["msg"] == "200")
+            if(data["status"] == "Ok")
             {
                 resetFields();
                 $('#add_error').hide();
@@ -110,6 +112,9 @@ $("#btnAddaction").click(function() {
                 setTimeout(function(){
                     $('#add_success').hide();
                 }, 3000);
+            }
+            else if (data["status"] == "Error") {
+              $('#add_error').show();
             }
         },
         type: 'POST'
@@ -154,18 +159,21 @@ $("#btnEditSubmitDate").click(function() {
   $.ajax({
       url: apiUrl,
       data: JSON.stringify(dd),
+      headers: {  'Access-Control-Allow-Origin': '*' },
       error: function(e, jqXHR, textStatus) {
           $('.edit_error').show();
       },
-      dataType: 'json',
+      dataType: 'jsonp',crossDomain: true,
       success: function(data) {
+        var data = JSON.parse(JSON.stringify(data));
 
           if(data["status"] == "Ok")
           {
             $('.edit_error').hide();
             $('.edit_success').hide();
             $('.edit_warning').hide();
-
+            data['msg'] = JSON.parse(JSON.stringify(data['msg']));
+            data['msg'] = (JSON.parse(data['msg']));
             var content = "";
             if(data["msg"].length>0)
             {
@@ -192,6 +200,10 @@ $("#btnEditSubmitDate").click(function() {
                 }
                 $("#edit-view-list").html(content);
             }
+
+          }
+          else if (data["status"] == "Error") {
+            $('.edit_error').show();
           }
       },
       type: 'POST'
@@ -228,18 +240,21 @@ $('#edit-view-list').on('click', '.btnEditEntry', function() {
   $.ajax({
       url: apiUrl,
       data: JSON.stringify(dd),
+      headers: {  'Access-Control-Allow-Origin': '*' },
       error: function(e, jqXHR, textStatus) {
           $('.edit_error').show();
       },
-      dataType: 'json',
+      dataType: 'jsonp',crossDomain: true,
       success: function(data) {
+        var data = JSON.parse(JSON.stringify(data));
 
           if(data["status"] == "Ok")
           {
             $('.edit_error').hide();
             $('.edit_success').hide();
             $('.edit_warning').hide();
-
+            data['msg'] = JSON.parse(JSON.stringify(data['msg']));
+            data['msg'] = (JSON.parse(data['msg']));
             var content = "";
             if(data["msg"].length>0)
             {
@@ -249,6 +264,9 @@ $('#edit-view-list').on('click', '.btnEditEntry', function() {
               $("#edit_from").val(data["msg"][0]["time_from"]);
               $("#edit_to").val(data["msg"][0]["time_to"]);
             }
+          }
+          else if (data["status"] == "Error") {
+            $('.edit_error').show();
           }
       },
       type: 'POST'
@@ -296,18 +314,21 @@ $("#btnEditBack3").click(function() {
     $.ajax({
         url: apiUrl,
         data: JSON.stringify(dd),
+        headers: {  'Access-Control-Allow-Origin': '*' },
         error: function(e, jqXHR, textStatus) {
             $('.edit_error').show();
         },
-        dataType: 'json',
+        dataType: 'jsonp',crossDomain: true,
         success: function(data) {
+          var data = JSON.parse(JSON.stringify(data));
 
             if(data["status"] == "Ok")
             {
               $('.edit_error').hide();
               $('.edit_success').hide();
               $('.edit_warning').hide();
-
+              data['msg'] = JSON.parse(JSON.stringify(data['msg']));
+              data['msg'] = (JSON.parse(data['msg']));
               var content = "";
               if(data["msg"].length>0)
               {
@@ -334,6 +355,10 @@ $("#btnEditBack3").click(function() {
                   }
                   $("#edit-view-list").html(content);
               }
+
+            }
+            else if (data["status"] == "Error") {
+              $('.edit_error').show();
             }
         },
         type: 'POST'
@@ -383,13 +408,14 @@ $("#btnEditAction").click(function() {
     $.ajax({
         url: apiUrl,
         data: JSON.stringify(dd),
+        headers: {  'Access-Control-Allow-Origin': '*' },
         error: function(e, jqXHR, textStatus) {
             // console.log('error: ', e);
             // console.log('jqXHR: ', jqXHR);
             // console.log('textStatus: ', textStatus);
             $('.edit_error').show();
         },
-        dataType: 'json',
+        dataType: 'jsonp',crossDomain: true,
         success: function(data) {
 
             if(data["status"] == "Ok")
@@ -401,6 +427,9 @@ $("#btnEditAction").click(function() {
                 setTimeout(function(){
                     $('.edit_success').hide();
                 }, 3000);
+            }
+            else if (data["status"] == "Error") {
+              $('.edit_error').show();
             }
         },
         type: 'POST'
@@ -471,18 +500,21 @@ $("#btnDeleteSubmitDate").click(function() {
   $.ajax({
       url: apiUrl,
       data: JSON.stringify(dd),
+      headers: {  'Access-Control-Allow-Origin': '*' },
       error: function(e, jqXHR, textStatus) {
           $('.delete_error').show();
       },
-      dataType: 'json',
+      dataType: 'jsonp',crossDomain: true,
       success: function(data) {
+        var data = JSON.parse(JSON.stringify(data));
 
           if(data["status"] == "Ok")
           {
             $('.delete_error').hide();
             $('.delete_success').hide();
             $('.delete_warning').hide();
-
+            data['msg'] = JSON.parse(JSON.stringify(data['msg']));
+            data['msg'] = (JSON.parse(data['msg']));
             var content = "";
             if(data["msg"].length>0)
             {
@@ -509,6 +541,9 @@ $("#btnDeleteSubmitDate").click(function() {
                 }
                 $("#delete-view-list").html(content);
             }
+          }
+          else if (data["status"] == "Error") {
+            $('.delete_error').show();
           }
       },
       type: 'POST'
@@ -545,11 +580,13 @@ $('#delete-view-list').on('click', '.btnDeleteEntry', function() {
   $.ajax({
       url: apiUrl,
       data: JSON.stringify(dd),
+      headers: {  'Access-Control-Allow-Origin': '*' },
       error: function(e, jqXHR, textStatus) {
           $('.delete_error').show();
       },
-      dataType: 'json',
+      dataType: 'jsonp',crossDomain: true,
       success: function(data) {
+        // var data = JSON.parse(JSON.stringify(data));
 
           if(data["status"] == "Ok")
           {
@@ -574,17 +611,21 @@ $('#delete-view-list').on('click', '.btnDeleteEntry', function() {
               $.ajax({
                   url: apiUrl,
                   data: JSON.stringify(dd),
+                  headers: {  'Access-Control-Allow-Origin': '*' },
                   error: function(e, jqXHR, textStatus) {
                       $('.delete_error').show();
                   },
-                  dataType: 'json',
+                  dataType: 'jsonp',crossDomain: true,
                   success: function(data) {
+                    var data = JSON.parse(JSON.stringify(data));
 
                       if(data["status"] == "Ok")
                       {
                         $('.delete_error').hide();
                         $('.delete_success').hide();
                         $('.delete_warning').hide();
+                        data['msg'] = JSON.parse(JSON.stringify(data['msg']));
+                        data['msg'] = (JSON.parse(data['msg']));
 
                         var content = "";
                         if(data["msg"].length>0)
@@ -612,11 +653,20 @@ $('#delete-view-list').on('click', '.btnDeleteEntry', function() {
                             }
                             $("#delete-view-list").html(content);
                         }
+                        else {
+                          $("#delete-view-list").html("No records");
+                        }
+                      }
+                      else if (data["status"] == "Error") {
+                        $('.delete_error').show();
                       }
                   },
                   type: 'POST'
               });
             }
+          }
+          else if (data["status"] == "Error") {
+            $('.delete_error').show();
           }
       },
       type: 'POST'
@@ -663,17 +713,21 @@ $("#btnDeleteBack3").click(function() {
     $.ajax({
         url: apiUrl,
         data: JSON.stringify(dd),
+        headers: {  'Access-Control-Allow-Origin': '*' },
         error: function(e, jqXHR, textStatus) {
             $('.delete_error').show();
         },
-        dataType: 'json',
+        dataType: 'jsonp',crossDomain: true,
         success: function(data) {
+          var data = JSON.parse(JSON.stringify(data));
 
             if(data["status"] == "Ok")
             {
               $('.delete_error').hide();
               $('.delete_success').hide();
               $('.delete_warning').hide();
+              data['msg'] = JSON.parse(JSON.stringify(data['msg']));
+              data['msg'] = (JSON.parse(data['msg']));
 
               var content = "";
               if(data["msg"].length>0)
@@ -701,6 +755,12 @@ $("#btnDeleteBack3").click(function() {
                   }
                   $("#delete-view-list").html(content);
               }
+              else if (data["status"] == "Error") {
+                $('.delete_error').show();
+              }
+            }
+            else if (data["status"] == "Error") {
+              $('.delete_error').show();
             }
         },
         type: 'POST'
@@ -748,13 +808,14 @@ $("#btnDeleteAction").click(function() {
     $.ajax({
         url: apiUrl,
         data: JSON.stringify(dd),
+        headers: {  'Access-Control-Allow-Origin': '*' },
         error: function(e, jqXHR, textStatus) {
             // console.log('error: ', e);
             // console.log('jqXHR: ', jqXHR);
             // console.log('textStatus: ', textStatus);
             $('.delete_error').show();
         },
-        dataType: 'json',
+        dataType: 'jsonp',crossDomain: true,
         success: function(data) {
 
             if(data["status"] == "Ok")
@@ -766,6 +827,9 @@ $("#btnDeleteAction").click(function() {
                 setTimeout(function(){
                     $('.delete_success').hide();
                 }, 3000);
+            }
+            else if (data["status"] == "Error") {
+              $('.delete_error').show();
             }
         },
         type: 'POST'
@@ -837,17 +901,21 @@ $("#btnViewSubmitDate").click(function() {
   $.ajax({
       url: apiUrl,
       data: JSON.stringify(dd),
+      headers: {  'Access-Control-Allow-Origin': '*' },
       error: function(e, jqXHR, textStatus) {
           $('.view_error').show();
       },
-      dataType: 'json',
+      dataType: 'jsonp',crossDomain: true,
       success: function(data) {
-
+          var data = JSON.parse(JSON.stringify(data));
           if(data["status"] == "Ok")
           {
             $('.view_error').hide();
             $('.view_success').hide();
             $('.view_warning').hide();
+
+            data['msg'] = JSON.parse(JSON.stringify(data['msg']));
+            data['msg'] = (JSON.parse(data['msg']));
 
             var content = "";
             if(data["msg"].length>0)
@@ -875,6 +943,9 @@ $("#btnViewSubmitDate").click(function() {
                 }
                 $("#view-view-list").html(content);
             }
+          }
+          else if (data["status"] == "Error") {
+            $('.view_error').show();
           }
       },
       type: 'POST'
@@ -911,10 +982,11 @@ $('#view-view-list').on('click', '.btnViewEntry', function() {
   $.ajax({
       url: apiUrl,
       data: JSON.stringify(dd),
+      headers: {  'Access-Control-Allow-Origin': '*' },
       error: function(e, jqXHR, textStatus) {
           $('.view_error').show();
       },
-      dataType: 'json',
+      dataType: 'jsonp',crossDomain: true,
       success: function(data) {
 
           if(data["status"] == "Ok")
@@ -940,18 +1012,21 @@ $('#view-view-list').on('click', '.btnViewEntry', function() {
               $.ajax({
                   url: apiUrl,
                   data: JSON.stringify(dd),
+                  headers: {  'Access-Control-Allow-Origin': '*' },
                   error: function(e, jqXHR, textStatus) {
                       $('.view_error').show();
                   },
-                  dataType: 'json',
+                  dataType: 'jsonp',crossDomain: true,
                   success: function(data) {
+                    var data = JSON.parse(JSON.stringify(data));
 
                       if(data["status"] == "Ok")
                       {
                         $('.view_error').hide();
                         $('.view_success').hide();
                         $('.view_warning').hide();
-
+                        data['msg'] = JSON.parse(JSON.stringify(data['msg']));
+                        data['msg'] = (JSON.parse(data['msg']));
                         var content = "";
                         if(data["msg"].length>0)
                         {
@@ -979,10 +1054,16 @@ $('#view-view-list').on('click', '.btnViewEntry', function() {
                             $("#view-view-list").html(content);
                         }
                       }
+                      else if (data["status"] == "Error") {
+                        $('.view_error').show();
+                      }
                   },
                   type: 'POST'
               });
             }
+          }
+          else if (data["status"] == "Error") {
+            $('.view_error').show();
           }
       },
       type: 'POST'
@@ -1029,18 +1110,21 @@ $("#btnViewBack3").click(function() {
     $.ajax({
         url: apiUrl,
         data: JSON.stringify(dd),
+        headers: {  'Access-Control-Allow-Origin': '*' },
         error: function(e, jqXHR, textStatus) {
             $('.view_error').show();
         },
-        dataType: 'json',
+        dataType: 'jsonp',crossDomain: true,
         success: function(data) {
+          var data = JSON.parse(JSON.stringify(data));
 
             if(data["status"] == "Ok")
             {
               $('.view_error').hide();
               $('.view_success').hide();
               $('.view_warning').hide();
-
+              data['msg'] = JSON.parse(JSON.stringify(data['msg']));
+              data['msg'] = (JSON.parse(data['msg']));
               var content = "";
               if(data["msg"].length>0)
               {
@@ -1067,6 +1151,9 @@ $("#btnViewBack3").click(function() {
                   }
                   $("#view-view-list").html(content);
               }
+            }
+            else if (data["status"] == "Error") {
+              $('.view_error').show();
             }
         },
         type: 'POST'
@@ -1110,18 +1197,21 @@ $("#view-view-prev").click(function() {
     $.ajax({
         url: apiUrl,
         data: JSON.stringify(dd),
+        headers: {  'Access-Control-Allow-Origin': '*' },
         error: function(e, jqXHR, textStatus) {
             $('.view_error').show();
         },
-        dataType: 'json',
+        dataType: 'jsonp',crossDomain: true,
         success: function(data) {
+          var data = JSON.parse(JSON.stringify(data));
 
             if(data["status"] == "Ok")
             {
               $('.view_error').hide();
               $('.view_success').hide();
               $('.view_warning').hide();
-
+              data['msg'] = JSON.parse(JSON.stringify(data['msg']));
+              data['msg'] = (JSON.parse(data['msg']));
               var content = "";
               if(data["msg"].length>0)
               {
@@ -1153,6 +1243,9 @@ $("#view-view-prev").click(function() {
               }
             }else{
               $("#view-view-list").html("No records");
+              if (data["status"] == "Error") {
+                $('.view_error').show();
+              }
             }
         },
         type: 'POST'
@@ -1196,18 +1289,21 @@ $("#view-view-next").click(function() {
     $.ajax({
         url: apiUrl,
         data: JSON.stringify(dd),
+        headers: {  'Access-Control-Allow-Origin': '*' },
         error: function(e, jqXHR, textStatus) {
             $('.view_error').show();
         },
-        dataType: 'json',
+        dataType: 'jsonp',crossDomain: true,
         success: function(data) {
+          var data = JSON.parse(JSON.stringify(data));
 
             if(data["status"] == "Ok")
             {
               $('.view_error').hide();
               $('.view_success').hide();
               $('.view_warning').hide();
-
+              data['msg'] = JSON.parse(JSON.stringify(data['msg']));
+              data['msg'] = (JSON.parse(data['msg']));
               var content = "";
               if(data["msg"].length>0)
               {
@@ -1238,6 +1334,9 @@ $("#view-view-next").click(function() {
               }
             }else{
               $("#view-view-list").html("No records");
+              if (data["status"] == "Error") {
+                $('.view_error').show();
+              }
             }
         },
         type: 'POST'
@@ -1284,13 +1383,14 @@ $("#btnViewAction").click(function() {
     $.ajax({
         url: apiUrl,
         data: JSON.stringify(dd),
+        headers: {  'Access-Control-Allow-Origin': '*' },
         error: function(e, jqXHR, textStatus) {
             // console.log('error: ', e);
             // console.log('jqXHR: ', jqXHR);
             // console.log('textStatus: ', textStatus);
             $('.view_error').show();
         },
-        dataType: 'json',
+        dataType: 'jsonp',crossDomain: true,
         success: function(data) {
 
             if(data["status"] == "Ok")
@@ -1303,6 +1403,9 @@ $("#btnViewAction").click(function() {
                     $('.view_success').hide();
                 }, 3000);
             }
+            else if (data["status"] == "Error") {
+              $('.view_error').show();
+            }
         },
         type: 'POST'
     });
@@ -1314,7 +1417,6 @@ $("#btnViewAction").click(function() {
  **********************************************/
 function setUser(user_id){
   local_user = user_id;
-  $("#btnNew").html(local_user);
 }
 
 /***********************************************
@@ -1354,6 +1456,7 @@ function logAction(action){
 
       $.ajax({
           url: apiUrl,
+          headers: {  'Access-Control-Allow-Origin': '*' },
           data: JSON.stringify(dd),
           error: function(e, jqXHR, textStatus) {
               // console.log('error: ', e);
@@ -1361,7 +1464,7 @@ function logAction(action){
               // console.log('textStatus: ', textStatus);
               // $('.edit_error').show();
           },
-          dataType: 'json',
+          dataType: 'jsonp',crossDomain: true,
           success: function(data) {
 
 

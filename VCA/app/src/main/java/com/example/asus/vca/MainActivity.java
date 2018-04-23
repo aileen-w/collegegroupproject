@@ -358,7 +358,10 @@ public class MainActivity extends AppCompatActivity {
             obj.put("svc" , "notification");
             obj.put("dev" , device);
             obj.put("msg" , "Android app is up and running");
-            new PostData().execute(obj.toString());
+            PostData postData = new PostData();
+            postData.execute(obj.toString());
+//            postData.onPostExecute(obj.toString());
+//            Log.e("ResponseMainActivity", "" + postData.server_response);
 
         } catch (JSONException e) {
             e.printStackTrace();
