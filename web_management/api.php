@@ -300,6 +300,10 @@ include_once ("config/functions.php");
                                 "id" => $id
                             );
                             $result = insertDB($pdo, $sql, $params);
+                            if($result){
+                                echo $_GET['callback'] . '(' . "{'status' : 'Ok', 'msg':'$result'}" . ')';
+                                die();
+                            }
                         }
                         if($action === 'update'){
 
@@ -406,21 +410,29 @@ include_once ("config/functions.php");
                             $result = selectDB($pdo, $sql, $params);
                         }
 
-                        if($result){
-                            $result = array("status" => "Ok", "msg" => $result);
-                        }
+//                        if($result){
+//                            $result = array("status" => "Ok", "msg" => $result);
+//                            var_dump($result);die();
+                            $result = json_encode($result);
+                            echo $_GET['callback'] . '(' . "{'status' : 'Ok', 'msg':'$result'}" . ')';
+                            die();
+//                        }
                     }
                     break;
                 // default action taken when non of the above services will be requested
                 default:
                     errorLog($pdo, "API:Unknown service requested.");
-                    $result = array("status" => "Error", "msg" => "Unknown service requested.");
+//                    $result = array("status" => "Error", "msg" => "Unknown service requested.");
+                    echo $_GET['callback'] . '(' . "{'status' : 'Error', 'msg':'Unknown service requested.'}" . ')';
+                    die();
             }
         }
         else
         {
             errorLog($pdo, "API:Values like: svc, msg, dev cannot be empty.");
-            $result = array("status" => "Error", "msg" => "Values like: svc, msg, dev cannot be empty.");
+//            $result = array("status" => "Error", "msg" => "Values like: svc, msg, dev cannot be empty.");
+            echo $_GET['callback'] . '(' . "{'status' : 'Error', 'msg':'Values like: svc, msg, dev cannot be empty.'}" . ')';
+            die();
         }
 
     }
