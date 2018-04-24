@@ -1,12 +1,9 @@
 package com.example.asus.vca;
 
-
-
-
-
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -29,9 +26,10 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Toast;
-
-
 
 import com.integreight.onesheeld.sdk.OneSheeldConnectionCallback;
 import com.integreight.onesheeld.sdk.OneSheeldDevice;
@@ -64,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     public Button Home;
     public Button Services;
     public Button Miscellaneous;
+    public Button Mic;
     private ArrayList<String> connectedDevicesNames;
     private ArrayList<String> scannedDevicesNames;
     private ArrayList<OneSheeldDevice> oneSheeldScannedDevices;
@@ -77,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
     LocationManager locationManager;
     String provider;
     Activity parent = this;
+    private byte voiceShieldId = OneSheeldSdk.getKnownShields().VOICE_RECOGNIZER_SHIELD.getId();
+    private static final byte SEND_RESULT = 0x01;
+    private OneSheeldManager manager;
 
     String text;
     String et;
@@ -125,8 +127,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setupOneSheeld() {
-
-
         connectedDevicesNames = new ArrayList<>();
         scannedDevicesNames = new ArrayList<>();
         oneSheeldScannedDevices = new ArrayList<>();
@@ -134,13 +134,12 @@ public class MainActivity extends AppCompatActivity {
         connectedDevicesArrayAdapter = new ArrayAdapter<>(this, 0);
         scannedDevicesArrayAdapter = new ArrayAdapter<>(this, 0);
 
-
         //Init the SDK with context
         OneSheeldSdk.init(this);
         //Optional, enable debugging messages.
         OneSheeldSdk.setDebugging(true);
         // Get the manager instance
-        OneSheeldManager manager = OneSheeldSdk.getManager();
+        manager = OneSheeldSdk.getManager();
         // Set the connection failing retry count to 1
         manager.setConnectionRetryCount(1);
         // Set the automatic connecting retries to true, this will use 3 different methods for connecting
@@ -159,14 +158,12 @@ public class MainActivity extends AppCompatActivity {
                             oneSheeldScannedDevices.add(device);
                             scannedDevicesNames.add(device.getName());
                             scannedDevicesArrayAdapter.notifyDataSetChanged();
-                            OneSheeldSdk.getManager().cancelScanning();
+                            manager.cancelScanning();
                             device.connect();
                         }
 
                     });
                 }
-
-
             };
 
 
@@ -187,8 +184,6 @@ public class MainActivity extends AppCompatActivity {
                             connectedDevicesArrayAdapter.notifyDataSetChanged();
                             scannedDevicesArrayAdapter.notifyDataSetChanged();
                         }
-
-
                     }
 
                 });
@@ -197,11 +192,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Add the connection and scanning callbacks
-        //manager.addConnectionCallback(connectionCallback);
-        //manager.addScanningCallback(scanningCallback);
+        manager.addConnectionCallback(connectionCallback);
+        manager.addScanningCallback(scanningCallback);
 
         // Initiate the Bluetooth scanning
-        //manager.scan();
+        manager.scan();
 
     }
 
@@ -274,8 +269,18 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        Mic = findViewById(R.id.buttonMic);
+        {
+            //set listener on mic button
+            Mic.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intentLoadMicActivity = new Intent(MainActivity.this, MicActivity.class);
+                    startActivity(intentLoadMicActivity);
+                }
+            });
+        }
     }
-
 
     /**
      * Helper method to send data to server.
@@ -287,7 +292,6 @@ public class MainActivity extends AppCompatActivity {
      */
 
    public void appIsUp() {
-
         try {
 
             String manufacturer = Build.MANUFACTURER;
@@ -320,16 +324,10 @@ public class MainActivity extends AppCompatActivity {
      */
 
    public void startGeolocation() {
-
         try {
-
-
             if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
                 ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
-
             }
-
             // Getting LocationManager object
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 

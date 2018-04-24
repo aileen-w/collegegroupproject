@@ -31,6 +31,7 @@
         <activity android:name=".MiscellaneousActivity" />
         <activity android:name=".GameActivity" />
         <activity android:name=".CalendarActivity" />
+        <activity android:name=".MicActivity" />
     </application>
 
 </manifest>

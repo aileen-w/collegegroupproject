@@ -1,68 +1,133 @@
-/*
-
-Voice Recognition Shield Example
-
-This example shows an application on 1Sheeld's voice recognition shield.
-
-By using this example, you can play, pause and stop your smartphone's 
-music using voice commands.
-
-OPTIONAL:
-To reduce the library compiled size and limit its memory usage, you
-can specify which shields you want to include in your sketch by
-defining CUSTOM_SETTINGS and the shields respective INCLUDE_ define. 
-
-*/
-
 #define CUSTOM_SETTINGS
 #define INCLUDE_VOICE_RECOGNIZER_SHIELD
 #define INCLUDE_MUSIC_PLAYER_SHIELD
 #define INCLUDE_TERMINAL_SHIELD
 #define INCLUDE_CLOCK_SHIELD
+#define INCLUDE_TEXT_TO_SPEECH_SHIELD
 
 /* Include 1Sheeld library. */
 #include <OneSheeld.h>
+
+/* create an initial value for the millis counter. */
+unsigned long previousMillis = 0;
+/* create an intial boolean for app running */
+bool running = 0;
+
+/* define the variables that will hold the hours and minutes. */
+int hour, minute;
+String strhr, strmin;
 
 /* Voice commands set by the user. */
 const char on[] = "on";
 const char off[] = "off";
 const char lights[] = "lights";
-int ledPin = 13;
+const char heating[] = "heating";
+int lightLedPin = 13;
+int heatingLedPin = 12;
+const char mainCommand[] = "alexa";
+const char playCommand[] = "play music";
+const char timeCommand[] = "what time is it";
 
 void setup()
 {
-  /* Start Communication. */
-  OneSheeld.begin();
-  /* Error Commands handiling. */
-  VoiceRecognition.setOnError(error);
+  OneSheeld.begin(); /* Start Communication. */
+  VoiceRecognition.setOnError(error); /* Error Commands handiling. */
   
   VoiceRecognition.start();
-  pinMode(ledPin,OUTPUT);
+  pinMode(lightLedPin,OUTPUT);
   Clock.queryDateAndTime();
+  VoiceRecognition.setOnNewCommand(&mainApplication);
 }
 
 void loop () 
 {
-  /* Check if new command received. */
-  if(VoiceRecognition.isNewCommandReceived())
+   unsigned long currentMillis = millis();
+
+  if (currentMillis - previousMillis >= 5000) {
+
+    previousMillis = currentMillis;
+
+    /* get the current time in your phone. */
+     Clock.queryDateAndTime();
+     /* start voice recognition. */
+    VoiceRecognition.start();
+  }
+  hour = Clock.getHours();
+  minute = Clock.getMinutes();
+
+  /* save the hour and minutes as string. */
+  strhr = String(hour);
+  strmin = String(minute);
+  
+}
+
+
+void mainApplication(char *commandSpoken)
+{
+   Terminal.println("Main loop");
+  /* If new command matches key word then enable 'running' and the rest of the commands. */
+  if(!strcmp(VoiceRecognition.getLastCommand(), mainCommand))
   {
-    /* Compare the play command. */
-    if(strstr(VoiceRecognition.getLastCommand(), lights) && strstr(VoiceRecognition.getLastCommand(), on))
+    running = 1;
+  }
+   
+  if(strstr(VoiceRecognition.getLastCommand(), lights) && voiceHasBeenActivated())
+  {
+    if(strstr(VoiceRecognition.getLastCommand(), on))
     {
-      /* Play the track. */
-      digitalWrite(ledPin,HIGH);
+      Terminal.println("Lights on");
+      turnOnLED(lightLedPin); /* Turn the 'lights' on */
+      running = 0;
     }
-    /* Compare the pause command. */
-    else if (strstr(VoiceRecognition.getLastCommand(), lights) && strstr(VoiceRecognition.getLastCommand(), off))
-    {
-      /* Pause the track. */
-      digitalWrite(ledPin,LOW);
-    }
-    else if (!strcmp("time",VoiceRecognition.getLastCommand())) 
-    {
-      TextToSpeech.say(Clock.getHours() + "" + Clock.getMinutes());
+    else if (strstr(VoiceRecognition.getLastCommand(), off)) {
+      Terminal.println("Lights off");
+      turnOffLED(lightLedPin);  /* Turn the 'lights' off */
+      running = 0;
     }
   }
+
+  if(strstr(VoiceRecognition.getLastCommand(), heating) && voiceHasBeenActivated())
+  {
+    if(strstr(VoiceRecognition.getLastCommand(), on))
+    {
+      Terminal.println("Heating on");
+      turnOnLED(heatingLedPin); /* Turn the 'heating' on */
+      running = 0;
+    }
+    else if (strstr(VoiceRecognition.getLastCommand(), off)) {
+      Terminal.println("Heating off");
+      turnOffLED(heatingLedPin);  /* Turn the 'heating' off */
+      running = 0;
+    }
+  }
+
+  if (!strcmp(timeCommand, VoiceRecognition.getLastCommand()) && voiceHasBeenActivated()) 
+  {
+    Terminal.println("Time");
+    TextToSpeech.say(strhr + "" + strmin);
+    running = 0;
+  }
+  else if (!strcmp(playCommand, VoiceRecognition.getLastCommand())) 
+  {
+    Terminal.println("Music");
+    MusicPlayer.play();
+    delay(10000);
+    MusicPlayer.stop();
+    running = 0;
+  }
+}
+
+
+boolean voiceHasBeenActivated() {
+  return running == 1;
+}
+
+void turnOnLED(int pin) {
+  digitalWrite(pin, HIGH);
+}
+
+void turnOffLED(int pin) {
+  digitalWrite(pin, LOW);
 }
 
 /* Error checking function. */
