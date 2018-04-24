@@ -1,6 +1,7 @@
 package com.example.asus.vca;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,10 +11,21 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
+import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.content.Intent;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,7 +40,18 @@ import com.integreight.onesheeld.sdk.OneSheeldSdk;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -47,13 +70,22 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> connectedDevicesArrayAdapter;
     private ArrayAdapter<String> scannedDevicesArrayAdapter;
     private Handler uiThreadHandler = new Handler();
+
     String model = Build.MODEL;
+    String device = Build.MODEL;
     LocationManager locationManager;
     String provider;
     Activity parent = this;
     private byte voiceShieldId = OneSheeldSdk.getKnownShields().VOICE_RECOGNIZER_SHIELD.getId();
     private static final byte SEND_RESULT = 0x01;
     private OneSheeldManager manager;
+
+    String text;
+    String et;
+    TextToSpeech tts;
+
+    protected static final int RESULT_SPEECH = 1;
+
 
 
     @Override
@@ -62,10 +94,37 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setupUI();                    //set up user interface
         setupOneSheeld();               //connect to onesheeld board
-        appIsUp();
+
+        appIsUp();                  // send notification to website that app is running
         startGeolocation();         //start geolocation tracking
+        textToSpeech();             // greet user at the start of app
+
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
 
     private void setupOneSheeld() {
         connectedDevicesNames = new ArrayList<>();
@@ -208,6 +267,8 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+
+
         Mic = findViewById(R.id.buttonMic);
         {
             //set listener on mic button
@@ -232,11 +293,22 @@ public class MainActivity extends AppCompatActivity {
 
    public void appIsUp() {
         try {
+
+            String manufacturer = Build.MANUFACTURER;
+            device = Build.MODEL;
+            device = (manufacturer) + "-" + device;
+            device = device.toUpperCase();
+            String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+            device = device + "-"+android_id;
+
             JSONObject obj = new JSONObject();
             obj.put("svc" , "notification");
-            obj.put("dev" , model);
+            obj.put("dev" , device);
             obj.put("msg" , "Android app is up and running");
-            new PostData().execute(obj.toString());
+            PostData postData = new PostData();
+            postData.execute(obj.toString());
+//            postData.onPostExecute(obj.toString());
+//            Log.e("ResponseMainActivity", "" + postData.server_response);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -301,6 +373,48 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.e("Error", e.getMessage());
         }
+
+    }
+
+
+    /**
+     * TextToSpeeach
+     */
+    public void textToSpeech(){
+
+        tts=new TextToSpeech(MainActivity.this, new TextToSpeech.OnInitListener() {
+
+            @Override
+            public void onInit(int status) {
+                // TODO Auto-generated method stub
+                if(status == TextToSpeech.SUCCESS){
+                    int result=tts.setLanguage(Locale.US);
+                    if(result==TextToSpeech.LANG_MISSING_DATA ||
+                            result==TextToSpeech.LANG_NOT_SUPPORTED){
+                        Log.e("error", "This Language is not supported");
+                    }
+                    else{
+                        ConvertTextToSpeech();
+                    }
+                }
+                else
+                    Log.e("error", "Initilization Failed!");
+            }
+        });
+
+    }
+    private void ConvertTextToSpeech() {
+        // TODO Auto-generated method stub
+        text = et;
+        if(text==null||"".equals(text))
+        {
+            text = "Hi, it's good to see you!";
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+            Log.e("txt", text);
+
+        }else
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+        Log.e("txt", text);
 
     }
 
