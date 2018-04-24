@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
     public Button Home;
     public Button Services;
     public Button Miscellaneous;
-    public Button Calendar;
     private ArrayList<String> connectedDevicesNames;
     private ArrayList<String> scannedDevicesNames;
     private ArrayList<OneSheeldDevice> oneSheeldScannedDevices;
@@ -85,8 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected static final int RESULT_SPEECH = 1;
 
-    private ImageButton btnSpeak;
-    private TextView txtText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {                    //loads main activity
@@ -99,31 +97,7 @@ public class MainActivity extends AppCompatActivity {
         startGeolocation();         //start geolocation tracking
         textToSpeech();
 
-        txtText = (TextView) findViewById(R.id.txtText);
 
-        btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
-
-        btnSpeak.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(
-                        RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-
-                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
-
-                try {
-                    startActivityForResult(intent, RESULT_SPEECH);
-                    txtText.setText("");
-                } catch (ActivityNotFoundException a) {
-                    Toast t = Toast.makeText(getApplicationContext(),
-                            "Opps! Your device doesn't support Speech to Text",
-                            Toast.LENGTH_SHORT);
-                    t.show();
-                }
-            }
-        });
     }
 
     @Override
@@ -148,24 +122,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        switch (requestCode) {
-            case RESULT_SPEECH: {
-                if (resultCode == RESULT_OK && null != data) {
-
-                    ArrayList<String> text = data
-                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-
-                    txtText.setText(text.get(0));
-                }
-                break;
-            }
-
-        }
-    }
 
     private void setupOneSheeld() {
 
@@ -315,21 +272,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        //find id of calendar button
-        Calendar = findViewById(R.id.buttonCalendar);
-        {
-            //set listener on services button
-            Calendar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //create services activity intent in context to main activity
-                    Intent intentLoadCalendarActivity = new Intent(MainActivity.this, CalendarActivity.class);
-                    //run services activity intent
-                    startActivity(intentLoadCalendarActivity);
-                }
-            });
 
-        }
 
     }
 
