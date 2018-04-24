@@ -91,11 +91,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupUI();                    //set up user interface
-//        setupOneSheeld();               //connect to onesheeld board
+        setupOneSheeld();               //connect to onesheeld board
 
-        appIsUp();
+        appIsUp();                  // send notification to website that app is running
         startGeolocation();         //start geolocation tracking
-        textToSpeech();
+        textToSpeech();             // greet user at the start of app
 
 
     }
