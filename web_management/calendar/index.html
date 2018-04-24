@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>VCA - Calendar</title>
+
+  <link rel="stylesheet" href="bootstrap-4.1.0-dist/css/bootstrap.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+  <link rel="stylesheet" href="pickadate.js-3.5.6/lib/themes/default.css">
+  <link rel="stylesheet" href="pickadate.js-3.5.6/lib/themes/default.date.css">
+  <link rel="stylesheet" href="pickadate.js-3.5.6/lib/themes/default.time.css">
+
+  <style>
+    .menuBtn {
+      padding: 10px;
+    }
+
+    .padding10 {
+      padding: 10px;
+    }
+
+    .cal-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .menu-icon {
+      font-size: .8em;
+      fill: #007bff;
+    }
+
+  </style>
+
+
+
+</head>
+
+<body>
+
+  <!-- #################################
+                Menu
+  ####################################### -->
+  <div class="container" id="cal-menu">
+
+    <div class="row align-items-start" style="font-family: Impact; background-color: #eee; padding-top: 10px;padding-bottom: 10px;font-weight: bolder;">
+      <div class="col-lg-2">
+        <!-- <button type="button" class="btn btn-outline-primary" id="btnAdd" style="padding: 10px 20px 10px 20px;"><</button> -->
+      </div>
+      <div class="col-lg-8 cal-lg-offset-2 text-center">
+        <h1><strong>Calendar</strong> <i class="far fa-calendar-alt"></i></h1>
+      </div>
+      <div class="col-lg-2">
+        <!-- One of three columns -->
+      </div>
+      <!-- <div class="col-lg-12 text-center"> -->
+      <!-- </div> -->
+    </div>
+
+    <div class="row align-items-center">
+      <div class=" col-lg-12 text-center menuBtn">
+        <button type="button" class="btn btn-outline-primary btn-lg btn-block" id="btnAdd">Add <i class="fas fa-plus"></i></button>
+      </div>
+      <div class=" col-lg-12 text-center menuBtn">
+        <button type="button" class="btn btn-outline-primary btn-lg btn-block" id="btnEdit">Edit <i class="far fa-edit"></i></button>
+      </div>
+      <div class=" col-lg-12 text-center menuBtn">
+        <button type="button" class="btn btn-outline-primary btn-lg btn-block" id="btnDelete">Delete <i class="far fa-trash-alt"></i></button>
+      </div>
+      <div class=" col-lg-12 text-center menuBtn">
+        <button type="button" class="btn btn-outline-primary btn-lg btn-block" id="btnView">View <i class="fas fa-eye"></i></button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- #################################
+                Add section
+  ####################################### -->
+  <div class="container" id="cal-add" style="display: none;">
+
+    <div class="alert alert-danger" id="add_error" role="alert" style="display: none; margin:10px;">
+      <i class="fas fa-exclamation-circle"></i> Oh uh! We encountered some errors while processing your request.<br/>
+      Our team has been notified about the issue and they are working on the fix.
+    </div>
+
+    <div class="alert alert-success" id="add_success" role="alert" style="display: none; margin:10px;">
+      <i class="fas fa-check"></i> Splendid! Record saved successfully.
+    </div>
+
+    <div class="alert alert-warning" id="add_warning" role="alert" style="display: none; margin:10px;">
+      <i class="fas fa-exclamation-triangle"></i> Hold on! You left some fields empty or selected time is not right!
+    </div>
+
+    <div class="row align-items-start text-center" style="font-family: Impact; background-color: #eee; padding-top: 10px;padding-bottom: 10px;font-weight: bolder;">
+      <div class="col-lg-12">
+
+        <button type="button" id="btnAddBack" class="btn btn-outline-primary" style="padding: 10px 20px 10px 20px; float:left;">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+
+        <h1><span style="margin-left: -1em;"><strong>Add</strong></span> <i class="fas fa-plus"></i></h1>
+
+      </div>
+    </div>
+
+    <div class="row align-items-center padding10">
+
+      <div class="input-group input-group-lg padding10">
+        <div class="input-group-prepend">
+          <span style="width: 7em;" class="input-group-text" id="basic-addon1">Title:</span>
+        </div>
+        <input type="text" id="add_title" class="form-control" placeholder="" aria-label="title" aria-describedby="basic-addon1">
+      </div>
+
+      <div class="input-group input-group-lg padding10">
+        <div class="input-group-prepend">
+          <span style="width: 7em;" class="input-group-text">Description:</span>
+        </div>
+        <textarea class="form-control" id="add_desc" aria-label="description"></textarea>
+      </div>
+
+      <div class="input-group input-group-lg padding10">
+        <div class="input-group-prepend">
+          <span style="width: 7em;" class="input-group-text" id="basic-addon1">Date:</span>
+          <input id="add_date" class="datepicker" style="width:100%;"/>
+        </div>
+      </div>
+
+      <div class="input-group input-group-lg padding10">
+        <div class="input-group-prepend">
+          <span style="width: 7em;" class="input-group-text" id="basic-addon1">From:</span>
+          <input id="add_from" class="timepicker" style="width:100%;"/>
+        </div>
+        <!-- <input id="add_from" class="timepicker"/> -->
+      </div>
+
+      <div class="input-group input-group-lg padding10">
+        <div class="input-group-prepend">
+          <span style="width: 7em;" class="input-group-text" id="basic-addon1">To:</span>
+          <input id="add_to" class="timepicker" style="width:100%;"/>
+        </div>
+        <!-- <input id="add_to" class="timepicker"/> -->
+      </div>
+
+      <button type="button" id="btnAddaction" class="btn btn-success btn-lg btn-block">Save <i class="far fa-save"></i></button>
+
+    </div>
+
+  </div>
+
+<!-- #################################
+                Edit section
+  ####################################### -->
+
+  <!-- edit - select date -->
+  <div class="container" id="cal-edit-select" style="display: none;">
+
+    <div class="alert alert-danger edit_error" role="alert" style="display: none; margin:10px;">
+      <i class="fas fa-exclamation-circle"></i> Oh uh! We encountered some errors while processing your request.<br/>
+      Our team has been notified about the issue and they are working on the fix.
+    </div>
+
+    <div class="alert alert-success edit_success" role="alert" style="display: none; margin:10px;">
+      <i class="fas fa-check"></i> Splendid! Record saved successfully.
+    </div>
+
+    <div class="alert alert-warning edit_warning" role="alert" style="display: none; margin:10px;">
+      <i class="fas fa-exclamation-triangle"></i> Hold on! You left some fields empty or selected time is not right!
+    </div>
+
+    <div class="row align-items-start text-center" style="font-family: Impact; background-color: #eee; padding-top: 10px;padding-bottom: 10px;font-weight: bolder;">
+      <div class="col-lg-12">
+
+        <button type="button" id="btnEditBack" class="btn btn-outline-primary" style="padding: 10px 20px 10px 20px; float:left;">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+
+        <h1><span style="margin-left: -1em;"><strong>Edit</strong></span> <i class="far fa-edit"></i></h1>
+
+      </div>
+    </div>
+
+    <div class="row align-items-center padding10" style="padding-top: 2em">
+
+      <div class="input-group input-group-lg padding10">
+        <div class="input-group-prepend">
+          <span style="width: 7em;" class="input-group-text" id="basic-addon1">Date:</span>
+          <input id="edit_select" class="datepicker" style="width:100%;"/>
+        </div>
+        <!-- <input id="edit_select" class="datepicker"/> -->
+      </div>
+
+      <!-- <button type="button" class="btn btn-success btn-lg btn-block" id="btnEditSubmitDate">Submit <i class="far fa-check-circle"></i></button> -->
+
+    </div>
+
+    <div class="row align-items-end" style="padding-top: 2em;">
+    <div class="col-lg-12">
+      <button type="button" class="btn btn-success btn-lg btn-block" id="btnEditSubmitDate">Submit <i class="far fa-check-circle"></i></button>
+    </div>
+  </div>
+
+  </div>
+
+  <!-- edit - view dates -->
+  <div class="container" id="cal-edit-view" style="display: none;">
+
+    <div class="alert alert-danger edit_error" role="alert" style="display: none; margin:10px;">
+      <i class="fas fa-exclamation-circle"></i> Oh uh! We encountered some errors while processing your request.<br/>
+      Our team has been notified about the issue and they are working on the fix.
+    </div>
+
+    <div class="alert alert-success edit_success" role="alert" style="display: none; margin:10px;">
+      <i class="fas fa-check"></i> Splendid! Record saved successfully.
+    </div>
+
+    <div class="alert alert-warning edit_warning" role="alert" style="display: none; margin:10px;">
+      <i class="fas fa-exclamation-triangle"></i> Hold on! You left some fields empty or selected time is not right!
+    </div>
+
+    <div class="row align-items-start text-center" style="font-family: Impact; background-color: #eee; padding-top: 10px;padding-bottom: 10px;font-weight: bolder;">
+      <div class="col-lg-12">
+
+        <button type="button" id="btnEditBack2" class="btn btn-outline-primary" style="padding: 10px 20px 10px 20px; float:left;">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+
+        <h1><span style="margin-left: -1em;"><strong>Edit</strong></span> <i class="far fa-edit"></i></h1>
+
+      </div>
+    </div>
+
+    <div class="row align-items-center padding10" style="padding-top: 2em">
+
+      <div class="col-lg-12" id="edit-view-list"></div>
+
+    </div>
+
+  </div>
+
+<!-- edit - edit option -->
+  <div class="container" id="cal-edit-edition" style="display: none;">
+
+    <div class="alert alert-danger edit_error" role="alert" style="display: none; margin:10px;">
+      <i class="fas fa-exclamation-circle"></i> Oh uh! We encountered some errors while processing your request.<br/>
+      Our team has been notified about the issue and they are working on the fix.
+    </div>
+
+    <div class="alert alert-success edit_success" role="alert" style="display: none; margin:10px;">
+      <i class="fas fa-check"></i> Splendid! Record saved successfully.
+    </div>
+
+    <div class="alert alert-warning edit_warning" role="alert" style="display: none; margin:10px;">
+      <i class="fas fa-exclamation-triangle"></i> Hold on! You left some fields empty or selected time is not right!
+    </div>
+
+    <div class="alert alert-danger" id="edit_error" role="alert" style="display: none">
+      Oh uh! We encountered some errors while processing your request.<br/>
+      Our team has been notified about the issue and they are working on the fix.
+    </div>
+
+    <div class="row align-items-start text-center" style="font-family: Impact; background-color: #eee; padding-top: 10px;padding-bottom: 10px;font-weight: bolder;">
+      <div class="col-lg-12">
+
+        <button type="button" id="btnEditBack3" class="btn btn-outline-primary" style="padding: 10px 20px 10px 20px; float:left;">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+
+        <h1><span style="margin-left: -1em;"><strong>Edit</strong></span> <i class="far fa-edit"></i></h1>
+
+      </div>
+    </div>
+
+    <div class="row align-items-center padding10">
+
+      <div class="input-group input-group-lg padding10">
+        <div class="input-group-prepend">
+          <span style="width: 7em;" class="input-group-text" id="basic-addon1">Title:</span>
+        </div>
+        <input type="text" id="edit_title" class="form-control" placeholder="" aria-label="title" aria-describedby="basic-addon1">
+      </div>
+
+      <div class="input-group input-group-lg padding10">
+        <div class="input-group-prepend">
+          <span style="width: 7em;" class="input-group-text">Description:</span>
+        </div>
+        <textarea id="edit_desc" class="form-control" aria-label="description"></textarea>
+      </div>
+
+      <div class="input-group input-group-lg padding10">
+        <div class="input-group-prepend">
+          <span style="width: 7em;" class="input-group-text" id="basic-addon1">Date:</span>
+          <input id="edit_date" class="datepicker" style="width:100%;"/>
+        </div>
+        <!-- <input id="edit_date" class="datepicker"/> -->
+      </div>
+
+      <div class="input-group input-group-lg padding10">
+        <div class="input-group-prepend">
+          <span style="width: 7em;" class="input-group-text" id="basic-addon1">From:</span>
+          <input id="edit_from" class="timepicker" style="width:100%;"/>
+        </div>
+        <!-- <input id="edit_from" class="timepicker"/> -->
+      </div>
+
+      <div class="input-group input-group-lg padding10">
+        <div class="input-group-prepend">
+          <span style="width: 7em;" class="input-group-text" id="basic-addon1">To:</span>
+          <input id="edit_to" class="timepicker" style="width:100%;"/>
+        </div>
+        <!-- <input id="edit_to" class="timepicker"/> -->
+      </div>
+
+      <button type="button" id="btnEditAction" class="btn btn-success btn-lg btn-block">Save <i class="far fa-save"></i></button>
+
+    </div>
+
+  </div>
+
+  <!-- #################################
+                  DELETE
+    ####################################### -->
+
+    <!-- delete - select date -->
+    <div class="container" id="cal-delete-select" style="display: none;">
+
+      <div class="alert alert-danger delete_error" role="alert" style="display: none; margin:10px;">
+        <i class="fas fa-exclamation-circle"></i> Oh uh! We encountered some errors while processing your request.<br/>
+        Our team has been notified about the issue and they are working on the fix.
+      </div>
+
+      <div class="alert alert-success delete_success" role="alert" style="display: none; margin:10px;">
+        <i class="fas fa-check"></i> Splendid! Record saved successfully.
+      </div>
+
+      <div class="alert alert-warning delete_warning" role="alert" style="display: none; margin:10px;">
+        <i class="fas fa-exclamation-triangle"></i> Hold on! You left some fields empty or selected time is not right!
+      </div>
+
+      <div class="row align-items-start text-center" style="font-family: Impact; background-color: #eee; padding-top: 10px;padding-bottom: 10px;font-weight: bolder;">
+        <div class="col-lg-12">
+
+          <button type="button" id="btnDeleteBack" class="btn btn-outline-primary" style="padding: 10px 20px 10px 20px; float:left;">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+
+          <h1><span style="margin-left: -1em;"><strong>Delete</strong></span> <i class="far fa-trash-alt"></i></h1>
+
+        </div>
+      </div>
+
+      <div class="row align-items-center padding10" style="padding-top: 2em">
+
+        <div class="input-group input-group-lg padding10">
+          <div class="input-group-prepend">
+            <span style="width: 7em;" class="input-group-text" id="basic-addon1">Date:</span>
+            <input id="delete_select" class="datepicker" style="width:100%;"/>
+          </div>
+          <!-- <input id="delete_select" class="datepicker"/> -->
+        </div>
+
+        <!-- <button type="button" class="btn btn-success btn-lg btn-block" id="btndeleteSubmitDate">Submit <i class="far fa-check-circle"></i></button> -->
+
+      </div>
+
+      <div class="row align-items-end" style="padding-top: 2em;">
+      <div class="col-lg-12">
+        <button type="button" class="btn btn-success btn-lg btn-block" id="btnDeleteSubmitDate">Submit <i class="far fa-check-circle"></i></button>
+      </div>
+    </div>
+
+    </div>
+
+    <!-- delete - view dates -->
+    <div class="container" id="cal-delete-view" style="display: none;">
+
+      <div class="alert alert-danger delete_error" role="alert" style="display: none; margin:10px;">
+        <i class="fas fa-exclamation-circle"></i> Oh uh! We encountered some errors while processing your request.<br/>
+        Our team has been notified about the issue and they are working on the fix.
+      </div>
+
+      <div class="alert alert-success delete_success" role="alert" style="display: none; margin:10px;">
+        <i class="fas fa-check"></i> Splendid! Record saved successfully.
+      </div>
+
+      <div class="alert alert-warning delete_warning" role="alert" style="display: none; margin:10px;">
+        <i class="fas fa-exclamation-triangle"></i> Hold on! You left some fields empty or selected time is not right!
+      </div>
+
+      <div class="row align-items-start text-center" style="font-family: Impact; background-color: #eee; padding-top: 10px;padding-bottom: 10px;font-weight: bolder;">
+        <div class="col-lg-12">
+
+          <button type="button" id="btnDeleteBack2" class="btn btn-outline-primary" style="padding: 10px 20px 10px 20px; float:left;">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+
+          <h1><span style="margin-left: -1em;"><strong>Delete</strong></span> <i class="far fa-trash-alt"></i></h1>
+
+        </div>
+      </div>
+
+      <div class="row align-items-center padding10" style="padding-top: 2em">
+
+        <div class="col-lg-12" id="delete-view-list"></div>
+
+      </div>
+
+    </div>
+
+  <!-- delete - delete option -->
+    <div class="container" id="cal-delete-deleteion" style="display: none;">
+
+      <div class="alert alert-danger delete_error" role="alert" style="display: none; margin:10px;">
+        <i class="fas fa-exclamation-circle"></i> Oh uh! We encountered some errors while processing your request.<br/>
+        Our team has been notified about the issue and they are working on the fix.
+      </div>
+
+      <div class="alert alert-success delete_success" role="alert" style="display: none; margin:10px;">
+        <i class="fas fa-check"></i> Splendid! Record saved successfully.
+      </div>
+
+      <div class="alert alert-warning delete_warning" role="alert" style="display: none; margin:10px;">
+        <i class="fas fa-exclamation-triangle"></i> Hold on! You left some fields empty or selected time is not right!
+      </div>
+
+      <div class="alert alert-danger" id="delete_error" role="alert" style="display: none">
+        Oh uh! We encountered some errors while processing your request.<br/>
+        Our team has been notified about the issue and they are working on the fix.
+      </div>
+
+      <div class="row align-items-start text-center" style="font-family: Impact; background-color: #eee; padding-top: 10px;padding-bottom: 10px;font-weight: bolder;">
+        <div class="col-lg-12">
+
+          <button type="button" id="btnDeleteBack3" class="btn btn-outline-primary" style="padding: 10px 20px 10px 20px; float:left;">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+
+          <h1><span style="margin-left: -1em;"><strong>Delete</strong></span> <i class="far fa-trash-alt"></i></h1>
+
+        </div>
+      </div>
+
+      <div class="row align-items-center padding10">
+
+        <div class="input-group input-group-lg padding10">
+          <div class="input-group-prepend">
+            <span style="width: 7em;" class="input-group-text" id="basic-addon1">Title:</span>
+          </div>
+          <input type="text" id="delete_title" class="form-control" placeholder="" aria-label="title" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group input-group-lg padding10">
+          <div class="input-group-prepend">
+            <span style="width: 7em;" class="input-group-text">Description:</span>
+          </div>
+          <textarea id="delete_desc" class="form-control" aria-label="description"></textarea>
+        </div>
+
+        <div class="input-group input-group-lg padding10">
+          <div class="input-group-prepend">
+            <span style="width: 7em;" class="input-group-text" id="basic-addon1">Date:</span>
+            <input id="delete_date" class="datepicker" style="width:100%;"/>
+          </div>
+          <!-- <input id="delete_date" class="datepicker"/> -->
+        </div>
+
+        <div class="input-group input-group-lg padding10">
+          <div class="input-group-prepend">
+            <span style="width: 7em;" class="input-group-text" id="basic-addon1">From:</span>
+            <input id="delete_from" class="timepicker" style="width:100%;"/>
+          </div>
+          <!-- <input id="delete_from" class="timepicker"/> -->
+        </div>
+
+        <div class="input-group input-group-lg padding10">
+          <div class="input-group-prepend">
+            <span style="width: 7em;" class="input-group-text" id="basic-addon1">To:</span>
+            <input id="delete_to" class="timepicker" style="width:100%;"/>
+          </div>
+          <!-- <input id="delete_to" class="timepicker"/> -->
+        </div>
+
+        <button type="button" id="btnDeleteAction" class="btn btn-success btn-lg btn-block">Save <i class="far fa-save"></i></button>
+
+      </div>
+
+    </div>
+
+
+      <!-- #################################
+                      VIEW
+        ####################################### -->
+
+        <!-- view - select date -->
+        <div class="container" id="cal-view-select" style="display: none;">
+
+          <div class="alert alert-danger view_error" role="alert" style="display: none; margin:10px;">
+            <i class="fas fa-exclamation-circle"></i> Oh uh! We encountered some errors while processing your request.<br/>
+            Our team has been notified about the issue and they are working on the fix.
+          </div>
+
+          <div class="alert alert-success view_success" role="alert" style="display: none; margin:10px;">
+            <i class="fas fa-check"></i> Splendid! Record saved successfully.
+          </div>
+
+          <div class="alert alert-warning view_warning" role="alert" style="display: none; margin:10px;">
+            <i class="fas fa-exclamation-triangle"></i> Hold on! You left some fields empty or selected time is not right!
+          </div>
+
+          <div class="row align-items-start text-center" style="font-family: Impact; background-color: #eee; padding-top: 10px;padding-bottom: 10px;font-weight: bolder;">
+            <div class="col-lg-12">
+
+              <button type="button" id="btnViewBack" class="btn btn-outline-primary" style="padding: 10px 20px 10px 20px; float:left;">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+
+              <h1><span style="margin-left: -1em;"><strong>View</strong></span> <i class="fas fa-eye"></i></h1>
+
+            </div>
+          </div>
+
+          <div class="row align-items-center padding10" style="padding-top: 2em">
+
+            <div class="input-group input-group-lg padding10">
+              <div class="input-group-prepend">
+                <span style="width: 7em;" class="input-group-text" id="basic-addon1">Date:</span>
+                <input id="view_select" class="datepicker" style="width:100%;"/>
+              </div>
+              <!-- <input id="view_select" class="datepicker"/> -->
+            </div>
+
+            <!-- <button type="button" class="btn btn-success btn-lg btn-block" id="btnviewSubmitDate">Submit <i class="far fa-check-circle"></i></button> -->
+
+          </div>
+
+          <div class="row align-items-end" style="padding-top: 2em;">
+          <div class="col-lg-12">
+            <button type="button" class="btn btn-success btn-lg btn-block" id="btnViewSubmitDate">Submit <i class="far fa-check-circle"></i></button>
+          </div>
+        </div>
+
+        </div>
+
+        <!-- view - view dates -->
+        <div class="container" id="cal-view-view" style="display: none;">
+
+          <div class="alert alert-danger view_error" role="alert" style="display: none; margin:10px;">
+            <i class="fas fa-exclamation-circle"></i> Oh uh! We encountered some errors while processing your request.<br/>
+            Our team has been notified about the issue and they are working on the fix.
+          </div>
+
+          <div class="alert alert-success view_success" role="alert" style="display: none; margin:10px;">
+            <i class="fas fa-check"></i> Splendid! Record saved successfully.
+          </div>
+
+          <div class="alert alert-warning view_warning" role="alert" style="display: none; margin:10px;">
+            <i class="fas fa-exclamation-triangle"></i> Hold on! You left some fields empty or selected time is not right!
+          </div>
+
+          <div class="row align-items-start text-center" style="font-family: Impact; background-color: #eee; padding-top: 10px;padding-bottom: 10px;font-weight: bolder;">
+            <div class="col-lg-12">
+
+              <button type="button" id="btnViewBack2" class="btn btn-outline-primary" style="padding: 10px 20px 10px 20px; float:left;">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+
+              <h1><span style="margin-left: -1em;"><strong>View</strong></span> <i class="fas fa-eye"></i></h1>
+
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="col" style="display: inline; padding: 0;">
+              <button type="button" id="view-view-prev" class="btn btn-outline-secondary btn-lg btn-block" style="padding: 10px 20px 10px 20px; float:left;">
+                <i class="fas fa-caret-left"></i> Prev
+              </button>
+            </div>
+            <div class="col" style="display: inline; padding: 0;">
+              <button type="button" id="view-view-next" class="btn btn-outline-secondary btn-lg btn-block" style="padding: 10px 20px 10px 20px; float:left;">
+                Next <i class="fas fa-caret-right"></i>
+              </button>
+            </div>
+
+
+
+          </div>
+
+          <div class="row">
+            <!-- <p id="current_date"></p> -->
+            <span id="date-now" class="btn btn-info btn-block"></span>
+          </div>
+
+          <div class="row align-items-center padding10" style="padding-top: 2em">
+
+            <div class="col-lg-12" id="view-view-list"></div>
+
+          </div>
+
+        </div>
+
+      <!-- view - view option -->
+        <div class="container" id="cal-view-view" style="display: none;">
+
+          <div class="alert alert-danger view_error" role="alert" style="display: none; margin:10px;">
+            <i class="fas fa-exclamation-circle"></i> Oh uh! We encountered some errors while processing your request.<br/>
+            Our team has been notified about the issue and they are working on the fix.
+          </div>
+
+          <div class="alert alert-success view_success" role="alert" style="display: none; margin:10px;">
+            <i class="fas fa-check"></i> Splendid! Record saved successfully.
+          </div>
+
+          <div class="alert alert-warning view_warning" role="alert" style="display: none; margin:10px;">
+            <i class="fas fa-exclamation-triangle"></i> Hold on! You left some fields empty or selected time is not right!
+          </div>
+
+          <div class="alert alert-danger" id="view_error" role="alert" style="display: none">
+            Oh uh! We encountered some errors while processing your request.<br/>
+            Our team has been notified about the issue and they are working on the fix.
+          </div>
+
+          <div class="row align-items-start text-center" style="font-family: Impact; background-color: #eee; padding-top: 10px;padding-bottom: 10px;font-weight: bolder;">
+            <div class="col-lg-12">
+
+              <button type="button" id="btnViewBack3" class="btn btn-outline-primary" style="padding: 10px 20px 10px 20px; float:left;">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+
+              <h1><span style="margin-left: -1em;"><strong>View</strong></span> <i class="fas fa-eye"></i></h1>
+
+            </div>
+          </div>
+
+          <div class="row align-items-center padding10">
+
+            <div class="input-group input-group-lg padding10">
+              <div class="input-group-prepend">
+                <span style="width: 7em;" class="input-group-text" id="basic-addon1">Title:</span>
+              </div>
+              <input type="text" id="view_title" class="form-control" placeholder="" aria-label="title" aria-describedby="basic-addon1">
+            </div>
+
+            <div class="input-group input-group-lg padding10">
+              <div class="input-group-prepend">
+                <span style="width: 7em;" class="input-group-text">Description:</span>
+              </div>
+              <textarea id="view_desc" class="form-control" aria-label="description"></textarea>
+            </div>
+
+            <div class="input-group input-group-lg padding10">
+              <div class="input-group-prepend">
+                <span style="width: 7em;" class="input-group-text" id="basic-addon1">Date:</span>
+                <input id="view_date" class="datepicker" style="width:100%;"/>
+              </div>
+              <!-- <input id="view_date" class="datepicker"/> -->
+            </div>
+
+            <div class="input-group input-group-lg padding10">
+              <div class="input-group-prepend">
+                <span style="width: 7em;" class="input-group-text" id="basic-addon1">From:</span>
+                <input id="view_from" class="timepicker" style="width:100%;"/>
+              </div>
+              <!-- <input id="view_from" class="timepicker"/> -->
+            </div>
+
+            <div class="input-group input-group-lg padding10">
+              <div class="input-group-prepend">
+                <span style="width: 7em;" class="input-group-text" id="basic-addon1">To:</span>
+                <input id="view_to" class="timepicker" style="width:100%;"/>
+              </div>
+              <!-- <input id="view_to" class="timepicker"/> -->
+            </div>
+
+            <button type="button" id="btnViewAction" class="btn btn-success btn-lg btn-block">Save <i class="far fa-save"></i></button>
+
+          </div>
+
+        </div>
+
+
+<!-- #################################
+                Footer
+  ####################################### -->
+  <script src="pickadate.js-3.5.6/lib/picker.js"></script>
+  <script src="pickadate.js-3.5.6/lib/picker.date.js"></script>
+  <script src="pickadate.js-3.5.6/lib/picker.time.js"></script>
+  <script src="cal_logic.js"></script>
+
+
+</body>
+
+</html>

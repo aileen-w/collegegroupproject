@@ -12,20 +12,20 @@
     <title>VCE - CIT Group Project</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../web_management/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="../web_management/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
-    <link href="../css/cit-group-project.css" rel="stylesheet">
+    <link href="../web_management/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="../web_management/css/cit-group-project.css" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
-    <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+    <link href="../web_management/vendor/morrisjs/morris.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../web_management/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -86,6 +86,9 @@
                     </li>
                     <li>
                         <a href="tracking.php"><i class="fa fa-dashboard fa-fw"></i> Live Tracking</a>
+                    </li>
+                    <li>
+                        <a href="calendar.php"><i class="fa fa-calendar"></i> Calendar Records</a>
                     </li>
                 </ul>
             </div>
