@@ -24,7 +24,7 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@drawable/button_border"
+            android:background="@drawable/button_border2"
             android:drawableStart="@drawable/takeaway"
             android:padding="10dp"
             android:text="@string/takeaway" />
@@ -49,7 +49,7 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@drawable/button_border"
+            android:background="@drawable/button_border2"
             android:drawableStart="@drawable/shopping"
             android:padding="10dp"
             android:text="@string/shopping" />
@@ -74,7 +74,7 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@drawable/button_border"
+            android:background="@drawable/button_border2"
             android:drawableStart="@drawable/taxi"
             android:padding="10dp"
             android:text="@string/taxi" />
