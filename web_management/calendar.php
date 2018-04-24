@@ -73,6 +73,7 @@
 
 
 <?php
+
 /**
  * Include page footer
  */
