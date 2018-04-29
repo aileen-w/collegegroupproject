@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,14 +16,11 @@ import com.integreight.onesheeld.sdk.OneSheeldManager;
 import com.integreight.onesheeld.sdk.OneSheeldSdk;
 import com.integreight.onesheeld.sdk.ShieldFrame;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.regex.PatternSyntaxException;
 
-public class MicActivity extends AppCompatActivity implements TextToSpeech.OnInitListener{
+public class MicTitleActivity extends AppCompatActivity implements TextToSpeech.OnInitListener{
 
     private TextView voiceInput;
     private final int REQ_CODE_SPEECH_INPUT = 100;
@@ -35,7 +30,7 @@ public class MicActivity extends AppCompatActivity implements TextToSpeech.OnIni
     String text;
     String et;
     TextToSpeech tts;
-    String prefix = "";
+    String prefix = "calendar add";
     String title = "";
     String txt = "";
     String date = "";
@@ -47,11 +42,19 @@ public class MicActivity extends AppCompatActivity implements TextToSpeech.OnIni
         super.onCreate(savedInstanceState);
         setContentView(R.layout.voice_recognition_view);
         voiceInput = (TextView) findViewById(R.id.voiceInput);
+        txt = "What is the event you wish to add?";
+        textToSpeech();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         askSpeechInput();
         Intent checkTTSIntent = new Intent();
         checkTTSIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
         startActivityForResult(checkTTSIntent, MY_DATA_CHECK_CODE);
 //        textToSpeech();
+
     }
 
 //    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -116,57 +119,57 @@ public class MicActivity extends AppCompatActivity implements TextToSpeech.OnIni
                     Log.e("recognizedArray1", rec);
 //                    myTTS.speak("hello", TextToSpeech.QUEUE_FLUSH, null);
 
-                    rec = prefix + rec;
-                    rec = "calendar add";
+//                    rec = prefix + rec;
+//                    rec = "calendar add";
                     try {
-                        String[] recArray = rec.split("\\s+");
-                        Log.e("recognizedArray2", recArray[0]);
-//                        tts.speak("Adding new calendar record.", TextToSpeech.QUEUE_FLUSH, null);
 
+//                        String[] recArray = rec.split("\\s+");
+//                        Log.e("recognizedArray2", recArray[0]);
+//                        tts.speak("Adding new calendar record.", TextToSpeech.QUEUE_FLUSH, null);
+                        Intent intentLoadMicActivity = new Intent(getApplicationContext(), MicDateActivity.class);
+                        intentLoadMicActivity.putExtra("calendarTitle", rec);
+                        startActivity(intentLoadMicActivity);
 
                         //verify that user has called out calendar
-                        if(recArray[0].equals("calendar"))
-                        {
+//                        if(recArray[0].equals("calendar"))
+//                        {
 
 
                             //verify user is adding new record
-                            if(recArray[1].equals("add"))
-                            {
+//                            if(recArray[1].equals("add"))
+//                            {
 //                                txt = "Adding new calendar record.";
 //                                Log.e("recognizedArray3", rec);
 //                                Log.e("title", "title:" + title.length());
 //                                Log.e("date", "date:"+date.length());
 //                                if((title.length())==0 && (date.length())==0)
 //                                {
-                                    Log.e("recognizedArray4", "here");
-//                                    ConvertTextToSpeech("Adding new calendar record.");
-                                    txt = "Adding new calendar record.";
-                                    textToSpeech();
-//                                    handler.postDelayed(new Runnable() {
-//                                        @Override
-//                                        public void run() {
-//                                            // Do something after 5s = 5000ms
-//                                            Log.e("recognizedArray4", "here");
-//
-////                                            Intent intentLoadMicActivity = new Intent(getApplicationContext(), MicActivity.class);
-////                                            startActivity(intentLoadMicActivity);
-//                                        }
-//                                    }, 3000);
-                                    try {
-                                        Thread.sleep(5000);
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    }
-                                    Intent intentLoadMicTitleActivity = new Intent(getApplicationContext(), MicTitleActivity.class);
-//                                intentLoadMicTitleActivity.putExtra("speachRec", "speachRec");
-                                    startActivity(intentLoadMicTitleActivity);
-                                    Log.e("txt", txt);
-//                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                                        tts.speak("Adding new calendar record.",TextToSpeech.QUEUE_FLUSH,null,null);
-//                                    } else {
-//                                        tts.speak("Adding new calendar record.", TextToSpeech.QUEUE_FLUSH, null);
+//                                    Log.e("recognizedArray4", "here");
+////                                    ConvertTextToSpeech("Adding new calendar record.");
+//                                    txt = "Adding new calendar record.";
+//                                    textToSpeech();
+////                                    handler.postDelayed(new Runnable() {
+////                                        @Override
+////                                        public void run() {
+////                                            // Do something after 5s = 5000ms
+////                                            Log.e("recognizedArray4", "here");
+////
+//////                                            Intent intentLoadMicActivity = new Intent(getApplicationContext(), MicActivity.class);
+//////                                            startActivity(intentLoadMicActivity);
+////                                        }
+////                                    }, 3000);
+//                                    try {
+//                                        Thread.sleep(3000);
+//                                    } catch (InterruptedException e) {
+//                                        e.printStackTrace();
 //                                    }
-//                                    tts.speak("Adding new calendar record.", TextToSpeech.QUEUE_FLUSH, null);
+//                                    Log.e("txt", txt);
+////                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+////                                        tts.speak("Adding new calendar record.",TextToSpeech.QUEUE_FLUSH,null,null);
+////                                    } else {
+////                                        tts.speak("Adding new calendar record.", TextToSpeech.QUEUE_FLUSH, null);
+////                                    }
+////                                    tts.speak("Adding new calendar record.", TextToSpeech.QUEUE_FLUSH, null);
 //                                }
 
 //                                if(recArray.length>=3 && recArray[2].equals("title"))
@@ -180,36 +183,36 @@ public class MicActivity extends AppCompatActivity implements TextToSpeech.OnIni
 //                                }
 //                                if(title.equals(""))
 //                                {
-//                                    //ask for title
-////                                    tts.speak("What is the event you wish to add?", TextToSpeech.QUEUE_FLUSH, null);
-////                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-////                                        tts.speak("What is the event you wish to add?",TextToSpeech.QUEUE_FLUSH,null,null);
-////                                    } else {
-////                                        tts.speak("What is the event you wish to add?", TextToSpeech.QUEUE_FLUSH, null);
-////                                    }
+                                    //ask for title
+//                                    tts.speak("What is the event you wish to add?", TextToSpeech.QUEUE_FLUSH, null);
+//                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                                        tts.speak("What is the event you wish to add?",TextToSpeech.QUEUE_FLUSH,null,null);
+//                                    } else {
+//                                        tts.speak("What is the event you wish to add?", TextToSpeech.QUEUE_FLUSH, null);
+//                                    }
 //                                    txt = "What is the event you wish to add?";
 //                                    textToSpeech();
-//                                    //get the answer
-////                                    handler.postDelayed(new Runnable() {
-////                                        @Override
-////                                        public void run() {
-////                                            // Do something after 5s = 5000ms
-////
-////                                            Intent intentLoadMicActivity = new Intent(getApplicationContext(), MicActivity.class);
-////                                            startActivity(intentLoadMicActivity);
-////                                        }
-////                                    }, 3000);
+                                    //get the answer
+//                                    handler.postDelayed(new Runnable() {
+//                                        @Override
+//                                        public void run() {
+//                                            // Do something after 5s = 5000ms
+//
+//                                            Intent intentLoadMicActivity = new Intent(getApplicationContext(), MicActivity.class);
+//                                            startActivity(intentLoadMicActivity);
+//                                        }
+//                                    }, 3000);
 //                                    try {
 //                                        Thread.sleep(3000);
 //                                    } catch (InterruptedException e) {
 //                                        e.printStackTrace();
 //                                    }
 //                                    prefix = "calendar add title";
-//                                    Intent intentLoadMicTitleActivity = new Intent(getApplicationContext(), MicTitleActivity.class);
-//                                    startActivity(intentLoadMicTitleActivity);
+//                                    Intent intentLoadMicActivity = new Intent(getApplicationContext(), MicDateActivity.class);
+//                                    startActivity(intentLoadMicActivity);
 //                                }
 //                                Log.e("txt", txt);
-//
+
 //                                if(recArray.length>=4 && recArray[3].equals("date") && title.length()>0)
 //                                {
 //                                    int x = 3;
@@ -244,7 +247,7 @@ public class MicActivity extends AppCompatActivity implements TextToSpeech.OnIni
 //                                        e.printStackTrace();
 //                                    }
 //                                    prefix = "calendar add title date";
-//                                    Intent intentLoadMicActivity = new Intent(getApplicationContext(), MicActivity.class);
+//                                    Intent intentLoadMicActivity = new Intent(getApplicationContext(), MicTitleActivity.class);
 //                                    startActivity(intentLoadMicActivity);
 //                                }
 //                                Log.e("txt", txt);
@@ -257,7 +260,7 @@ public class MicActivity extends AppCompatActivity implements TextToSpeech.OnIni
 //                                }
 //                                Log.e("txt", txt);
 
-                            }
+//                            }
 
 //                            try {
 //
@@ -291,18 +294,18 @@ public class MicActivity extends AppCompatActivity implements TextToSpeech.OnIni
 //                                e.getMessage();
 //                            }
 
-                        }
-                        else
-                        {
-                            OneSheeldManager manager = OneSheeldSdk.getManager();
-                            if (manager != null) {
-                                ShieldFrame sf = new ShieldFrame(voiceShieldId, SEND_RESULT);
-                                String recognized = result.get(0);
-                                Log.d("Lights", recognized);
-                                sf.addArgument(recognized.toLowerCase());
-                                manager.broadcastShieldFrame(sf, true);
-                            }
-                        }
+//                        }
+//                        else
+//                        {
+//                            OneSheeldManager manager = OneSheeldSdk.getManager();
+//                            if (manager != null) {
+//                                ShieldFrame sf = new ShieldFrame(voiceShieldId, SEND_RESULT);
+//                                String recognized = result.get(0);
+//                                Log.d("Lights", recognized);
+//                                sf.addArgument(recognized.toLowerCase());
+//                                manager.broadcastShieldFrame(sf, true);
+//                            }
+//                        }
                     } catch (PatternSyntaxException ex) {
                         // error
                         Log.e("Error", "Speech recognize error: " + ex.getMessage());
@@ -319,7 +322,7 @@ public class MicActivity extends AppCompatActivity implements TextToSpeech.OnIni
      */
     public void textToSpeech(){
 
-        tts=new TextToSpeech(MicActivity.this, new TextToSpeech.OnInitListener() {
+        tts=new TextToSpeech(MicTitleActivity.this, new TextToSpeech.OnInitListener() {
 
             @Override
             public void onInit(int status) {

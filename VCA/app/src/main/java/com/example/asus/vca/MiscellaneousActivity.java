@@ -20,7 +20,7 @@ import static com.example.asus.vca.MainActivity.RESULT_SPEECH;
 public class MiscellaneousActivity extends AppCompatActivity {
 
     public Button Game;
-    private ImageButton btnSpeak;
+//    private ImageButton btnSpeak;
     private TextView txtText;
     public Button Calendar;
     protected static final int RESULT_SPEECH = 1;
@@ -33,29 +33,29 @@ public class MiscellaneousActivity extends AppCompatActivity {
 
 //        txtText = (TextView) findViewById(R.id.txtText);
 
-        btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
+//        btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
 
-        btnSpeak.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(
-                        RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-
-                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
-
-                try {
-                    startActivityForResult(intent, RESULT_SPEECH);
-//                    txtText.setText("");
-                } catch (ActivityNotFoundException a) {
-                    Toast t = Toast.makeText(getApplicationContext(),
-                            "Opps! Your device doesn't support Speech to Text",
-                            Toast.LENGTH_SHORT);
-                    t.show();
-                }
-            }
-        });
+//        btnSpeak.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//
+//                Intent intent = new Intent(
+//                        RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+//
+//                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
+//
+//                try {
+//                    startActivityForResult(intent, RESULT_SPEECH);
+////                    txtText.setText("");
+//                } catch (ActivityNotFoundException a) {
+//                    Toast t = Toast.makeText(getApplicationContext(),
+//                            "Opps! Your device doesn't support Speech to Text",
+//                            Toast.LENGTH_SHORT);
+//                    t.show();
+//                }
+//            }
+//        });
 
     }
 

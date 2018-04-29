@@ -57,18 +57,18 @@
 
         </Button>
 
-        <ImageButton
-            android:id="@+id/btnSpeak"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="0dp"
-            android:layout_marginRight="0dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginLeft="-100dp"
-            android:background="@drawable/button_border2"
-            android:padding="10dp"
-            android:src="@android:drawable/ic_btn_speak_now">
-        </ImageButton>
+        <!--<ImageButton-->
+            <!--android:id="@+id/btnSpeak"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:layout_margin="0dp"-->
+            <!--android:layout_marginRight="0dp"-->
+            <!--android:layout_marginTop="0dp"-->
+            <!--android:layout_marginLeft="-100dp"-->
+            <!--android:background="@drawable/button_border2"-->
+            <!--android:padding="10dp"-->
+            <!--android:src="@android:drawable/ic_btn_speak_now">-->
+        <!--</ImageButton>-->
 
 
 
