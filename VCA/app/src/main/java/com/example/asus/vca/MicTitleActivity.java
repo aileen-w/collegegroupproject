@@ -44,15 +44,23 @@ public class MicTitleActivity extends AppCompatActivity implements TextToSpeech.
         voiceInput = (TextView) findViewById(R.id.voiceInput);
         txt = "What is the event you wish to add?";
         textToSpeech();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        askSpeechInput();
-        Intent checkTTSIntent = new Intent();
-        checkTTSIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
-        startActivityForResult(checkTTSIntent, MY_DATA_CHECK_CODE);
+//        try {
+//            Thread.sleep(7000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Do something after 100ms
+                askSpeechInput();
+                Intent checkTTSIntent = new Intent();
+                checkTTSIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+                startActivityForResult(checkTTSIntent, MY_DATA_CHECK_CODE);
+            }
+        }, 4000);
+
 //        textToSpeech();
 
     }

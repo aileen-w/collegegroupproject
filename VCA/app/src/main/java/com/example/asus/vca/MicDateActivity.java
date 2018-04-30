@@ -36,13 +36,14 @@ public class MicDateActivity extends AppCompatActivity implements TextToSpeech.O
     String date = "";
     private int MY_DATA_CHECK_CODE = 0;
     private TextToSpeech myTTS;
-    String calendarTitle = getIntent().getStringExtra("calendarTitle");
+    String calendarTitle = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.voice_recognition_view);
         voiceInput = (TextView) findViewById(R.id.voiceInput);
+        calendarTitle = getIntent().getExtras().getString("calendarTitle");
 
         txt = "What is the date? Acceptable format is: year month day, all numeric values.";
         textToSpeech();
@@ -126,6 +127,7 @@ public class MicDateActivity extends AppCompatActivity implements TextToSpeech.O
                     try {
                         String[] recArray = rec.split("\\s+");
                         Log.e("rec", rec );
+                        Log.e("calendarTitle", calendarTitle );
 
 //                        Log.e("recognizedArray2", recArray[0]);
 //                        tts.speak("Adding new calendar record.", TextToSpeech.QUEUE_FLUSH, null);
