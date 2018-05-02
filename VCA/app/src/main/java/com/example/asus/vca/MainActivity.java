@@ -37,6 +37,7 @@ import com.integreight.onesheeld.sdk.OneSheeldManager;
 import com.integreight.onesheeld.sdk.OneSheeldScanningCallback;
 import com.integreight.onesheeld.sdk.OneSheeldSdk;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,7 +51,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.time.Month;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -86,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected static final int RESULT_SPEECH = 1;
 
-
+    PostData postData = new PostData();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {                    //loads main activity
@@ -98,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
         appIsUp();                  // send notification to website that app is running
         startGeolocation();         //start geolocation tracking
 //        textToSpeech();             // greet user at the start of app
-
 
     }
 

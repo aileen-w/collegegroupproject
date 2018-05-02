@@ -34,6 +34,7 @@
         <activity android:name=".MicActivity" />
         <activity android:name=".MicTitleActivity" />
         <activity android:name=".MicDateActivity" />
+        <activity android:name=".MicReadActivity" />
     </application>
 
 </manifest>
