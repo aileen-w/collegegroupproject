@@ -136,6 +136,7 @@ public class MicDateActivity extends AppCompatActivity implements TextToSpeech.O
                                 device = device.toUpperCase();
                                 String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
                                 device = device + "-"+android_id;
+                                device=device.replace(' ','_');//replaces all occurrences of 'a' to 'e'
 
                                 JSONObject subObj = new JSONObject();
                                 subObj.put("action" , "new");
