@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+
 public class ServicesActivity extends AppCompatActivity {
 
 
     public Button takeAway;
     public Button taxi;
+    public Button shopping;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,22 @@ public class ServicesActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     //create taxi activity intent in context to services activity
                     Intent intentLoadTaxiActivity = new Intent(ServicesActivity.this, TaxiActivity.class);
+                    //run taxi activity intent
+                    startActivity(intentLoadTaxiActivity);
+                }
+            });
+
+        }
+
+        //find id of taxi button
+        shopping = findViewById(R.id.buttonShopping);
+        {
+            //set listener on takeAway button
+            shopping.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //create taxi activity intent in context to services activity
+                    Intent intentLoadTaxiActivity = new Intent(ServicesActivity.this, ShoppingActivity.class);
                     //run taxi activity intent
                     startActivity(intentLoadTaxiActivity);
                 }

@@ -67,9 +67,9 @@
     </string-array>
 
     <string-array name="menuItemPrices">
-        <item>€7.90</item>
-        <item>€9.00</item>
-        <item>€7.90</item>
+        <item>7.90</item>
+        <item>9.00</item>
+        <item>7.90</item>
     </string-array>
 
     <string-array name="subOrderItems">
@@ -78,8 +78,20 @@
     </string-array>
 
     <string-array name="subOrderPrices">
-        <item>€0.50</item>
-        <item>€1.50</item>
+        <item>0.50</item>
+        <item>1.50</item>
+    </string-array>
+
+    <string-array name="shoppingItems">
+        <item>Bread</item>
+        <item>Milk</item>
+        <item>Eggs</item>
+    </string-array>
+
+    <string-array name="shoppingPrices">
+        <item>1.50</item>
+        <item>1.00</item>
+        <item>3.00</item>
     </string-array>
 
 
@@ -96,5 +108,41 @@
     <string name="pickuptime">Pickup Time: </string>
 
     <string name="date">Date: </string>
+
+    <string name="hintname">Name: </string>
+
+    <string name="hintaddress">Address: </string>
+
+    <string name="hintphone">Phone: </string>
+
+    <string name="hintpickupdate">Pickup Date: </string>
+
+    <string name="hintpickuptime">Pickup Time: </string>
+
+    <string name="enter">ENTER: </string>
+
+    <string name="bread">Bread</string>
+
+    <string name="milk">Milk</string>
+
+    <string name="eggs">Eggs</string>
+
+    <string name="addtobasket">ADD TO BASKET</string>
+
+    <string name="yourorder">YOUR TAKEAWAY ORDER</string>
+
+    <string name="purchase">PURCHASE</string>
+
+    <string name="total">TOTAL: €</string>
+
+    <string name="fullname">NAME: </string>
+
+    <string name="customerAddress">ADDRESS: </string>
+
+    <string name="customerPhone">PHONE: </string>
+
+    <string name="Basket">Basket</string>
+
+
 
 </resources>

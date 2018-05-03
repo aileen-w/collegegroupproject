@@ -58,13 +58,13 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/etName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName"
-            />
+            android:hint="@string/hintname"
+            android:inputType="textPersonName" />
 
     </LinearLayout>
 
@@ -90,13 +90,21 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/etAddress"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName"
-           />
+            android:hint="@string/hintaddress"
+            android:inputType="textPostalAddress" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
     </LinearLayout>
 
@@ -105,7 +113,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:id="@+id/linearLayout7">
+    android:id="@+id/linearLayout8">
 
         <TextView
             android:id="@+id/textView4"
@@ -116,17 +124,18 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout8"
+        android:id="@+id/linearLayout9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/etPhone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:hint="@string/hintphone"
             android:inputType="phone" />
 
     </LinearLayout>
@@ -135,7 +144,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:id="@+id/linearLayou9">
+    android:id="@+id/linearLayout10">
 
     <TextView
         android:id="@+id/textView5"
@@ -147,17 +156,18 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout10"
+        android:id="@+id/linearLayout11"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/editText5"
+            android:id="@+id/etDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:hint="@string/hintpickupdate"
             android:inputType="date" />
 
     </LinearLayout>
@@ -166,7 +176,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/linearLayou11">
+        android:id="@+id/linearLayou12">
 
         <TextView
             android:id="@+id/textView6"
@@ -178,17 +188,37 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout12"
+        android:id="@+id/linearLayout13"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <EditText
-            android:id="@+id/editText6"
+            android:id="@+id/etPickupTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:hint="@string/hintpickuptime"
             android:inputType="time" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonEnter"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/enter"
+            android:text="@string/enter"
+            android:backgroundTint="@color/white"
+            />
 
     </LinearLayout>
 
