@@ -87,6 +87,9 @@
                     <li>
                         <a href="tracking.php"><i class="fa fa-dashboard fa-fw"></i> Live Tracking</a>
                     </li>
+                    <li>
+                        <a href="calendar.php"><i class="fa fa-calendar"></i> Calendar Records</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->

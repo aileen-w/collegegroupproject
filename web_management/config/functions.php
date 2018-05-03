@@ -674,6 +674,29 @@ function tracking_page($pdo)
 };
 
 /**
+ * Load data for calendar page
+ *
+ * @param $pdo
+ * @return array
+ */
+function calendar_page($pdo)
+{
+    $results = array();
+
+    try {
+
+        // fetch information
+        $sql = "select distinct(user_device) from calendar;";
+        $results = selectDB($pdo, $sql);
+
+    } catch (PDOException $e){
+        errorLog($pdo, __LINE__ . ':' . $e->getMessage().':'.$e);
+    }
+
+    return $results;
+};
+
+/**
  * Fetch data for details page
  *
  * @param $pdo
@@ -728,6 +751,40 @@ function fetch_position($pdo, $post)
     {
         $device = $post['device'];
         $sql = "select * from geolocation where device = '{$device}' order by date desc limit 1;";
+        return selectDB($pdo, $sql);
+    }
+
+    return;
+
+};
+
+/**
+ * Helper functions to fetch all the calendar records of the device
+ *
+ * @param $pdo
+ * @param $post
+ * @return array
+ */
+function fetch_calendar_records($pdo, $post)
+{
+    if(!empty($post['device']))
+    {
+        $device = $post['device'];
+//        $sql = "select * from calendar where user_device = '{$device}' and active = 'Y' order by cal_date, time_from;";
+        $sql = "select id, user_device, title, cal_desc, time_from, time_to, active, (
+                concat(SUBSTRING(cal_date, -4), 
+                \"-\", 
+                IF(LENGTH(REPLACE(SUBSTRING(cal_date, 2, 2),\"-\",\"\"))<2, 
+                            concat(\"0\",REPLACE(SUBSTRING(cal_date, 2, 2),\"-\",\"\")), 
+                            REPLACE(SUBSTRING(cal_date, 2, 2),\"-\",\"\")
+                            ),
+                \"-\",
+                (IF(LENGTH(REPLACE(LEFT(cal_date , 2),\"-\",\"\"))<2, 
+                            concat(\"0\",REPLACE(LEFT(cal_date , 2),\"-\",\"\")), 
+                            REPLACE(LEFT(cal_date , 2),\"-\",\"\")
+                            ))
+                )
+                ) as 'cal_date' from calendar where user_device = '{$device}' and active = 'Y' order by cal_date, time_from DESC;";
         return selectDB($pdo, $sql);
     }
 

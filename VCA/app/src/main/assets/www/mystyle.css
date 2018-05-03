@@ -11,34 +11,34 @@ font-family: Imprint MT Shadow;
 }
 
 #look{
-text-align: center;
-font-size: 40px;
+text-align: left;
+margin-left: 32%;
+font-size: 20px;
 margin-bottom: 0;
 margin-top: 0;
 }
 
 #pairs{
-text-align: center;
-font-size: 30px;
+text-align: left;
+margin-left: 28%;
+font-size: 20px;
 }
 
 .card {
   display: inline-block;
+  float:left;
   margin: 5px;
   padding: 10% 10%;
-  width: 100px;
-  height: 20px;
-  background-size: 50px;
+  background-size: 150px;
   background-repeat: no-repeat;
-
 }
 
-.options {
+.option {
   cursor: pointer;
-  font-size: 40px;
-  text-align: center;
+  border: 1px solid black;
+  font-size: 70px;
   margin: 0px;
-  margin-left: 80px;
+  margin-left: 50px;
   padding-right: 100px;
   padding-bottom: 0px;
   padding-top: 0px;
@@ -46,72 +46,59 @@ font-size: 30px;
 
 .king{
   background-image: url("king.gif");
-  background-size: 60px;
 }
 
 .queen{
   background-image: url("queen.png");
-  background-size: 60px;
   }
 
 .princess{
   background-image: url("princess.png");
-  background-size: 55px;
+  background-size: 120px;
 }
 
 .princess2{
   background-image: url("princess2.png");
-  background-size: 55px;
+  background-size: 120px;
 }
 
 .prince{
   background-image: url("prince.png");
-    background-size: 60px;
 }
 
 .prince2{
   background-image: url("prince2.png");
-    background-size: 60px;
 }
 
 .jester{
   background-image: url("jester.gif");
-    background-size: 60px;
 }
 
 .jester2{
   background-image: url("jester2.png");
-    background-size: 60px;
 }
 
 .castle{
   background-image: url("castle.png");
-    background-size: 60px;
-    'margin-left: 50px;
+  background-size: 220px;
 }
 
 .castle2{
   background-image: url("castle2.png");
-    background-size: 60px;
-    'margin-left: 50px;
+  background-size: 220px;
 }
 
 .dragon{
   background-image: url("dragon.png");
-    background-size: 60px;
-    'margin-left: 50px;
-
+  background-size: 180px;
 
 }
 
 .dragon2{
   background-image: url("dragon2.png");
-   background-size: 60px;
-   'margin-left: 50px;
+  background-size: 200px;
 }
 
 .knight{
   background-image: url("knight.png");
-    background-size: 60px;
-    'margin-left: 50px;
 }
