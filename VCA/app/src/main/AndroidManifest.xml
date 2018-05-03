@@ -35,6 +35,12 @@
         <activity android:name=".MicTitleActivity" />
         <activity android:name=".MicDateActivity" />
         <activity android:name=".MicReadActivity" />
+        <activity android:name=".TaxiActivity" />
+        <activity android:name=".TakeAwayActivity" />
+        <activity android:name=".SubOrderActivity" />
+        <activity android:name=".ShoppingActivity" />
+        <activity android:name=".Basket" />
+        <activity android:name=".TakeawayOrder"></activity>
     </application>
 
 </manifest>
