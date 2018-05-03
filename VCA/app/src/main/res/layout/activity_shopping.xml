@@ -76,7 +76,7 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/basket"
+        android:drawableStart="@drawable/shopping"
         android:text="@string/addtobasket"
         android:backgroundTint="@color/white"
         />
