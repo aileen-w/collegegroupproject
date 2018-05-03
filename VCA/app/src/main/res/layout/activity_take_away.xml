@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".TakeAwayActivity">
+
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:paddingBottom="16dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout2"
+        >
+
+        <TextView android:id="@+id/TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sweetnsour"
+            android:textSize="20sp"
+            android:layout_gravity="bottom"
+            android:layout_marginEnd="20sp"
+
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/chinese"
+            android:layout_marginStart="20dp"
+            android:layout_gravity="bottom"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout3"
+        >
+
+        <TextView android:id="@+id/TextView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sweetnsourchicken"
+            android:textSize="15sp"
+            android:layout_gravity="bottom"
+
+
+            />
+
+        <TextView android:id="@+id/TextView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pricesweetnsourchicken"
+            android:textSize="15sp"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="60sp"
+            />
+
+        <Button
+            android:id="@+id/buttonAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="20dp"
+            android:backgroundTint="@color/white"
+            android:drawableStart="@drawable/plus" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout4"
+        >
+
+        <TextView android:id="@+id/TextView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sweetnsourprawn"
+            android:textSize="15sp"
+            android:layout_gravity="bottom"
+
+
+            />
+
+        <TextView android:id="@+id/TextView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pricesweetnsourprawn"
+            android:textSize="15sp"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="71sp"
+            />
+
+        <Button
+            android:id="@+id/buttonAdd2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="20dp"
+            android:backgroundTint="@color/white"
+            android:drawableStart="@drawable/plus" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout5"
+        >
+
+        <TextView android:id="@+id/TextView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sweetnsourpork"
+            android:textSize="15sp"
+            android:layout_gravity="bottom"
+            />
+
+        <TextView android:id="@+id/TextView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pricesweetnsourpork"
+            android:textSize="15sp"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="81sp"
+            />
+
+        <Button
+            android:id="@+id/buttonAdd3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/plus"
+            android:layout_marginStart="20dp"
+            android:backgroundTint="@color/white"
+            android:layout_gravity="bottom"
+            />
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+

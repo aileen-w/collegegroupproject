@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-    <resources>
+<resources>
 
     <string name="app_name">VCA</string>
 
@@ -36,18 +36,113 @@
 
     <string name="taxi">TAXI</string>
 
-    <string name="scan">SCAN</string>
-
     <string name="scanneddevices">Scanned Devices</string>
 
     <string name="connecteddevices">Connected Devices</string>
 
-    <string name="connect">CONNECT</string>
+    <string name="sweetnsour">SWEET AND SOUR DISHES</string>
 
-    <string name="disconnect">DISCONNECT</string>
+    <string name="sweetnsourchicken">Sweet And Sour Chicken</string>
 
-    <string name="oneSheeld3000">1Sheeld #3000</string>
+    <string name="pricesweetnsourchicken">€7.90 </string>
 
-    <string name="bluetooth">TURN BLUETOOTH ON</string>
+    <string name="add">add</string>
+
+    <string name="sweetnsourprawn">Sweet And Sour Prawn</string>
+
+    <string name="pricesweetnsourprawn"> €9.00</string>
+
+    <string name="sweetnsourpork">Sweet And Sour Pork</string>
+
+    <string name="pricesweetnsourpork"> €7.90</string>
+
+    <string name="suborder">SUB ORDER</string>
+
+    <string name="chooseone">CHOOSE ONE</string>
+
+    <string-array name="menuItems">
+        <item>Sweet and Sour Chicken</item>
+        <item>Sweet and Sour Prawn</item>
+        <item>Sweet and Sour Pork</item>
+    </string-array>
+
+    <string-array name="menuItemPrices">
+        <item>7.90</item>
+        <item>9.00</item>
+        <item>7.90</item>
+    </string-array>
+
+    <string-array name="subOrderItems">
+        <item>Fried Rice</item>
+        <item>Fried Noodles</item>
+    </string-array>
+
+    <string-array name="subOrderPrices">
+        <item>0.50</item>
+        <item>1.50</item>
+    </string-array>
+
+    <string-array name="shoppingItems">
+        <item>Bread</item>
+        <item>Milk</item>
+        <item>Eggs</item>
+    </string-array>
+
+    <string-array name="shoppingPrices">
+        <item>1.50</item>
+        <item>1.00</item>
+        <item>3.00</item>
+    </string-array>
+
+
+    <string name="title_activity_taxi">TaxiActivity</string>
+
+    <string name="taxiservice">TAXI SERVICE</string>
+
+    <string name="name">Name: </string>
+
+    <string name="address">Address: </string>
+
+    <string name="phone">Phone: </string>
+
+    <string name="pickuptime">Pickup Time: </string>
+
+    <string name="date">Date: </string>
+
+    <string name="hintname">Name: </string>
+
+    <string name="hintaddress">Address: </string>
+
+    <string name="hintphone">Phone: </string>
+
+    <string name="hintpickupdate">Pickup Date: </string>
+
+    <string name="hintpickuptime">Pickup Time: </string>
+
+    <string name="enter">ENTER: </string>
+
+    <string name="bread">Bread</string>
+
+    <string name="milk">Milk</string>
+
+    <string name="eggs">Eggs</string>
+
+    <string name="addtobasket">ADD TO BASKET</string>
+
+    <string name="yourorder">YOUR TAKEAWAY ORDER</string>
+
+    <string name="purchase">PURCHASE</string>
+
+    <string name="total">TOTAL: €</string>
+
+    <string name="fullname">NAME: </string>
+
+    <string name="customerAddress">ADDRESS: </string>
+
+    <string name="customerPhone">PHONE: </string>
+
+    <string name="Basket">Basket</string>
+
+
 
 </resources>
