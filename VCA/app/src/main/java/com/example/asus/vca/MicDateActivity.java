@@ -230,8 +230,12 @@ public class MicDateActivity extends AppCompatActivity implements TextToSpeech.O
     public String getMonthNumber(String name){
         String monthId = "";
         name = name.toLowerCase();
-        String[][] months = {{"January", "01"}, {"February", "02"}, {"March", "03"}, {"April", "04"}, {"May", "05"}, {"June", "06"},
-                {"July", "07"}, {"August", "08"}, {"September", "09"},
+//        String[][] months = {{"January", "01"}, {"February", "02"}, {"March", "03"}, {"April", "04"}, {"May", "05"}, {"June", "06"},
+//                {"July", "07"}, {"August", "08"}, {"September", "09"},
+//                {"October", "10"}, {"November", "11"}, {"December", "12"}};
+
+        String[][] months = {{"January", "1"}, {"February", "2"}, {"March", "3"}, {"April", "4"}, {"May", "5"}, {"June", "6"},
+                {"July", "7"}, {"August", "8"}, {"September", "9"},
                 {"October", "10"}, {"November", "11"}, {"December", "12"}};
 
         for(int i =0; i<months.length; i++){
@@ -247,16 +251,27 @@ public class MicDateActivity extends AppCompatActivity implements TextToSpeech.O
     public String getDayNumber(String name){
         String dayId = "";
         name = name.toLowerCase();
+//        String[][] suffixes =
+//            {       {"0th", "00"},  {"1st", "01"},  {"2nd", "02"},  {"3rd", "03"},
+//                    {"4th", "04"},  {"5th", "05"},  {"6th", "06"},  {"7th", "07"},
+//                    {"8th", "08"},  {"9th", "09"}, {"10th", "10"}, {"11th", "11"},
+//                    {"12th", "12"}, {"13th", "13"}, {"14th", "14"}, {"15th", "15"},
+//                    {"16th", "16"}, {"17th", "17"}, {"18th", "18"}, {"19th", "19"},
+//                    {"20th", "20"}, {"21st", "21"}, {"22nd", "22"}, {"23rd", "23"},
+//                    {"24th", "24"}, {"25th", "25"}, {"26th", "26"}, {"27th", "27"},
+//                    {"28th", "28"}, {"29th", "29"}, {"30th", "30"}, {"31st", "31"}
+//            };
+
         String[][] suffixes =
-            {       {"0th", "00"},  {"1st", "01"},  {"2nd", "02"},  {"3rd", "03"},
-                    {"4th", "04"},  {"5th", "05"},  {"6th", "06"},  {"7th", "07"},
-                    {"8th", "08"},  {"9th", "09"}, {"10th", "10"}, {"11th", "11"},
-                    {"12th", "12"}, {"13th", "13"}, {"14th", "14"}, {"15th", "15"},
-                    {"16th", "16"}, {"17th", "17"}, {"18th", "18"}, {"19th", "19"},
-                    {"20th", "20"}, {"21st", "21"}, {"22nd", "22"}, {"23rd", "23"},
-                    {"24th", "24"}, {"25th", "25"}, {"26th", "26"}, {"27th", "27"},
-                    {"28th", "28"}, {"29th", "29"}, {"30th", "30"}, {"31st", "31"}
-            };
+                {       {"0th", "0"},  {"1st", "1"},  {"2nd", "2"},  {"3rd", "3"},
+                        {"4th", "4"},  {"5th", "5"},  {"6th", "6"},  {"7th", "7"},
+                        {"8th", "8"},  {"9th", "9"}, {"10th", "10"}, {"11th", "11"},
+                        {"12th", "12"}, {"13th", "13"}, {"14th", "14"}, {"15th", "15"},
+                        {"16th", "16"}, {"17th", "17"}, {"18th", "18"}, {"19th", "19"},
+                        {"20th", "20"}, {"21st", "21"}, {"22nd", "22"}, {"23rd", "23"},
+                        {"24th", "24"}, {"25th", "25"}, {"26th", "26"}, {"27th", "27"},
+                        {"28th", "28"}, {"29th", "29"}, {"30th", "30"}, {"31st", "31"}
+                };
 
         for(int i =0; i<suffixes.length; i++){
             if((suffixes[i][0].toLowerCase()).equals(name)){
