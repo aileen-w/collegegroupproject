@@ -8,6 +8,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -28,12 +30,11 @@
         <activity android:name=".ServicesActivity" />
         <activity android:name=".MiscellaneousActivity" />
         <activity android:name=".GameActivity" />
-        <activity android:name=".TaxiActivity" />
-        <activity android:name=".TakeAwayActivity" />
-        <activity android:name=".SubOrderActivity" />
-        <activity android:name=".ShoppingActivity" />
-        <activity android:name=".Basket" />
-        <activity android:name=".TakeawayOrder"></activity>
+        <activity android:name=".CalendarActivity" />
+        <activity android:name=".MicActivity" />
+        <activity android:name=".MicTitleActivity" />
+        <activity android:name=".MicDateActivity" />
+        <activity android:name=".MicReadActivity" />
     </application>
 
 </manifest>

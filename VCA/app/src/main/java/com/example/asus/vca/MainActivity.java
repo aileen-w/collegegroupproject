@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
         appIsUp();                  // send notification to website that app is running
         startGeolocation();         //start geolocation tracking
-        textToSpeech();             // greet user at the start of app
+//        textToSpeech();             // greet user at the start of app
 
 
     }
