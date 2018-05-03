@@ -98,7 +98,7 @@ public class MicDateActivity extends AppCompatActivity implements TextToSpeech.O
                     voiceInput.setText(result.get(0));
 
                     String rec = (result.get(0)).toLowerCase();
-                    Log.e("SpeechRec", rec );
+//                    Log.e("SpeechRec", rec );
 
                     try {
                         String[] recArray = rec.split("\\s+");

@@ -86,7 +86,7 @@ public class MicActivity extends AppCompatActivity implements TextToSpeech.OnIni
                     voiceInput.setText(result.get(0));
 
                     String rec = (result.get(0)).toLowerCase();
-                    rec = "calendar read";
+//                    rec = "calendar read";
 
                     try {
                         String[] recArray = rec.split("\\s+");

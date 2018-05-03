@@ -73,41 +73,6 @@ public class PostData extends AsyncTask<String , Void ,String> {
         }else{
             this.server_response_2 = null;
         }
-//
-//        JSONObject data = null;
-//            try {
-//
-//                if(server_response!=null)
-//                {
-//                    String replaceString=server_response.replace('"','\"');//replaces all occurrences of 'a' to 'e'
-//                    data = new JSONObject(replaceString);
-//                    // get a JSONArray from inside an object
-//                    JSONArray translations = data.getJSONArray("msg");
-//                    Log.e("ResponseFromServer", translations.toString());
-//                    Log.e("Size", "" + translations.length());
-//                    // get the first JSONObject from the array
-//
-//                    // get the String contained in the object -> logs Bonjour tout le monde
-//                    if(translations.length()>0)
-//                    {
-//                        for(int i=0; i<translations.length(); i++)
-//                        {
-//                            JSONObject text = translations.getJSONObject(i);
-//                            Log.d("***>Text", text.getString("title"));
-//                        }
-//                    }
-//                    else
-//                    {
-//                        String txt = "There is no records available for that date.";
-//                    }
-//                }
-//
-//
-//
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-
     }
 
 //    @Override

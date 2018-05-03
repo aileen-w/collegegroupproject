@@ -94,7 +94,7 @@ public class MicReadActivity extends AppCompatActivity implements TextToSpeech.O
                     voiceInput.setText(result.get(0));
 
                     String rec = (result.get(0)).toLowerCase();
-                    rec = "3rd May 2018";
+//                    rec = "3rd May 2018";
 //                    Log.e("SpeechRec", rec );
 
                     try {
@@ -120,10 +120,6 @@ public class MicReadActivity extends AppCompatActivity implements TextToSpeech.O
                                 String dateY = (recArray[2]);
                                 date = dateY + "-" + dateM + "-" + dateD;
                             }
-
-
-//                        txt = "Record saved. Have a nice day.";
-//                        textToSpeech();
 
                             try {
 
@@ -154,8 +150,6 @@ public class MicReadActivity extends AppCompatActivity implements TextToSpeech.O
                                     public void run() {
                                         //Do something after 100ms
                                         String res = postData.returnServerRespond();
-                                        Log.e("ServerReturnRRR", "" + Thread.currentThread().getStackTrace()[2].getLineNumber() + " - " +postData.returnServerRespond());
-                                        Log.e("ServerReturnRRR", "" + Thread.currentThread().getStackTrace()[2].getLineNumber() + " - " +postData.returnServerRespond().length());
                                         JSONObject data = null;
                                         try {
                                             if(res!=null && res.length()>2)
@@ -164,10 +158,6 @@ public class MicReadActivity extends AppCompatActivity implements TextToSpeech.O
                                                 data = new JSONObject(replaceString);
                                                 // get a JSONArray from inside an object
                                                 msg = data.getJSONArray("msg");
-//                                                Log.e("ResponseFromServer", translations.toString());
-//                                                Log.e("Size", "" + msg.length());
-                                                // get the first JSONObject from the array
-
                                                 // get the String contained in the object -> logs Bonjour tout le monde
                                                 if(msg.length()>0)
                                                 {
@@ -185,7 +175,7 @@ public class MicReadActivity extends AppCompatActivity implements TextToSpeech.O
 
                                                                 try {
                                                                     text = msg.getJSONObject(i);
-                                                                    Log.d("***>Text", text.getString("title"));
+//                                                                    Log.d("***>Text", text.getString("title"));
                                                                     text3 = text3 + ", " + text.getString("title");
 
                                                                 } catch (JSONException e) {
@@ -198,29 +188,26 @@ public class MicReadActivity extends AppCompatActivity implements TextToSpeech.O
                                                             handler.postDelayed(new Runnable() {
                                                                 @Override
                                                                 public void run() {
-                                                                    //Do something after 100ms
-                                                                    txt = text3;
-                                                                    textToSpeech();
+                                                                //Do something after 100ms
+                                                                txt = text3;
+                                                                textToSpeech();
 
-                                                                                                                                final Handler handler = new Handler();
-                                                            handler.postDelayed(new Runnable() {
-                                                                @Override
-                                                                public void run() {
-                                                                    //Do something after 100ms
-                                                                    Intent mainA = new Intent(MicReadActivity.this, MainActivity.class);
-                                                                    //run services activity intent
-                                                                    startActivity(mainA);
+                                                                final Handler handler = new Handler();
+                                                                handler.postDelayed(new Runnable() {
+                                                                    @Override
+                                                                    public void run() {
+                                                                        //Do something after 100ms
+                                                                        Intent mainA = new Intent(MicReadActivity.this, MainActivity.class);
+                                                                        //run services activity intent
+                                                                        startActivity(mainA);
+                                                                    }
+                                                                }, 2000);
+
                                                                 }
                                                             }, 2000);
-
-                                                                }
-                                                            }, 2000);
-
-
 
                                                         }
                                                     }, 2000);
-
 
                                                 }
                                                 else
@@ -234,7 +221,6 @@ public class MicReadActivity extends AppCompatActivity implements TextToSpeech.O
                                                 txt = "There is no records available for that date.";
                                                 textToSpeech();
                                             }
-
 
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -304,7 +290,7 @@ public class MicReadActivity extends AppCompatActivity implements TextToSpeech.O
         name = name.toLowerCase();
         String[][] months = {{"January", "01"}, {"February", "02"}, {"March", "03"}, {"April", "04"}, {"May", "05"}, {"June", "06"},
                 {"July", "07"}, {"August", "08"}, {"September", "09"},
-                {"October", "10"}, {"November", "12"}, {"December", "12"}};
+                {"October", "10"}, {"November", "11"}, {"December", "12"}};
 
         for(int i =0; i<months.length; i++){
             if((months[i][0].toLowerCase()).equals(name)){

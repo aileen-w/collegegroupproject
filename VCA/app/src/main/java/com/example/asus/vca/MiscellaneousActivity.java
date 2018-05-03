@@ -30,33 +30,6 @@ public class MiscellaneousActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_miscellaneous);
         setupUI();
-
-//        txtText = (TextView) findViewById(R.id.txtText);
-
-//        btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
-
-//        btnSpeak.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//
-//                Intent intent = new Intent(
-//                        RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-//
-//                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
-//
-//                try {
-//                    startActivityForResult(intent, RESULT_SPEECH);
-////                    txtText.setText("");
-//                } catch (ActivityNotFoundException a) {
-//                    Toast t = Toast.makeText(getApplicationContext(),
-//                            "Opps! Your device doesn't support Speech to Text",
-//                            Toast.LENGTH_SHORT);
-//                    t.show();
-//                }
-//            }
-//        });
-
     }
 
     @Override
