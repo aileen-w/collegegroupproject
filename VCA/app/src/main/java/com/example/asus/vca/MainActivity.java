@@ -83,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
     String text;
     String et;
     TextToSpeech tts;
+    Location location;
+    Criteria criteria;
 
     protected static final int RESULT_SPEECH = 1;
 
@@ -332,12 +334,12 @@ public class MainActivity extends AppCompatActivity {
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
             // Creating an empty criteria object
-            Criteria criteria = new Criteria();
+            criteria = new Criteria();
 
             // Getting the name of the provider that meets the criteria
             provider = locationManager.getBestProvider(criteria, false);
 
-            Location location = locationManager.getLastKnownLocation(provider);
+            location = locationManager.getLastKnownLocation(provider);
 
             if (location != null) {
                 //Declare the timer
@@ -354,11 +356,14 @@ public class MainActivity extends AppCompatActivity {
                                                     }
 
                                                     // Creating an empty criteria object
-                                                    Criteria criteria = new Criteria();
+                                                    criteria = new Criteria();
 
-                                                    Location location = locationManager.getLastKnownLocation(provider);
+//                                                    Location location = locationManager.getLastKnownLocation(provider);
                                                     location = locationManager.getLastKnownLocation(provider);
-                                                    new GPSTracker().onLocationChanged(location);
+                                                    GPSTracker gps = new GPSTracker();
+                                                    String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+                                                    gps.setAndroidId(android_id);
+                                                    gps.onLocationChanged(location);
 
                                                 }
                                             },

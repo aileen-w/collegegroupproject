@@ -36,6 +36,7 @@ public class GPSTracker extends Service implements LocationListener {
     String model = Build.MANUFACTURER + " " + Build.MODEL;
     String manufacturer = Build.MANUFACTURER;
     String device = "";
+    String androidId;
 
     @Override
     public void onLocationChanged(Location location) {
@@ -47,8 +48,9 @@ public class GPSTracker extends Service implements LocationListener {
             device = Build.MODEL;
             device = (manufacturer) + "-" + device;
             device = device.toUpperCase();
-            String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-            device = device + "-"+android_id;
+//            String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+            device = device + "-"+androidId;
+            device=device.replace(' ','_');//replaces all occurrences of 'a' to 'e'
 
             JSONObject subObj = new JSONObject();
             subObj.put("latitude" , location.getLatitude());
@@ -85,5 +87,9 @@ public class GPSTracker extends Service implements LocationListener {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    public void setAndroidId(String id){
+        this.androidId = id;
     }
 }
