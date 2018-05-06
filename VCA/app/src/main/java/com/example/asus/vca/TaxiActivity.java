@@ -44,23 +44,18 @@ public class TaxiActivity extends AppCompatActivity {
 
     }
 
-
     private void setupTaxiOrder(){
-
 
         //find id of enter button
         Enter = findViewById(R.id.buttonEnter);
         {
-
 
             //set listener on speaker button
             Enter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-
                     try {
-
 
                         name = (EditText) findViewById(R.id.etName);
                         address = (EditText) findViewById(R.id.etAddress);
@@ -93,12 +88,6 @@ public class TaxiActivity extends AppCompatActivity {
                             pickupDate.setText("");
                             pickupTime.setText("");
 
-
-
-
-
-
-
                     }
 
                             catch(JSONException e){
@@ -111,13 +100,9 @@ public class TaxiActivity extends AppCompatActivity {
 
         }
 
-
-
     }
 
-
-
-    }
+}
 
 
 

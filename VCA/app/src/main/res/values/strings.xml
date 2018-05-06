@@ -133,7 +133,7 @@
 
     <string name="purchase">PURCHASE</string>
 
-    <string name="total">TOTAL: €</string>
+    <string name="total">TOTAL</string>
 
     <string name="fullname">NAME: </string>
 
@@ -143,6 +143,10 @@
 
     <string name="Basket">Basket</string>
 
+    <string name="checkout">CHECKOUT</string>
 
+    <string name="pay">PAY</string>
+
+    <string name="order">ORDER</string>
 
 </resources>

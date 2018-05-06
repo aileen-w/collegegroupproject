@@ -28,11 +28,7 @@
             android:layout_marginEnd="10sp"
             android:layout_marginStart="60sp"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            />
+
 
     </LinearLayout>
 
@@ -49,7 +45,7 @@
         android:id="@+id/mainItem"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.75"
+        android:layout_weight="1"
         android:textSize="15sp"
         android:layout_gravity="left"
 
@@ -59,9 +55,9 @@
             android:id="@+id/itemprice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.25"
+            android:layout_weight="1"
             android:textSize="15sp"
-            android:layout_gravity="right"
+            android:layout_gravity="left"
             />
 
 </LinearLayout>
@@ -83,7 +79,9 @@
             android:layout_weight="1"
             android:textSize="15sp"
             android:layout_marginTop="10dp"
+            android:layout_gravity="left"
             />
+
         <TextView
             android:id="@+id/subPrice"
             android:layout_width="0dp"
@@ -91,6 +89,7 @@
             android:layout_weight="1"
             android:textSize="15sp"
             android:layout_marginTop="10dp"
+            android:layout_gravity="left"
             />
 
 
@@ -108,15 +107,24 @@
         android:id="@+id/linearLayout6"
         >
 
+        <TextView android:id="@+id/tvTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/total"
+            android:textSize="20sp"
+            android:layout_gravity="bottom|left"
+            android:layout_marginEnd="10sp"
 
-        <EditText
+            />
+
+        <TextView
             android:id="@+id/etTotal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
             android:hint="@string/total"
-            android:inputType="time" />
+            android:inputType="text" />
 
     </LinearLayout>
 
@@ -131,13 +139,14 @@
         android:id="@+id/linearLayout7"
         >
 
-        <TextView android:id="@+id/TextView1"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/etFullname"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/fullname"
-            android:textSize="15sp"
-            android:layout_gravity="bottom|center_horizontal"
-            />
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/hintname"
+            android:inputType="text" />
     </LinearLayout>
 
     <LinearLayout
@@ -151,13 +160,14 @@
         android:id="@+id/linearLayout8"
         >
 
-        <TextView android:id="@+id/TextView2"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/etAddress"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/customerAddress"
-            android:textSize="15sp"
-            android:layout_gravity="bottom|center_horizontal"
-            />
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/hintaddress"
+            android:inputType="text" />
     </LinearLayout>
 
     <LinearLayout
@@ -171,13 +181,15 @@
         android:id="@+id/linearLayout9"
         >
 
-        <TextView android:id="@+id/TextView3"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/etPhone"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/customerPhone"
-            android:textSize="15sp"
-            android:layout_gravity="bottom|center_horizontal"
-            />
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/hintphone"
+            android:inputType="text" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -187,13 +199,13 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/buttonEnter"
+            android:id="@+id/buttonOrder"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:drawableStart="@drawable/enter"
-            android:text="@string/purchase"
+            android:text="@string/order"
             android:backgroundTint="@color/white"
             />
 

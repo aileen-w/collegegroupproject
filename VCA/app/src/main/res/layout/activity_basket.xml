@@ -21,7 +21,7 @@
         <TextView android:id="@+id/TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Basket"
+            android:text="@string/checkout"
             android:textSize="20sp"
             android:layout_gravity="bottom|center_horizontal"
             android:layout_marginEnd="10sp"
@@ -31,7 +31,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/shopping"
+            android:src="@drawable/purchase"
             android:layout_marginStart="20dp"
             android:layout_gravity="bottom|center_horizontal"
             />
@@ -64,12 +64,12 @@
         android:layout_marginTop="60dp"
         android:layout_below="@id/linearLayout4">
 
-        <Button android:id="@+id/second"
+        <Button android:id="@+id/pay"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/basket"
-            android:text="@string/addtobasket"
+            android:drawableStart="@drawable/enter"
+            android:text="@string/pay"
             android:backgroundTint="@color/white"
             />
     </LinearLayout>

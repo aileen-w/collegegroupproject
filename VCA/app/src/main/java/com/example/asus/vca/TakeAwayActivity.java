@@ -80,7 +80,7 @@ public class TakeAwayActivity extends AppCompatActivity {
                     //create sub order activity intent in context to services activity
                     Intent intentLoadTakeAwayFragment = new Intent(TakeAwayActivity.this, SubOrderActivity.class);
                     //We need to use the extras of this intent to pass the selected item (i.e. Chicken, Prawn or Pork) to the SubOrderActivity
-                    intentLoadTakeAwayFragment.putExtra("itemchosen", "Sweet and Sour Pork €");
+                    intentLoadTakeAwayFragment.putExtra("itemchosen", "Sweet and Sour Pork");
                     intentLoadTakeAwayFragment.putExtra("itemprice", "7.90");
 
                     //run sub order activity intent
