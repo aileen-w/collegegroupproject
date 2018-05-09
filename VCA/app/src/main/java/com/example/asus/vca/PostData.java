@@ -3,6 +3,10 @@ package com.example.asus.vca;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -19,6 +23,7 @@ import java.net.URL;
 public class PostData extends AsyncTask<String , Void ,String> {
 
     String server_response;
+    String server_response_2;
 
     @Override
     protected String doInBackground(String... strings) {
@@ -61,7 +66,25 @@ public class PostData extends AsyncTask<String , Void ,String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        Log.e("Response", "" + server_response);
+//        Log.e("Response", "" + server_response);
+        Log.e("ResponseFromServer", "" + server_response);
+        if (server_response!=null){
+            this.server_response_2 = server_response;
+        }else{
+            this.server_response_2 = null;
+        }
+    }
+
+//    @Override
+//    public void onPostExecute(String s) {
+//        super.onPostExecute(s);
+//        Log.e("Response", "" + server_response);
+//        Log.e("ResponseFromServer", "" + server_response);
+//        return server_response;
+//    }
+
+    public String returnServerRespond(){
+        return this.server_response_2;
     }
 
     public static String readStream(InputStream in) {

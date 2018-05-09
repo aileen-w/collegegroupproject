@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,14 +16,11 @@ import com.integreight.onesheeld.sdk.OneSheeldManager;
 import com.integreight.onesheeld.sdk.OneSheeldSdk;
 import com.integreight.onesheeld.sdk.ShieldFrame;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.regex.PatternSyntaxException;
 
-public class MicActivity extends AppCompatActivity implements TextToSpeech.OnInitListener{
+public class MicTitleActivity extends AppCompatActivity implements TextToSpeech.OnInitListener{
 
     private TextView voiceInput;
     private final int REQ_CODE_SPEECH_INPUT = 100;
@@ -35,7 +30,7 @@ public class MicActivity extends AppCompatActivity implements TextToSpeech.OnIni
     String text;
     String et;
     TextToSpeech tts;
-    String prefix = "";
+    String prefix = "calendar add";
     String title = "";
     String txt = "";
     String date = "";
@@ -47,10 +42,22 @@ public class MicActivity extends AppCompatActivity implements TextToSpeech.OnIni
         super.onCreate(savedInstanceState);
         setContentView(R.layout.voice_recognition_view);
         voiceInput = (TextView) findViewById(R.id.voiceInput);
-        askSpeechInput();
-        Intent checkTTSIntent = new Intent();
-        checkTTSIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
-        startActivityForResult(checkTTSIntent, MY_DATA_CHECK_CODE);
+
+        txt = "What is the event you wish to add?";
+        textToSpeech();
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Do something after 100ms
+                askSpeechInput();
+                Intent checkTTSIntent = new Intent();
+                checkTTSIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+                startActivityForResult(checkTTSIntent, MY_DATA_CHECK_CODE);
+            }
+        }, 3000);
+
     }
 
     public void onInit(int initStatus) {
@@ -67,7 +74,7 @@ public class MicActivity extends AppCompatActivity implements TextToSpeech.OnIni
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Please say your command");
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "What is the event you wish to add?");
         try {
             startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
         } catch (ActivityNotFoundException a) {
@@ -86,59 +93,13 @@ public class MicActivity extends AppCompatActivity implements TextToSpeech.OnIni
                     voiceInput.setText(result.get(0));
 
                     String rec = (result.get(0)).toLowerCase();
-//                    rec = "calendar read";
 
                     try {
-                        String[] recArray = rec.split("\\s+");
 
-                        //verify that user has called out calendar
-                        if(recArray[0].equals("calendar"))
-                        {
-                            //verify user is adding new record
-                            if(recArray[1].equals("add") || recArray[1].equals("and") || recArray[1].equals("at"))
-                            {
-                                txt = "Adding new calendar record.";
-                                textToSpeech();
+                        Intent intentLoadMicDataActivity = new Intent(getApplicationContext(), MicDateActivity.class);
+                        intentLoadMicDataActivity.putExtra("calendarTitle", rec);
+                        startActivity(intentLoadMicDataActivity);
 
-                                final Handler handler = new Handler();
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        //Do something after 100ms
-                                        Intent intentLoadMicTitleActivity = new Intent(getApplicationContext(), MicTitleActivity.class);
-                                        startActivity(intentLoadMicTitleActivity);
-                                    }
-                                }, 3000);
-
-                            }
-                            else if(recArray[1].equals("read") || recArray[1].equals("reed"))
-                            {
-                                txt = "Tell me the date please.";
-                                textToSpeech();
-
-                                final Handler handler = new Handler();
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                    //Do something after 100ms
-                                    Intent intentLoadMicreadActivity = new Intent(getApplicationContext(), MicReadActivity.class);
-                                    startActivity(intentLoadMicreadActivity);
-                                    }
-                                }, 3000);
-                            }
-
-                        }
-                        else
-                        {
-                            OneSheeldManager manager = OneSheeldSdk.getManager();
-                            if (manager != null) {
-                                ShieldFrame sf = new ShieldFrame(voiceShieldId, SEND_RESULT);
-                                String recognized = result.get(0);
-                                Log.d("Lights", recognized);
-                                sf.addArgument(recognized.toLowerCase());
-                                manager.broadcastShieldFrame(sf, true);
-                            }
-                        }
                     } catch (PatternSyntaxException ex) {
                         // error
                         Log.e("Error", "Speech recognize error: " + ex.getMessage());
@@ -155,7 +116,7 @@ public class MicActivity extends AppCompatActivity implements TextToSpeech.OnIni
      */
     public void textToSpeech(){
 
-        tts=new TextToSpeech(MicActivity.this, new TextToSpeech.OnInitListener() {
+        tts=new TextToSpeech(MicTitleActivity.this, new TextToSpeech.OnInitListener() {
 
             @Override
             public void onInit(int status) {

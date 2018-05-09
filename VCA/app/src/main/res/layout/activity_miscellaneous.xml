@@ -9,64 +9,63 @@
 
 
     <LinearLayout
-        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:paddingRight="16dp"
-        android:paddingLeft="16dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:id="@+id/linearLayout">
-
-    <Button
         android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:id="@+id/buttonGame"
-        android:layout_gravity="center"
-        android:background="@drawable/button_border"
-        android:padding="10dp"
-        android:drawableStart="@drawable/game"
-        android:text="@string/game"
-        android:layout_weight="1"
-        />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="106dp"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <Button
+            android:id="@+id/buttonGame"
+            android:layout_width="350dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/button_border2"
+            android:drawableStart="@drawable/game"
+            android:padding="10dp"
+            android:text="@string/game" />
 
     </LinearLayout>
 
 
     <LinearLayout
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:paddingRight="16dp"
-        android:paddingLeft="16dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
         android:id="@+id/linearLayout2"
-        android:layout_below="@id/linearLayout">
-
-    <Button
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:id="@+id/buttonCalendar"
-        android:layout_gravity="center"
-        android:background="@drawable/button_border"
-        android:padding="10dp"
-        android:drawableStart="@drawable/calendar"
-        android:text="@string/calendar"
-        android:layout_weight="1"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="171dp"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:layout_marginLeft="10dp"
-        android:id="@+id/buttonMic2"
-        android:layout_gravity="center"
-        android:background="@drawable/button_border"
-        android:padding="10dp"
-        android:drawableStart="@drawable/microphone"
-        android:text="@string/microphone"
-        android:layout_weight="1"
-        />
+        <Button
+            android:id="@+id/buttonCalendar"
+            android:layout_width="350dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/button_border2"
+            android:drawableStart="@drawable/calendar"
+            android:padding="10dp"
+            android:text="Calendar" >
+
+        </Button>
+
+
+
+
+
 
     </LinearLayout>
+
+
+
+
 
 </RelativeLayout>
