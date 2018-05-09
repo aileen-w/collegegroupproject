@@ -147,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             //Construct a new OneSheeldScanningCallback callback and override onDeviceFind method
+            //finds nearby device and connects to it
             OneSheeldScanningCallback scanningCallback = new OneSheeldScanningCallback() {
 
                     @Override
@@ -169,6 +170,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Construct a new OneSheeldConnectionCallback callback and override onConnect method
+        //removes device from scanned devices array and adds it to connected devices array
+        //updates both scanned devices and connected devices array
         OneSheeldConnectionCallback connectionCallback = new OneSheeldConnectionCallback() {
             @Override
             public void onConnect(final OneSheeldDevice device) {

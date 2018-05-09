@@ -36,7 +36,7 @@ public class TaxiActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {    //returns taxi activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_taxi);
         setupTaxiOrder();
@@ -56,24 +56,27 @@ public class TaxiActivity extends AppCompatActivity {
                 public void onClick(View view) {
 
                     try {
-
+                        //gets id's of edit texts for name,address, phone,pickupdate and pickuptime
                         name = (EditText) findViewById(R.id.etName);
                         address = (EditText) findViewById(R.id.etAddress);
                         phone = (EditText) findViewById(R.id.etPhone);
                         pickupDate = (EditText) findViewById(R.id.etDate);
                         pickupTime = (EditText) findViewById(R.id.etPickupTime);
 
+
+                        //checks if id's of edit texts is empty for name,address,phone, pickupdate and pickuptime
                         if(name.getText().toString().isEmpty() && (address.getText().toString().isEmpty()
                                 && phone.getText().toString().isEmpty() && pickupDate.getText().toString().isEmpty()
                                 && pickupTime.getText().toString().isEmpty())) {
 
+                            //shows input required error if name, address, phone, pickupdate and picktime is empty
                             name.setError("Input Required");
                             address.setError("Input Required");
                             phone.setError("Input Required");
                             pickupDate.setError("Input Required");
                             pickupTime.setError("Input Required");
                         }
-
+                            //json object is created and sends name, address, phone, pickupdate and pickuptime to the database
                             JSONObject obj = new JSONObject();
                             obj.put("svc", "notification");
                             obj.put("dev", model);
@@ -82,6 +85,7 @@ public class TaxiActivity extends AppCompatActivity {
                                     "," + "pickupDate:" + pickupDate.getText().toString() + ", " + "pickupTime" + pickupTime.getText().toString());
                             new PostData().execute(obj.toString());
 
+                            //clears edit texts name, address, phone, pickupdate and pickuptime
                             name.setText("");
                             address.setText("");
                             phone.setText("");
@@ -89,7 +93,7 @@ public class TaxiActivity extends AppCompatActivity {
                             pickupTime.setText("");
 
                     }
-
+                            //throws a JSON exception if json object is empty
                             catch(JSONException e){
                             e.printStackTrace();
                             e.getMessage();
