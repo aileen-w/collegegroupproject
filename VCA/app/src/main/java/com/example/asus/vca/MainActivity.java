@@ -96,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
         setupOneSheeld();               //connect to onesheeld board
 
         appIsUp();                  // send notification to website that app is running
-        startGeolocation();         //start geolocation tracking
-        textToSpeech();             // greet user at the start of app
+        //startGeolocation();         //start geolocation tracking
+        //textToSpeech();             // greet user at the start of app
 
 
     }

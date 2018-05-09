@@ -102,7 +102,10 @@ public class Basket extends AppCompatActivity {
                     JSONObject obj = new JSONObject();
                     obj.put("svc", "notification");
                     obj.put("dev", model);
-                    obj.put("msg", "Items ordered: (items: " + items.toString());
+                    for(int i = 0; i < productOrderList.size(); i++) {
+                        items += productOrderList.get(i).toString() + ", ";
+                    }
+                    obj.put("msg", "Items ordered: (items: " + items);
                     new PostData().execute(obj.toString());
 
                 }
