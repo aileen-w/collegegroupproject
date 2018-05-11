@@ -72,13 +72,14 @@
         android:layout_marginTop="60dp"
         android:layout_below="@id/linearLayout4">
 
-    <Button android:id="@+id/second"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:drawableStart="@drawable/shopping"
-        android:text="@string/addtobasket"
-        android:backgroundTint="@color/white"
-        />
+        <Button
+            android:id="@+id/basket"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:drawableStart="@drawable/basket"
+            android:text="@string/addtobasket" />
+        
     </LinearLayout>
 </LinearLayout>

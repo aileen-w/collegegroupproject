@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Controller extends Activity {
 
-    //controls the flow of data between shopping cart and products
+    //controls the flow of data between shopping cart and products ordered
     public Controller(){
 
     }
