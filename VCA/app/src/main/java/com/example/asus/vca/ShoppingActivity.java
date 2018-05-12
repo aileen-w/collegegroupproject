@@ -83,11 +83,12 @@ public class ShoppingActivity extends AppCompatActivity {
 
             //creates add to cart button
             final Button btn1 = new Button(this);
+
             //sets cart button id
             btn1.setId(j+1);
             btn1.setText("Add to Cart");
-            //sets the add to cart button paramaters in the linearlayout
-            // for each add to cart button
+
+            //sets the add to cart button paramaters (textview,spinner,button) in the linearlayout
             buttonBasket.setLayoutParams(params);
             final int index = j;
             btn1.setOnClickListener(new View.OnClickListener() {
