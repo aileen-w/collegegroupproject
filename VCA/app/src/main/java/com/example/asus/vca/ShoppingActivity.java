@@ -56,6 +56,7 @@ public class ShoppingActivity extends AppCompatActivity {
         for (int j=0;j< productsize;j++){
 
             //product item is used for each food item in each product order instance,
+            // from the myproducts array
             ProductOrder item = ct.getProducts(j);
             //creates linear layout which will contain textviews paramters from above
             LinearLayout la = new LinearLayout(this);
