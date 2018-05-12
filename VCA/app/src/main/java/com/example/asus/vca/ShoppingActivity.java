@@ -51,7 +51,7 @@ public class ShoppingActivity extends AppCompatActivity {
         }
         //gets the array list size
         int productsize = ct.getProductArraylistsize();
-        //dynamically creates texview parameters for the food itema i.e bread, milk or eggs, a spinner for number of items and a buttom adding the item or items ordered
+        //dynamically creates texview parameters for the food items i.e bread, milk or eggs, a spinner for number of items and a buttom adding the item or items ordered
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         for (int j=0;j< productsize;j++){
 
