@@ -55,7 +55,7 @@ public class ShoppingActivity extends AppCompatActivity {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         for (int j=0;j< productsize;j++){
 
-            //product item is used for each food item in the myproducts array, i.e. bread, milk, eggs
+            //product item is used for each food item in the products array, i.e. bread, milk, eggs
             ProductOrder item = ct.getProducts(j);
             //creates linear layout which will contain textviews paramters from above
             LinearLayout la = new LinearLayout(this);
