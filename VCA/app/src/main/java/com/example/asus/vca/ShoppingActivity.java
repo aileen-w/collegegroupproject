@@ -142,9 +142,7 @@ public class ShoppingActivity extends AppCompatActivity {
                 ShoppingCart cart = ct.getCart();
                 //adds array list of products ordered to cart
                 List<ProductOrder> productOrderList = cart.getList();
-                for (int j=0;j< productOrderList.size();j++){
 
-                }
                 //creates basket class intent
                 Intent in = new Intent(getBaseContext(),Basket.class);
                 //adds shoppingcart extra cart
