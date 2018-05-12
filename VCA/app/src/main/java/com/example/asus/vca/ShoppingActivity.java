@@ -95,9 +95,9 @@ public class ShoppingActivity extends AppCompatActivity {
                 public void onClick(View v) {                    //sets listener on the add to cart buttons
                     // TODO Auto-generated method stub
                     Log.i("TAG", "spinner value"+ spinner.getSelectedItem());              //gets selected item value
-                    Log.i("TAG", "button text " + btn1.getText().toString());              //sets text on add to cart button
-                    Log.i("TAG", "index:"+index);                                              //gets index value
-                    ProductOrder productsObject = ct.getProducts(index);                            //gets shopping item based on its index value
+                    Log.i("TAG", "button text " + btn1.getText().toString());              //sets text on add to ca
+                    ProductOrder productsObject = ct.getProducts(index);                            //gets shopping item basert button
+                    Log.i("TAG", "index:"+index);                                              //gets index valued dynamically from j
 
                     //if no more products are in the shopping cart, do the following
                     if(!ct.getCart().CheckProductInCart(productsObject)){
