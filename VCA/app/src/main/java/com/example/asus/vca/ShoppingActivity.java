@@ -92,7 +92,7 @@ public class ShoppingActivity extends AppCompatActivity {
             btn1.setLayoutParams(params);
             final int index = j;
             btn1.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {                    //sets listener on the add to cart buttons
+                public void onClick(View v) {                    //sets listener on the add to cart button
                     // TODO Auto-generated method stub
                     Log.i("TAG", "spinner value"+ spinner.getSelectedItem());              //gets selected item value
                     Log.i("TAG", "button text " + btn1.getText().toString());              //sets text on add to ca
