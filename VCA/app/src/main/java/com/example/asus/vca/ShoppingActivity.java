@@ -49,7 +49,7 @@ public class ShoppingActivity extends AppCompatActivity {
             products = new ProductOrder(name[i], price[i]);     //adds product name and price to instance of product order
             ct.setProducts(products);                            //adds product object instance to myproducts array in a controller method
         }
-        //gets the array list of the food items
+        //gets the array list size
         int productsize = ct.getProductArraylistsize();
         //dynamically creates texview parameters for the food itema i.e bread, milk or eggs, a spinner for number of items and a buttom adding the item or items ordered
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
