@@ -55,6 +55,9 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/*Written by Jennifer Flynn and Kamil Piecuch
+ */
+
 
 public class MainActivity extends AppCompatActivity {
 

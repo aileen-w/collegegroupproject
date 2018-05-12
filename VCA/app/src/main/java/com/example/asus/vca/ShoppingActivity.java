@@ -15,7 +15,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/*Written by Jennifer Flynn
+ */
 
 public class ShoppingActivity extends AppCompatActivity {
     String totalPrice = "0";

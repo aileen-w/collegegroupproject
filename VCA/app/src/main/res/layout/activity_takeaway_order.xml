@@ -204,9 +204,8 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-
             android:drawableStart="@drawable/enter"
-            android:text="@string/purchase"
+            android:text="@string/order"
             android:backgroundTint="@color/white"
             />
 

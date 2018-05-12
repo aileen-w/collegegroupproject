@@ -5,6 +5,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/*Written by Jennifer Flynn
+ */
+
 public class ShoppingCart implements Serializable {
 
     //creates product order array list cartitems

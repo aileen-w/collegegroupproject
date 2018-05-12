@@ -1,9 +1,13 @@
 package com.example.asus.vca;
 
+/*Written by Jennifer Flynn
+ */
+
 public class Menu {
 
     private String item;
     private String price;
+
 
     //constructor of menu class
     public Menu(String item, String price){

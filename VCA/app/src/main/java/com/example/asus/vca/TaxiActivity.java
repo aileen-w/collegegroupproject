@@ -18,6 +18,8 @@ import com.kosalgeek.genasync12.PostResponseAsyncTask;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/*Written by Jennifer Flynn
+ */
 
 public class TaxiActivity extends AppCompatActivity {
 
@@ -91,6 +93,9 @@ public class TaxiActivity extends AppCompatActivity {
                             phone.setText("");
                             pickupDate.setText("");
                             pickupTime.setText("");
+
+                        Toast.makeText(getApplicationContext(), "Taxi Ordered",
+                                Toast.LENGTH_LONG).show();
 
                     }
                             //throws a JSON exception if json object is empty

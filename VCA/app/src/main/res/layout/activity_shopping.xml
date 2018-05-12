@@ -80,6 +80,6 @@
             android:backgroundTint="@color/white"
             android:drawableStart="@drawable/basket"
             android:text="@string/addtobasket" />
-        
+
     </LinearLayout>
 </LinearLayout>

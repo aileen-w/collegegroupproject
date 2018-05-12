@@ -1,5 +1,8 @@
 package com.example.asus.vca;
 
+/*Written by Jennifer Flynn
+ */
+
 public class Product {
 
     private String item;

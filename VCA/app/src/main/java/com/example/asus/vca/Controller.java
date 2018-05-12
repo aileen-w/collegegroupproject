@@ -5,6 +5,11 @@ import android.app.Activity;
 
 import java.util.ArrayList;
 
+
+/*Written by Jennifer Flynn
+ */
+
+
 public class Controller extends Activity {
 
     //controls the flow of data between shopping cart and products ordered

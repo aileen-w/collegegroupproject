@@ -18,6 +18,9 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+/*Written by Jennifer Flynn
+ */
+
 public class Basket extends AppCompatActivity {
 
     String items = "";

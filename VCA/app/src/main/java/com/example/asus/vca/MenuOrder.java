@@ -2,10 +2,15 @@ package com.example.asus.vca;
 
 import java.io.Serializable;
 
+
+/*Written by Jennifer Flynn
+ */
+
 public class MenuOrder implements Serializable {
 
     private String item;
     private String price;
+
 
     //menu order constructor class for takeaway class
     public MenuOrder (String item, String price){

@@ -2,6 +2,9 @@ package com.example.asus.vca;
 
 import java.io.Serializable;
 
+/*Written by Jennifer Flynn
+ */
+
 public class ProductOrder implements Serializable {
 
     private String item;

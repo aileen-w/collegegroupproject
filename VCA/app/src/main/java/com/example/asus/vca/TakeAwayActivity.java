@@ -14,6 +14,9 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+/*Written by Jennifer Flynn
+ */
+
 public class TakeAwayActivity extends AppCompatActivity {
 
 
@@ -23,7 +26,7 @@ public class TakeAwayActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {          //loads takeaway activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_take_away);
 
