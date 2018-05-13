@@ -13,9 +13,7 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.integreight.onesheeld.sdk.OneSheeldManager;
 import com.integreight.onesheeld.sdk.OneSheeldSdk;
-import com.integreight.onesheeld.sdk.ShieldFrame;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.regex.PatternSyntaxException;
 
-public class MicDateActivity extends AppCompatActivity implements TextToSpeech.OnInitListener{
+public class MicDateActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
 
     private TextView voiceInput;
     private final int REQ_CODE_SPEECH_INPUT = 100;
@@ -68,7 +66,7 @@ public class MicDateActivity extends AppCompatActivity implements TextToSpeech.O
     public void onInit(int initStatus) {
         if (initStatus == TextToSpeech.SUCCESS) {
             myTTS.setLanguage(Locale.US);
-        }else if (initStatus == TextToSpeech.ERROR) {
+        } else if (initStatus == TextToSpeech.ERROR) {
             Toast.makeText(this, "Sorry! Text To Speech failed...", Toast.LENGTH_LONG).show();
         }
     }
@@ -104,20 +102,15 @@ public class MicDateActivity extends AppCompatActivity implements TextToSpeech.O
                         String[] recArray = rec.split("\\s+");
                         String date = "";
 
-                        if(recArray.length>=3)
-                        {
-                            if(recArray.length>3)
-                            {
-                                if(recArray[1].equals("of"))
-                                {
+                        if (recArray.length >= 3) {
+                            if (recArray.length > 3) {
+                                if (recArray[1].equals("of")) {
                                     String dateM = getMonthNumber(recArray[2]);
                                     String dateD = getDayNumber(recArray[0]);
                                     String dateY = (recArray[3]);
                                     date = dateY + "-" + dateM + "-" + dateD;
                                 }
-                            }
-                            else
-                            {
+                            } else {
                                 String dateM = getMonthNumber(recArray[1]);
                                 String dateD = getDayNumber(recArray[0]);
                                 String dateY = (recArray[2]);
@@ -135,23 +128,23 @@ public class MicDateActivity extends AppCompatActivity implements TextToSpeech.O
                                 device = (manufacturer) + "-" + device;
                                 device = device.toUpperCase();
                                 String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-                                device = device + "-"+android_id;
-                                device=device.replace(' ','_');//replaces all occurrences of 'a' to 'e'
+                                device = device + "-" + android_id;
+                                device = device.replace(' ', '_');//replaces all occurrences of 'a' to 'e'
 
                                 JSONObject subObj = new JSONObject();
-                                subObj.put("action" , "new");
-                                subObj.put("title" , calendarTitle);
-                                subObj.put("desc" , "Voice input record");
-                                subObj.put("t_from" , "00:00");
-                                subObj.put("t_to" , "00:00");
-                                subObj.put("user" , device);
-                                subObj.put("date" , date);
+                                subObj.put("action", "new");
+                                subObj.put("title", calendarTitle);
+                                subObj.put("desc", "Voice input record");
+                                subObj.put("t_from", "00:00");
+                                subObj.put("t_to", "00:00");
+                                subObj.put("user", device);
+                                subObj.put("date", date);
 
 
                                 JSONObject obj = new JSONObject();
-                                obj.put("svc" , "calendar");
-                                obj.put("dev" , device);
-                                obj.put("msg" , subObj.toString());
+                                obj.put("svc", "calendar");
+                                obj.put("dev", device);
+                                obj.put("msg", subObj.toString());
 //                            new PostData().execute(obj.toString());
 
                                 PostData postData = new PostData();
@@ -190,45 +183,43 @@ public class MicDateActivity extends AppCompatActivity implements TextToSpeech.O
     /**
      * TextToSpeeach
      */
-    public void textToSpeech(){
+    public void textToSpeech() {
 
-        tts=new TextToSpeech(MicDateActivity.this, new TextToSpeech.OnInitListener() {
+        tts = new TextToSpeech(MicDateActivity.this, new TextToSpeech.OnInitListener() {
 
             @Override
             public void onInit(int status) {
                 // TODO Auto-generated method stub
-                if(status == TextToSpeech.SUCCESS){
-                    int result=tts.setLanguage(Locale.US);
-                    if(result==TextToSpeech.LANG_MISSING_DATA ||
-                            result==TextToSpeech.LANG_NOT_SUPPORTED){
+                if (status == TextToSpeech.SUCCESS) {
+                    int result = tts.setLanguage(Locale.US);
+                    if (result == TextToSpeech.LANG_MISSING_DATA ||
+                            result == TextToSpeech.LANG_NOT_SUPPORTED) {
                         Log.e("error", "This Language is not supported");
-                    }
-                    else{
+                    } else {
                         ConvertTextToSpeech();
                     }
-                }
-                else
+                } else
                     Log.e("error", "Initilization Failed!");
             }
         });
 
     }
+
     private void ConvertTextToSpeech() {
         // TODO Auto-generated method stub
         text = et;
-        if(text==null||"".equals(text))
-        {
+        if (text == null || "".equals(text)) {
 //            text = "Hi, it's good to see you!";
             tts.speak(txt, TextToSpeech.QUEUE_FLUSH, null);
 //            Log.e("txt", text);
 
-        }else
+        } else
             tts.speak(txt, TextToSpeech.QUEUE_FLUSH, null);
 //        Log.e("txt", text);
 
     }
 
-    public String getMonthNumber(String name){
+    public String getMonthNumber(String name) {
         String monthId = "";
         name = name.toLowerCase();
 //        String[][] months = {{"January", "01"}, {"February", "02"}, {"March", "03"}, {"April", "04"}, {"May", "05"}, {"June", "06"},
@@ -239,8 +230,8 @@ public class MicDateActivity extends AppCompatActivity implements TextToSpeech.O
                 {"July", "7"}, {"August", "8"}, {"September", "9"},
                 {"October", "10"}, {"November", "11"}, {"December", "12"}};
 
-        for(int i =0; i<months.length; i++){
-            if((months[i][0].toLowerCase()).equals(name)){
+        for (int i = 0; i < months.length; i++) {
+            if ((months[i][0].toLowerCase()).equals(name)) {
                 monthId = months[i][1];
             }
         }
@@ -249,7 +240,7 @@ public class MicDateActivity extends AppCompatActivity implements TextToSpeech.O
         return monthId;
     }
 
-    public String getDayNumber(String name){
+    public String getDayNumber(String name) {
         String dayId = "";
         name = name.toLowerCase();
 //        String[][] suffixes =
@@ -264,9 +255,9 @@ public class MicDateActivity extends AppCompatActivity implements TextToSpeech.O
 //            };
 
         String[][] suffixes =
-                {       {"0th", "0"},  {"1st", "1"},  {"2nd", "2"},  {"3rd", "3"},
-                        {"4th", "4"},  {"5th", "5"},  {"6th", "6"},  {"7th", "7"},
-                        {"8th", "8"},  {"9th", "9"}, {"10th", "10"}, {"11th", "11"},
+                {{"0th", "0"}, {"1st", "1"}, {"2nd", "2"}, {"3rd", "3"},
+                        {"4th", "4"}, {"5th", "5"}, {"6th", "6"}, {"7th", "7"},
+                        {"8th", "8"}, {"9th", "9"}, {"10th", "10"}, {"11th", "11"},
                         {"12th", "12"}, {"13th", "13"}, {"14th", "14"}, {"15th", "15"},
                         {"16th", "16"}, {"17th", "17"}, {"18th", "18"}, {"19th", "19"},
                         {"20th", "20"}, {"21st", "21"}, {"22nd", "22"}, {"23rd", "23"},
@@ -274,8 +265,8 @@ public class MicDateActivity extends AppCompatActivity implements TextToSpeech.O
                         {"28th", "28"}, {"29th", "29"}, {"30th", "30"}, {"31st", "31"}
                 };
 
-        for(int i =0; i<suffixes.length; i++){
-            if((suffixes[i][0].toLowerCase()).equals(name)){
+        for (int i = 0; i < suffixes.length; i++) {
+            if ((suffixes[i][0].toLowerCase()).equals(name)) {
                 dayId = suffixes[i][1];
             }
         }

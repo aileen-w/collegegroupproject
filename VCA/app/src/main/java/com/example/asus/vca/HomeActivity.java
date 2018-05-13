@@ -9,13 +9,10 @@ import com.integreight.onesheeld.sdk.OneSheeldSdk;
 import com.integreight.onesheeld.sdk.ShieldFrame;
 import com.integreight.onesheeld.sdk.OneSheeldManager;
 
-
 public class HomeActivity extends AppCompatActivity {
 
     private byte voiceShieldId = OneSheeldSdk.getKnownShields().VOICE_RECOGNIZER_SHIELD.getId();
     private static final byte SEND_RESULT = 0x01;
-    private boolean lightsOn = false;
-    private boolean heatingOn = false;
     private String recognized = "";
 
     @Override
@@ -30,15 +27,9 @@ public class HomeActivity extends AppCompatActivity {
         OneSheeldManager manager = OneSheeldSdk.getManager();
         if (manager != null) {
             ShieldFrame sf = new ShieldFrame(voiceShieldId, SEND_RESULT);
-            if(lightsOn) {
-                recognized = "Lights off";
-                lightsOn = false;
-                Log.d("Lights", "off");
-            } else {
-                recognized = "Lights on";
-                lightsOn = true;
-                Log.d("Lights", "on");
-            }
+            recognized = "Lights change";
+            Log.d("Lights", "change");
+
             sf.addArgument(recognized.toLowerCase());
             manager.broadcastShieldFrame(sf, true);
         }
@@ -50,15 +41,8 @@ public class HomeActivity extends AppCompatActivity {
         OneSheeldManager manager = OneSheeldSdk.getManager();
         if (manager != null) {
             ShieldFrame sf = new ShieldFrame(voiceShieldId, SEND_RESULT);
-            if(heatingOn) {
-                recognized = "Heating off";
-                heatingOn = false;
-                Log.d("Heating", "off");
-            } else {
-                recognized = "Heating on";
-                heatingOn = true;
-                Log.d("Heating", "on");
-            }
+            recognized = "Heating change";
+            Log.d("Heating", "change");
             sf.addArgument(recognized.toLowerCase());
             manager.broadcastShieldFrame(sf, true);
         }

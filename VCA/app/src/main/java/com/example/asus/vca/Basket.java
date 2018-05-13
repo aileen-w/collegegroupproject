@@ -1,7 +1,6 @@
 package com.example.asus.vca;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,9 +15,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
-
-/*Written by Jennifer Flynn
- */
 
 public class Basket extends AppCompatActivity {
 
@@ -43,7 +38,7 @@ public class Basket extends AppCompatActivity {
         ShoppingCart cart = new ShoppingCart();
 
         //identifies pay button
-        final Button buttonPay = (Button)findViewById(R.id.pay);
+        final Button buttonPay = (Button) findViewById(R.id.pay);
 
         //casts cart as shopping cart serializable extra
         cart = (ShoppingCart) getIntent().getSerializableExtra("ShoppingCart");
@@ -62,7 +57,7 @@ public class Basket extends AppCompatActivity {
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
         //loops through list
-        for (int j=0;j< productOrderList.size();j++){
+        for (int j = 0; j < productOrderList.size(); j++) {
 
             //gets each item in list
             ProductOrder item = productOrderList.get(j);
@@ -74,7 +69,7 @@ public class Basket extends AppCompatActivity {
             //creates textview, sets the item ordered in the textview, sets the text in caps and adds
             //the textview to the linear layout
             TextView tv = new TextView(this);
-            tv.setText(" "+item.getItem()+" ");
+            tv.setText(" " + item.getItem() + " ");
             tv.setAllCaps(true);
             la.addView(tv);
 
@@ -85,7 +80,7 @@ public class Basket extends AppCompatActivity {
             //sets the text in caps, adds the textview to the linear layout
             //adds the price to the string of prices and adds the linear layout to the view
             TextView tv1 = new TextView(this);
-            tv1.setText("€"+item.getPrice()+" ");
+            tv1.setText("€" + item.getPrice() + " ");
             tv.setAllCaps(true);
             la.addView(tv1);
             addStuff(item.getPrice());
@@ -105,15 +100,13 @@ public class Basket extends AppCompatActivity {
                     JSONObject obj = new JSONObject();
                     obj.put("svc", "notification");
                     obj.put("dev", model);
-                    for(int i = 0; i < productOrderList.size(); i++) {
+                    for (int i = 0; i < productOrderList.size(); i++) {
                         items += productOrderList.get(i).toString() + ", ";
                     }
                     obj.put("msg", "Items ordered: (items: " + items);
                     new PostData().execute(obj.toString());
 
-                }
-
-                catch(JSONException e){
+                } catch (JSONException e) {
                     e.printStackTrace();
                     e.getMessage();
                 }
@@ -121,11 +114,11 @@ public class Basket extends AppCompatActivity {
             }
         });
     }
+
     public void addStuff(String s) {
         items.concat(s);
         items.concat(" : ");
     }
-
 
 
 }

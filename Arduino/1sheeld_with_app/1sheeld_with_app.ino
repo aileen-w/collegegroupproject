@@ -8,7 +8,7 @@
 #include <OneSheeld.h>
 
 int lightLedPin = 13;
-int heatingLedPin = 13;
+int heatingLedPin = 12;
 
 bool running = 0;
 
@@ -23,7 +23,8 @@ const char mainCommand[] = "alexa";
 
 void setup() {
   OneSheeld.begin();
-  pinMode(lightLedPin,OUTPUT);
+  pinMode(lightLedPin, OUTPUT);
+  pinMode(heatingLedPin, OUTPUT);
   VoiceRecognition.setOnNewCommand(&mainApplication);
 }
 
@@ -34,36 +35,42 @@ void loop() {
 
 void mainApplication(char *commandSpoken)
 {
-//  if(!strcmp(VoiceRecognition.getLastCommand(), mainCommand))
-//  {
-//    running = 1;
-//  }
-   
-  if(strstr(VoiceRecognition.getLastCommand(), lights))
+  if (strstr(VoiceRecognition.getLastCommand(), lights))
   {
-    if(strstr(VoiceRecognition.getLastCommand(), on))
-    {
+    if (strstr(VoiceRecognition.getLastCommand(), on)) {
+        MusicPlayer.setVolume(5);
+       MusicPlayer.play();
       turnOnLED(lightLedPin); /* Turn the 'lights' on */
     }
     else if (strstr(VoiceRecognition.getLastCommand(), off)) {
       turnOffLED(lightLedPin);  /* Turn the 'lights' off */
     }
+    else if (strstr(VoiceRecognition.getLastCommand(), "change")) {
+      TextToSpeech.say("time in cairo is");
+      if (digitalRead(lightLedPin)) {
+        turnOffLED(lightLedPin);  /* Turn the 'lights' off */
+      } else {
+        turnOnLED(lightLedPin);
+      }
+    }
   }
 
-  if(strstr(VoiceRecognition.getLastCommand(), heating))
+  if (strstr(VoiceRecognition.getLastCommand(), heating))
   {
-    if(strstr(VoiceRecognition.getLastCommand(), on))
-    {
+    if (strstr(VoiceRecognition.getLastCommand(), on)) {
       turnOnLED(heatingLedPin); /* Turn the 'heating' on */
     }
     else if (strstr(VoiceRecognition.getLastCommand(), off)) {
       turnOffLED(heatingLedPin);  /* Turn the 'heating' off */
     }
+    else if (strstr(VoiceRecognition.getLastCommand(), "change")) {
+      if (digitalRead(heatingLedPin)) {
+        turnOffLED(heatingLedPin);
+      } else {
+        turnOnLED(heatingLedPin);
+      }
+    }
   }
-}
-
-boolean voiceHasBeenActivated() {
-  return running == 1;
 }
 
 void turnOnLED(int pin) {

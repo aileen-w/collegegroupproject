@@ -6,16 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-/*Written by Jennifer Flynn
- */
-
 public class ServicesActivity extends AppCompatActivity {
-
 
     public Button takeAway;
     public Button taxi;
     public Button shopping;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
