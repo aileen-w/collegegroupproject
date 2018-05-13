@@ -25,6 +25,7 @@ public class ShoppingActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {                           //loads shopping activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping);
+
         final LinearLayout layout = (LinearLayout) findViewById(R.id.linearMain);          //identifies linear layout and is constant
         final Button buttonBasket = (Button)findViewById(R.id.basket);                    //identities button
         final Controller ct = new Controller();                                          //instantiates controller and is constant
@@ -32,6 +33,7 @@ public class ShoppingActivity extends AppCompatActivity {
         int spinNumbers[] = {1,2,3,4,5};                                                //identifies quantity of each product
         ProductOrder products = null;                                                   //initializes product order
         List<Integer> spinnerArray = new ArrayList<>();                                 //creates list array for spinner numbers
+
         for (int s : spinNumbers) {
             spinnerArray.add(s);       //addes spinner numbers to list array
         }
@@ -51,7 +53,7 @@ public class ShoppingActivity extends AppCompatActivity {
         }
         //gets the array list size
         int productsize = ct.getProductArraylistsize();
-        //dynamically creates texview parameters for the food items i.e bread, milk or eggs, a spinner for number of items and a buttom adding the item or items ordered
+        //dynamically set layout params to linear layout
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         for (int j=0;j< productsize;j++){
 
