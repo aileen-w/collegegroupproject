@@ -43,6 +43,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/name" />
     </LinearLayout>
 
     <LinearLayout
@@ -67,6 +73,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/linearLayout5">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/address" />
 
     </LinearLayout>
 
@@ -102,6 +115,12 @@
     android:orientation="horizontal"
     android:id="@+id/linearLayout8">
 
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/phone" />
     </LinearLayout>
 
     <LinearLayout
@@ -127,6 +146,13 @@
     android:orientation="horizontal"
     android:id="@+id/linearLayout10">
 
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/date" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -151,6 +177,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/linearLayou12">
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/pickuptime" />
 
     </LinearLayout>
 
@@ -183,7 +216,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/enter"
-            android:text="@string/order"
+            android:text="@string/enter"
             android:backgroundTint="@color/white"
             />
 
