@@ -5,9 +5,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/*Written by Jennifer Flynn
- */
-
 public class ShoppingCart implements Serializable {
 
     //creates product order array list cartitems
@@ -19,7 +16,7 @@ public class ShoppingCart implements Serializable {
     }
 
     //sets cart items in cartitems arraylist
-    public void setProducts(ProductOrder item){
+    public void setProducts(ProductOrder item) {
         cartItems.add(item);
     }
 
@@ -29,16 +26,14 @@ public class ShoppingCart implements Serializable {
     }
 
     //returns size of cartitems arraylist
-    public int getCartsize(){
+    public int getCartsize() {
         return cartItems.size();
     }
 
     //checks if there are itens in the shopping cart
-    public boolean CheckProductInCart(ProductOrder item)
-    {
+    public boolean CheckProductInCart(ProductOrder item) {
         return cartItems.contains(item);
     }
-
 
 
 }

@@ -12,15 +12,13 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.integreight.onesheeld.sdk.OneSheeldManager;
 import com.integreight.onesheeld.sdk.OneSheeldSdk;
-import com.integreight.onesheeld.sdk.ShieldFrame;
 
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.regex.PatternSyntaxException;
 
-public class MicTitleActivity extends AppCompatActivity implements TextToSpeech.OnInitListener{
+public class MicTitleActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
 
     private TextView voiceInput;
     private final int REQ_CODE_SPEECH_INPUT = 100;
@@ -63,7 +61,7 @@ public class MicTitleActivity extends AppCompatActivity implements TextToSpeech.
     public void onInit(int initStatus) {
         if (initStatus == TextToSpeech.SUCCESS) {
             myTTS.setLanguage(Locale.US);
-        }else if (initStatus == TextToSpeech.ERROR) {
+        } else if (initStatus == TextToSpeech.ERROR) {
             Toast.makeText(this, "Sorry! Text To Speech failed...", Toast.LENGTH_LONG).show();
         }
     }
@@ -114,38 +112,36 @@ public class MicTitleActivity extends AppCompatActivity implements TextToSpeech.
     /**
      * TextToSpeeach
      */
-    public void textToSpeech(){
+    public void textToSpeech() {
 
-        tts=new TextToSpeech(MicTitleActivity.this, new TextToSpeech.OnInitListener() {
+        tts = new TextToSpeech(MicTitleActivity.this, new TextToSpeech.OnInitListener() {
 
             @Override
             public void onInit(int status) {
                 // TODO Auto-generated method stub
-                if(status == TextToSpeech.SUCCESS){
-                    int result=tts.setLanguage(Locale.US);
-                    if(result==TextToSpeech.LANG_MISSING_DATA ||
-                            result==TextToSpeech.LANG_NOT_SUPPORTED){
+                if (status == TextToSpeech.SUCCESS) {
+                    int result = tts.setLanguage(Locale.US);
+                    if (result == TextToSpeech.LANG_MISSING_DATA ||
+                            result == TextToSpeech.LANG_NOT_SUPPORTED) {
                         Log.e("error", "This Language is not supported");
-                    }
-                    else{
+                    } else {
                         ConvertTextToSpeech();
                     }
-                }
-                else
+                } else
                     Log.e("error", "Initilization Failed!");
             }
         });
 
     }
+
     private void ConvertTextToSpeech() {
         // TODO Auto-generated method stub
         text = et;
-        if(text==null||"".equals(text))
-        {
+        if (text == null || "".equals(text)) {
             tts.speak(txt, TextToSpeech.QUEUE_FLUSH, null);
 //            Log.e("txt", text);
 
-        }else
+        } else
             tts.speak(txt, TextToSpeech.QUEUE_FLUSH, null);
 //        Log.e("txt", text);
 

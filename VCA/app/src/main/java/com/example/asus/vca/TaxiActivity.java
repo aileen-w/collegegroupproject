@@ -1,25 +1,17 @@
 package com.example.asus.vca;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.location.LocationManager;
-import android.os.AsyncTask;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.kosalgeek.genasync12.AsyncResponse;
-import com.kosalgeek.genasync12.PostResponseAsyncTask;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-/*Written by Jennifer Flynn
- */
 
 public class TaxiActivity extends AppCompatActivity {
 
@@ -36,7 +28,6 @@ public class TaxiActivity extends AppCompatActivity {
     private EditText pickupTime;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {    //returns taxi activity
         super.onCreate(savedInstanceState);
@@ -46,7 +37,7 @@ public class TaxiActivity extends AppCompatActivity {
 
     }
 
-    private void setupTaxiOrder(){
+    private void setupTaxiOrder() {
 
         //find id of enter button
         Enter = findViewById(R.id.buttonEnter);
@@ -67,7 +58,7 @@ public class TaxiActivity extends AppCompatActivity {
 
 
                         //checks if id's of edit texts is empty for name,address,phone, pickupdate and pickuptime
-                        if(name.getText().toString().isEmpty() && (address.getText().toString().isEmpty()
+                        if (name.getText().toString().isEmpty() && (address.getText().toString().isEmpty()
                                 && phone.getText().toString().isEmpty() && pickupDate.getText().toString().isEmpty()
                                 && pickupTime.getText().toString().isEmpty())) {
 
@@ -78,31 +69,31 @@ public class TaxiActivity extends AppCompatActivity {
                             pickupDate.setError("Input Required");
                             pickupTime.setError("Input Required");
                         }
-                            //json object is created and sends name, address, phone, pickupdate and pickuptime to the database
-                            JSONObject obj = new JSONObject();
-                            obj.put("svc", "notification");
-                            obj.put("dev", model);
-                            obj.put("msg", "Taxi ordered: (name:" + name.getText().toString() + ", " +
-                                    "address:" + address.getText().toString() + ", phone:" + phone.getText().toString() +
-                                    "," + "pickupDate:" + pickupDate.getText().toString() + ", " + "pickupTime" + pickupTime.getText().toString());
-                            new PostData().execute(obj.toString());
+                        //json object is created and sends name, address, phone, pickupdate and pickuptime to the database
+                        JSONObject obj = new JSONObject();
+                        obj.put("svc", "notification");
+                        obj.put("dev", model);
+                        obj.put("msg", "Taxi ordered: (name:" + name.getText().toString() + ", " +
+                                "address:" + address.getText().toString() + ", phone:" + phone.getText().toString() +
+                                "," + "pickupDate:" + pickupDate.getText().toString() + ", " + "pickupTime" + pickupTime.getText().toString());
+                        new PostData().execute(obj.toString());
 
-                            //clears edit texts name, address, phone, pickupdate and pickuptime
-                            name.setText("");
-                            address.setText("");
-                            phone.setText("");
-                            pickupDate.setText("");
-                            pickupTime.setText("");
+                        //clears edit texts name, address, phone, pickupdate and pickuptime
+                        name.setText("");
+                        address.setText("");
+                        phone.setText("");
+                        pickupDate.setText("");
+                        pickupTime.setText("");
 
                         Toast.makeText(getApplicationContext(), "Taxi Ordered",
                                 Toast.LENGTH_LONG).show();
 
                     }
-                            //throws a JSON exception if json object is empty
-                            catch(JSONException e){
-                            e.printStackTrace();
-                            e.getMessage();
-                        }
+                    //throws a JSON exception if json object is empty
+                    catch (JSONException e) {
+                        e.printStackTrace();
+                        e.getMessage();
+                    }
 
                 }
             });

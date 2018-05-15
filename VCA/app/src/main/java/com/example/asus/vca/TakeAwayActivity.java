@@ -2,35 +2,21 @@ package com.example.asus.vca;
 
 
 import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import java.io.FileDescriptor;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-
-/*Written by Jennifer Flynn
- */
-
 public class TakeAwayActivity extends AppCompatActivity {
-
 
     public Button add;
     public Button add2;
     public Button add3;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {          //loads takeaway activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_take_away);
-
-
 
 
         //find id of sweet and sour chicken add button

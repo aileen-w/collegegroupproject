@@ -3,12 +3,11 @@ package com.example.asus.vca;
 import android.app.Activity;
 import android.location.LocationManager;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,13 +16,7 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 
-import static java.lang.Integer.parseInt;
-
-/*Written by Jennifer Flynn
- */
-
 public class TakeawayOrder extends AppCompatActivity {
-
 
     private Button Order;
     private String mainitemchosen;
@@ -98,7 +91,7 @@ public class TakeawayOrder extends AppCompatActivity {
 
         //id's etTotal
         TextView etTotal = (TextView) findViewById(R.id.etTotal);
-       //sets etTotals's text value from totalCombined and concats euro symbol to it
+        //sets etTotals's text value from totalCombined and concats euro symbol to it
         etTotal.setText(symbol.concat(totalCombined));
 
         //runs setupTakeawayOrder Method
@@ -118,13 +111,12 @@ public class TakeawayOrder extends AppCompatActivity {
                 public void onClick(View v) {
 
 
-
                     try {
 
                         //id's edit texts name, address and phone
-                        name=(EditText)findViewById(R.id.etFullname);
-                        address=(EditText)findViewById(R.id.etAddress);
-                        phone=(EditText)findViewById(R.id.etPhone);
+                        name = (EditText) findViewById(R.id.etFullname);
+                        address = (EditText) findViewById(R.id.etAddress);
+                        phone = (EditText) findViewById(R.id.etPhone);
 
                         //creates JSON object obj and sends a JSON message to the database
                         //with the following value pairs: mainitem chosen, mainitemprice,
@@ -133,19 +125,18 @@ public class TakeawayOrder extends AppCompatActivity {
                         obj.put("svc", "notification");
                         obj.put("dev", model);
                         obj.put("msg", "Takeaway ordered: (mainDish: " + mainitemchosen + ", " +
-                                "mainDishPrice: " + mainitemprice+ ", subItemOrdered: " + subItem+
+                                "mainDishPrice: " + mainitemprice + ", subItemOrdered: " + subItem +
                                 "," + "subItemOrderedPrice: " + subPrice + ", " + "totalCostCombined: " + totalCombined
-                        +"name: " + name.getText().toString() + "address: " + address.getText().toString() + "phone: " + phone.getText().toString());
+                                + "name: " + name.getText().toString() + "address: " + address.getText().toString() + "phone: " + phone.getText().toString());
                         new PostData().execute(obj.toString());
 
                         Toast.makeText(getApplicationContext(), "Takeaway Ordered",
                                 Toast.LENGTH_LONG).show();
 
 
-
                     }
                     //throws a catch exception if JSON object is empty
-                    catch(JSONException e){
+                    catch (JSONException e) {
                         e.printStackTrace();
                         e.getMessage();
                     }

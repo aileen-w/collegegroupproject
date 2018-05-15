@@ -15,22 +15,22 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-/*Written by Jennifer Flynn
- */
-
 public class ShoppingActivity extends AppCompatActivity {
     String totalPrice = "0";
-    /** Called when the activity is first created. */
+
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {                           //loads shopping activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping);
 
         final LinearLayout layout = (LinearLayout) findViewById(R.id.linearMain);          //identifies linear layout and is constant
-        final Button buttonBasket = (Button)findViewById(R.id.basket);                    //identities button
+        final Button buttonBasket = (Button) findViewById(R.id.basket);                    //identities button
         final Controller ct = new Controller();                                          //instantiates controller and is constant
         final TextView total = (TextView) findViewById(R.id.total);                     //identifies total textview and is constant
-        int spinNumbers[] = {1,2,3,4,5};                                                //identifies quantity of each product
+        int spinNumbers[] = {1, 2, 3, 4, 5};                                                //identifies quantity of each product
         ProductOrder products = null;                                                   //initializes product order
         List<Integer> spinnerArray = new ArrayList<>();                                 //creates list array for spinner numbers
 
@@ -46,7 +46,7 @@ public class ShoppingActivity extends AppCompatActivity {
         String name[] = getResources().getStringArray(R.array.shoppingItems);          //adds shopping items to string array name
         String price[] = getResources().getStringArray(R.array.shoppingPrices);       //adds shopping prices to string array price
 
-        for(int i=0; i<=2;i++){
+        for (int i = 0; i <= 2; i++) {
 
             products = new ProductOrder(name[i], price[i]);     //adds product name and price to instance of product order
             ct.setProducts(products);                            //adds product object instance to myproducts array in a controller method
@@ -55,7 +55,7 @@ public class ShoppingActivity extends AppCompatActivity {
         int productsize = ct.getProductArraylistsize();
         //dynamically set layout params to linear layout
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        for (int j=0;j< productsize;j++){
+        for (int j = 0; j < productsize; j++) {
 
             //product item is used for each food item in each product order instance,
             // from the myproducts array
@@ -67,13 +67,13 @@ public class ShoppingActivity extends AppCompatActivity {
             //creates textview tv
             TextView tv = new TextView(this);
             //sets text of textview tv to item name
-            tv.setText(" "+item.getItem()+" ");
+            tv.setText(" " + item.getItem() + " ");
             //adds textview to linear layout
             la.addView(tv);
             //creates textview tv1
             TextView tv1 = new TextView(this);
             //sets text of textview tv1 to item price
-            tv1.setText("€"+item.getPrice()+" ");
+            tv1.setText("€" + item.getPrice() + " ");
             //adds textview to linear layout
             la.addView(tv1);
             //creates spinner and is constant
@@ -87,7 +87,7 @@ public class ShoppingActivity extends AppCompatActivity {
             final Button btn1 = new Button(this);
 
             //sets cart button id
-            btn1.setId(j+1);
+            btn1.setId(j + 1);
             btn1.setText("Add to Cart");
 
             //sets  the add to cart button layout and its text
@@ -96,37 +96,37 @@ public class ShoppingActivity extends AppCompatActivity {
             btn1.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {                    //sets listener on the add to cart button
                     // TODO Auto-generated method stub
-                    Log.i("TAG", "spinner value"+ spinner.getSelectedItem());              //gets selected item value
+                    Log.i("TAG", "spinner value" + spinner.getSelectedItem());              //gets selected item value
                     Log.i("TAG", "button text " + btn1.getText().toString());              //sets text on add to ca
                     ProductOrder productsObject = ct.getProducts(index);                            //gets shopping item basert button
-                    Log.i("TAG", "index:"+index);                                              //gets index valued dynamically from j
+                    Log.i("TAG", "index:" + index);                                              //gets index valued dynamically from j
 
                     //if no more products are in the shopping cart, do the following
-                    if(!ct.getCart().CheckProductInCart(productsObject)){
+                    if (!ct.getCart().CheckProductInCart(productsObject)) {
                         btn1.setText("Item Added");                   //sets add to cart button text
                         int counter = Integer.valueOf(spinner.getSelectedItem().toString());     //gets items position and sets it as counter value
 
-                        for (int s=1; s<=counter; s++) {
+                        for (int s = 1; s <= counter; s++) {
                             ct.getCart().setProducts(productsObject);   //adds shopping item to shopping cart
                         }
 
                         //shows toast when item is added to cart
-                        Toast.makeText(getApplicationContext(), "New CartSize:" +ct.getCart().getCartsize(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "New CartSize:" + ct.getCart().getCartsize(), Toast.LENGTH_LONG).show();
                         //gets items price
                         double price = Double.valueOf(productsObject.getPrice());
                         //gets quantity value of items
                         int multipler = Integer.valueOf(spinner.getSelectedItem().toString());
                         //multiplies value and cost price
-                        double cal1 = price*multipler;
+                        double cal1 = price * multipler;
                         //stores total cost value
                         double all = Double.valueOf(totalPrice) + cal1;
                         //puts total cost value into string
                         totalPrice = String.valueOf(all);
                         //sets total cost value into textview
                         total.setText("Total : €" + String.valueOf(all));
-                    }else{
+                    } else {
                         //reminds customer item has already been added to basket
-                        Toast.makeText(getApplicationContext(), "Products"+(index+1)+"Already Added",Toast.LENGTH_LONG ).show();
+                        Toast.makeText(getApplicationContext(), "Products" + (index + 1) + "Already Added", Toast.LENGTH_LONG).show();
                     }
                 }
             });
@@ -146,7 +146,7 @@ public class ShoppingActivity extends AppCompatActivity {
                 List<ProductOrder> productOrderList = cart.getList();
 
                 //creates basket class intent
-                Intent in = new Intent(getBaseContext(),Basket.class);
+                Intent in = new Intent(getBaseContext(), Basket.class);
                 //adds shoppingcart extra cart
                 in.putExtra("ShoppingCart", cart);
                 //starts basket intent

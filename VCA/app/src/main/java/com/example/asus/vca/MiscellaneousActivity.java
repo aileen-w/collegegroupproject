@@ -1,26 +1,20 @@
 package com.example.asus.vca;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-
-import static com.example.asus.vca.MainActivity.RESULT_SPEECH;
 
 public class MiscellaneousActivity extends AppCompatActivity {
 
     public Button Game;
-//    private ImageButton btnSpeak;
+    //    private ImageButton btnSpeak;
     private TextView txtText;
     public Button Calendar;
     protected static final int RESULT_SPEECH = 1;

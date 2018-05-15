@@ -3,10 +3,6 @@ package com.example.asus.vca;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -16,11 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-/**
- * Created by kamilp on 23/03/2018.
- */
-
-public class PostData extends AsyncTask<String , Void ,String> {
+public class PostData extends AsyncTask<String, Void, String> {
 
     String server_response;
     String server_response_2;
@@ -37,7 +29,7 @@ public class PostData extends AsyncTask<String , Void ,String> {
             urlConnection.setDoInput(true);
             urlConnection.setRequestMethod("POST");
 
-            DataOutputStream wr = new DataOutputStream(urlConnection.getOutputStream ());
+            DataOutputStream wr = new DataOutputStream(urlConnection.getOutputStream());
 
             try {
                 wr.writeBytes(strings[0]);
@@ -51,7 +43,7 @@ public class PostData extends AsyncTask<String , Void ,String> {
 
             int responseCode = urlConnection.getResponseCode();
 
-            if(responseCode == HttpURLConnection.HTTP_OK){
+            if (responseCode == HttpURLConnection.HTTP_OK) {
                 server_response = readStream(urlConnection.getInputStream());
             }
 
@@ -68,9 +60,9 @@ public class PostData extends AsyncTask<String , Void ,String> {
         super.onPostExecute(s);
 //        Log.e("Response", "" + server_response);
         Log.e("ResponseFromServer", "" + server_response);
-        if (server_response!=null){
+        if (server_response != null) {
             this.server_response_2 = server_response;
-        }else{
+        } else {
             this.server_response_2 = null;
         }
     }
@@ -83,7 +75,7 @@ public class PostData extends AsyncTask<String , Void ,String> {
 //        return server_response;
 //    }
 
-    public String returnServerRespond(){
+    public String returnServerRespond() {
         return this.server_response_2;
     }
 

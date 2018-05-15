@@ -1,7 +1,6 @@
 package com.example.asus.vca;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,7 +11,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
-import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -20,12 +18,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.content.Intent;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.TextView;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -40,24 +32,10 @@ import com.integreight.onesheeld.sdk.OneSheeldSdk;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
-
-/*Written by Jennifer Flynn and Kamil Piecuch
- */
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -92,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
     protected static final int RESULT_SPEECH = 1;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {                    //loads main activity
         super.onCreate(savedInstanceState);
@@ -103,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
         appIsUp();                  // send notification to website that app is running
         startGeolocation();         //start geolocation tracking
 //        textToSpeech();             // greet user at the start of app
-
 
 
     }
@@ -131,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     private void setupOneSheeld() {
         connectedDevicesNames = new ArrayList<>();
         scannedDevicesNames = new ArrayList<>();
@@ -152,27 +127,26 @@ public class MainActivity extends AppCompatActivity {
         manager.setAutomaticConnectingRetriesForClassicConnections(true);
 
 
-            //Construct a new OneSheeldScanningCallback callback and override onDeviceFind method
-            //finds nearby device and connects to it
-            OneSheeldScanningCallback scanningCallback = new OneSheeldScanningCallback() {
+        //Construct a new OneSheeldScanningCallback callback and override onDeviceFind method
+        //finds nearby device and connects to it
+        OneSheeldScanningCallback scanningCallback = new OneSheeldScanningCallback() {
 
+            @Override
+            public void onDeviceFind(final OneSheeldDevice device) {
+                uiThreadHandler.post(new Runnable() {
                     @Override
-                    public void onDeviceFind ( final OneSheeldDevice device){
-                    uiThreadHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
+                    public void run() {
 
-                            oneSheeldScannedDevices.add(device);
-                            scannedDevicesNames.add(device.getName());
-                            scannedDevicesArrayAdapter.notifyDataSetChanged();
-                            manager.cancelScanning();
-                            device.connect();
-                        }
+                        oneSheeldScannedDevices.add(device);
+                        scannedDevicesNames.add(device.getName());
+                        scannedDevicesArrayAdapter.notifyDataSetChanged();
+                        manager.cancelScanning();
+                        device.connect();
+                    }
 
-                    });
-                }
-            };
-
+                });
+            }
+        };
 
 
         // Construct a new OneSheeldConnectionCallback callback and override onConnect method
@@ -277,7 +251,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
         Mic = findViewById(R.id.buttonMic);
         {
             //set listener on mic button
@@ -300,7 +273,7 @@ public class MainActivity extends AppCompatActivity {
      * - msg: message (whatever message you want to send)
      */
 
-   public void appIsUp() {
+    public void appIsUp() {
         try {
 
             String manufacturer = Build.MANUFACTURER;
@@ -308,12 +281,12 @@ public class MainActivity extends AppCompatActivity {
             device = (manufacturer) + "-" + device;
             device = device.toUpperCase();
             String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-            device = device + "-"+android_id;
+            device = device + "-" + android_id;
 
             JSONObject obj = new JSONObject();
-            obj.put("svc" , "notification");
-            obj.put("dev" , device);
-            obj.put("msg" , "Android app is up and running");
+            obj.put("svc", "notification");
+            obj.put("dev", device);
+            obj.put("msg", "Android app is up and running");
             PostData postData = new PostData();
             postData.execute(obj.toString());
 //            postData.onPostExecute(obj.toString());
@@ -332,7 +305,7 @@ public class MainActivity extends AppCompatActivity {
      * Timeout method is calling external class responsible for making the call
      */
 
-   public void startGeolocation() {
+    public void startGeolocation() {
         try {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
@@ -392,39 +365,37 @@ public class MainActivity extends AppCompatActivity {
     /**
      * TextToSpeeach
      */
-    public void textToSpeech(){
+    public void textToSpeech() {
 
-        tts=new TextToSpeech(MainActivity.this, new TextToSpeech.OnInitListener() {
+        tts = new TextToSpeech(MainActivity.this, new TextToSpeech.OnInitListener() {
 
             @Override
             public void onInit(int status) {
                 // TODO Auto-generated method stub
-                if(status == TextToSpeech.SUCCESS){
-                    int result=tts.setLanguage(Locale.US);
-                    if(result==TextToSpeech.LANG_MISSING_DATA ||
-                            result==TextToSpeech.LANG_NOT_SUPPORTED){
+                if (status == TextToSpeech.SUCCESS) {
+                    int result = tts.setLanguage(Locale.US);
+                    if (result == TextToSpeech.LANG_MISSING_DATA ||
+                            result == TextToSpeech.LANG_NOT_SUPPORTED) {
                         Log.e("error", "This Language is not supported");
-                    }
-                    else{
+                    } else {
                         ConvertTextToSpeech();
                     }
-                }
-                else
+                } else
                     Log.e("error", "Initilization Failed!");
             }
         });
 
     }
+
     private void ConvertTextToSpeech() {
         // TODO Auto-generated method stub
         text = et;
-        if(text==null||"".equals(text))
-        {
+        if (text == null || "".equals(text)) {
             text = "Hi, it's good to see you!";
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
             Log.e("txt", text);
 
-        }else
+        } else
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
         Log.e("txt", text);
 

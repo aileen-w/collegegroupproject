@@ -2,18 +2,12 @@ package com.example.asus.vca;
 
 import android.app.Activity;
 
-
 import java.util.ArrayList;
-
-
-/*Written by Jennifer Flynn
- */
-
 
 public class Controller extends Activity {
 
     //controls the flow of data between shopping cart and products ordered
-    public Controller(){
+    public Controller() {
 
     }
 
@@ -24,21 +18,23 @@ public class Controller extends Activity {
     private ShoppingCart myCart = new ShoppingCart();
 
     //getter of products arraylist myproduct
-    public ProductOrder getProducts(int position) { return myproducts.get(position);}
+    public ProductOrder getProducts(int position) {
+        return myproducts.get(position);
+    }
 
     //setter of myproducts arraylist
-    public void setProducts(ProductOrder products){
+    public void setProducts(ProductOrder products) {
         myproducts.add(products);
     }
 
     //getter of shopping cart myCart
-    public ShoppingCart getCart(){
+    public ShoppingCart getCart() {
         return myCart;
 
     }
 
     //returns size of myproducts arraylist
-    public int getProductArraylistsize(){
+    public int getProductArraylistsize() {
         return myproducts.size();
     }
 

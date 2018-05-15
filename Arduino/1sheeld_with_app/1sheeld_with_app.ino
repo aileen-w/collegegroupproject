@@ -8,7 +8,8 @@
 #include <OneSheeld.h>
 
 int lightLedPin = 13;
-int heatingLedPin = 13;
+int heatingLedPin = 12;
+int autoHeatingLedPin = 11;
 
 bool running = 0;
 
@@ -19,51 +20,76 @@ const char on[] = "on";
 const char off[] = "off";
 const char lights[] = "lights";
 const char heating[] = "heating";
-const char mainCommand[] = "alexa";
+
+int ThermistorPin = 0;
+int Vo;
+float R1 = 20000;
+float logR2, R2, T, tempHome;
+float c1 = 1.009249522e-03, c2 = 2.378405444e-04, c3 = 2.019202697e-07;
 
 void setup() {
   OneSheeld.begin();
-  pinMode(lightLedPin,OUTPUT);
+  pinMode(lightLedPin, OUTPUT);
+  pinMode(heatingLedPin, OUTPUT);
+  pinMode(autoHeatingLedPin, OUTPUT);
   VoiceRecognition.setOnNewCommand(&mainApplication);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
+Vo = analogRead(ThermistorPin);
+  R2 = R1 * (1023.0 / (float)Vo - 1.0);
+  logR2 = log(R2);
+  T = (1.0 / (c1 + c2*logR2 + c3*logR2*logR2*logR2));
+  tempHome = T - 273.15;
 
+  if (tempHome > 30) {
+        turnOffLED(autoHeatingLedPin);  /* Turn the 'autoHeating' off */
+      } else {
+        turnOnLED(autoHeatingLedPin);
+      }
+
+  delay(2000);
 }
 
 void mainApplication(char *commandSpoken)
 {
-//  if(!strcmp(VoiceRecognition.getLastCommand(), mainCommand))
-//  {
-//    running = 1;
-//  }
-   
-  if(strstr(VoiceRecognition.getLastCommand(), lights))
+  if (strstr(VoiceRecognition.getLastCommand(), lights))
   {
-    if(strstr(VoiceRecognition.getLastCommand(), on))
-    {
+    if (strstr(VoiceRecognition.getLastCommand(), on)) {
+        MusicPlayer.setVolume(5);
+       MusicPlayer.play();
       turnOnLED(lightLedPin); /* Turn the 'lights' on */
     }
     else if (strstr(VoiceRecognition.getLastCommand(), off)) {
       turnOffLED(lightLedPin);  /* Turn the 'lights' off */
     }
+    else if (strstr(VoiceRecognition.getLastCommand(), "change")) {
+      TextToSpeech.say("time in cairo is");
+      if (digitalRead(lightLedPin)) {
+        turnOffLED(lightLedPin);  /* Turn the 'lights' off */
+      } else {
+        turnOnLED(lightLedPin);
+      }
+    }
   }
 
-  if(strstr(VoiceRecognition.getLastCommand(), heating))
+  if (strstr(VoiceRecognition.getLastCommand(), heating))
   {
-    if(strstr(VoiceRecognition.getLastCommand(), on))
-    {
+    if (strstr(VoiceRecognition.getLastCommand(), on)) {
       turnOnLED(heatingLedPin); /* Turn the 'heating' on */
     }
     else if (strstr(VoiceRecognition.getLastCommand(), off)) {
       turnOffLED(heatingLedPin);  /* Turn the 'heating' off */
     }
+    else if (strstr(VoiceRecognition.getLastCommand(), "change")) {
+      if (digitalRead(heatingLedPin)) {
+        turnOffLED(heatingLedPin);
+      } else {
+        turnOnLED(heatingLedPin);
+      }
+    }
   }
-}
-
-boolean voiceHasBeenActivated() {
-  return running == 1;
 }
 
 void turnOnLED(int pin) {
