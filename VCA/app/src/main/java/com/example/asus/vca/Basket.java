@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -105,6 +106,9 @@ public class Basket extends AppCompatActivity {
                     }
                     obj.put("msg", "Items ordered: (items: " + items);
                     new PostData().execute(obj.toString());
+                    
+                    Toast.makeText(getApplicationContext(), "Shopping Ordered",
+                            Toast.LENGTH_LONG).show();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
